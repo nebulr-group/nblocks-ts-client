@@ -35,9 +35,8 @@ const client = new PlatformClient("ACCESS_KEY");
 ```javascript
 import { Tenant } from '@nebulr-group/nblocks-ts-client'
 
-client.tenants.list().then(tenants:Tenant[] => {
-  tenants.map(t: Tenant => console.log(`Name: ${t.name}, ID:${t.id}`));
-}));
+const tenants:Tenant[] = await client.tenants.list();
+tenants.map(t: Tenant => console.log(`Name: ${t.name}, ID:${t.id}`));
 ```
 
 ### Create a new user in a specific tenant
