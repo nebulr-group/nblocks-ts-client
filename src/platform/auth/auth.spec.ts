@@ -29,11 +29,11 @@ describe('Auth client', () => {
     })
 
     test('Update user data', async () => {
-        await client.auth.updateMe({authToken, firstName: "John", lastName: "Doe"});
+        await client.auth.updateUser({authToken, firstName: "John", lastName: "Doe"});
     })
 
     test('List TenantUsers for session', async () => {
-        const response = await client.auth.listMyTenantUsers(authToken);
+        const response = await client.auth.listTenantUsers(authToken);
         expect(response.length).toBeGreaterThan(0);
         tenantUserId = response[0].id;
     })

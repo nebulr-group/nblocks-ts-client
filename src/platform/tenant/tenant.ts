@@ -10,6 +10,10 @@ import { TranslateTextResponse } from './models/translate-text-response';
 import { UpdateTenantRequestDto } from './models/update-tenant-request.dto';
 import { AuthTenantResponseDto } from '../auth/models/auth-tenant-response.dto';
 
+/**
+ * A specific `Tenant` client for a particular Tenant id. 
+ * Use this client to query or mutate data for a particular tenant
+ */
 export class Tenant extends SpecificEntity{
 
   readonly users: Users;
@@ -32,12 +36,16 @@ export class Tenant extends SpecificEntity{
     return new User(this, userId, this.debug);
   }
 
+  /**
+   * Get the tenant model for this tenant
+   * @returns `TenantResponseDto`
+   */
   async get(): Promise<TenantResponseDto> {
     return (await this.getHttpClient().get<TenantResponseDto>(`/tenant/byId/${this.id}`, { headers: this.getHeaders() })).data;
   }
 
   /**
-   * A lighter tenant response object that conforms to AuthTenantResponseDto in AuthTenantUserResponseDto
+   * Get a lighter tenant model than `get()` that conforms to `AuthTenantResponseDto` in `AuthTenantUserResponseDto`.
    * @returns 
    */
   async getLight(): Promise<AuthTenantResponseDto> {
@@ -45,6 +53,11 @@ export class Tenant extends SpecificEntity{
     return {id,name,locale};
   }
 
+  /**
+   * Update this tenant using the tenant model recieved using `get()`.
+   * @param args `UpdateTenantRequestDto`
+   * @returns `TenantResponseDto`
+   */
   async update(args: UpdateTenantRequestDto): Promise<TenantResponseDto> {
     return (await this.getHttpClient().put<TenantResponseDto>(`/tenant/${this.id}`, args, { headers: this.getHeaders() })).data;
   }

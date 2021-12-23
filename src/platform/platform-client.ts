@@ -24,11 +24,26 @@ export class PlatformClient extends Client {
   readonly stage: Stage
   readonly version : 1;
 
+  /**
+   * A generic Tenants client. 
+   * Use this to create or list tenants
+   */
   tenants: Tenants;
+
+  /**
+   * A generic Auth client.
+   * Use this to query or mutate data for auth related operations
+   */
   auth: Auth;
 
-  // Tenant agnostics
   //fileClient: FileClient;
+
+  /**
+   * A generic communication client.
+   * Use this to tool to send emails and text messages to anyone.
+   * 
+   * Do you wish to communicate easier directly with a known user? See `User` client, avaiable via `tenant(id).user(id).sendEmail()`
+   */
   communicationClient: CommunicationClient;
 
   constructor (apiKey: string, version : 1 = 1, debug = false, stage: Stage = 'PROD') {
@@ -46,49 +61,84 @@ export class PlatformClient extends Client {
     this.auth = new Auth(this, this.debug);
     this.tenants = new Tenants(this, this.debug);
 
-    // Tenant agnostics
     //this.fileClient = new FileClient(this, this.debug);
     this.communicationClient = new CommunicationClient(this, this.debug);
   }
   
-  /** Override */
+  /** **Internal functionality. Do not use this function** */
   getPlatformClient(): PlatformClient {
     return this;
   }
 
-  /** Override */
+  /** **Internal functionality. Do not use this function** */
   getHttpClient(): AxiosInstance {
     return this.httpClient;
   }
 
-  /** Override */
+  /** **Internal functionality. Do not use this function** */
   getHeaders(): Record<string, string> {
     return {"x-api-key": this.apiKey};
   }
 
+  /**
+   * Gets a specific `Tenant` client for a particular Tenant id.
+   * Use this client to query or mutate data for a particular tenant
+   * @param tenantId
+   * @returns Returns an instance of a Tenant client
+   */
   tenant(tenantId: string): Tenant {
     return new Tenant(this, tenantId, this.debug);
   }
 
+  /**
+   * Gets the complete `App` model of your app.
+   * The app is your top most entity and holds all configurations for how your App interacts with the platform in any sub call. 
+   * Use this response data to alter your model and push back
+   * @returns Returns AppModel
+   */
   async getApp(): Promise<AppModel> {
     const response = await this.httpClient.get<AppModel>('/app', {headers: this.getHeaders()});
     return response.data;
   }
 
+  /**
+   * Shortcut to get the name of all your roles
+   * @returns Returns a list of role names
+   */
   async getAppRoleNames(): Promise<string[]> {
     this._log("listRoles");
     const app = await this.getApp();
     return Object.keys(app.roles);
   }
 
+  /**
+   * Updates your `App` model
+   * @param model Your app model
+   * @returns Returns AppModel
+   */
   async updateApp(model: Partial<Omit<AppModel, "id">>): Promise<AppModel> {
     return (await this.httpClient.put<AppModel>('/app', model, {headers: this.getHeaders()})).data;
   }
 
+  /**
+   * TODO FIX THIS
+   * Store sensitive credentials for your app so nBlocks can authorize with 3d party services on your behalf.
+   * 
+   * E.g. Stripe integration, social login providers like Google, Facebook, Github etc.
+   */
+   async updateAppCredentials(credentials: Record<string, string>): Promise<void> {
+    
+  }
+
+  /**
+   * TODO FIX THIS
+   * Create a checkout session with Stripe. Use the resulting session id to redirect users to Stripe Checkout using the Stripe SDK. https://stripe.com/docs/billing/subscriptions/checkout#add-redirect
+   */
   async createCheckoutSession(): Promise<void> {
     
   }
 
+  /** **Internal functionality. Do not use this function** */
   private getApiBaseUrl(stage: Stage): string {
     return this.BASE_URLS[stage];
   }
