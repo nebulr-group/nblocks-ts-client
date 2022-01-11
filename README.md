@@ -175,3 +175,12 @@ await client.tenant(user.tenant.id).user(user.id).sendSms({text: "Hello you"});
 
 # Changelog
 **TBD as soon as the library leaves beta**
+
+# Developer guide
+## Docker container
+This project can be opened inside a dev container in visual studio. During the container setup all requirements and tools will be installed
+
+## Npm publish
+* To publish a library, make sure to update the package.json version in the project sub folder.
+* Make sure you're logged into npm. E.g. `npm login`
+* `npm run npm-publish`

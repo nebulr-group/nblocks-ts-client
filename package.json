@@ -1,6 +1,6 @@
 {
   "name": "@nebulr-group/nblocks-ts-client",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "This library contains the low level NBlocks client that is shipped with all of our NBlocks plug-n-play experiences for different technologies.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -16,7 +16,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "tsc",
-    "publish": "npm run build && npm publish --access public",
+    "npm-publish": "npm run build && npm publish --access public",
     "test": "jest"
   },
   "author": "Oscar Söderlund",

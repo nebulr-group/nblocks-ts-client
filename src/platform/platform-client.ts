@@ -112,11 +112,13 @@ export class PlatformClient extends Client {
   }
 
   /**
-   * Updates your `App` model
+   * Updates your `App` model. 
+   * * Setting the emailSenderEmail will trigger a verification email to be sent to the email address provided. Once verified all Nblocks emails will be send through this address.
+   * * Altering your Business model will trigger a synchronization with your Stripe account (if credentials are setup)
    * @param model Your app model
    * @returns Returns AppModel
    */
-  async updateApp(model: Partial<Omit<AppModel, "id">>): Promise<AppModel> {
+  async updateApp(model: Partial<Omit<AppModel, "id" | "domain">>): Promise<AppModel> {
     return (await this.httpClient.put<AppModel>('/app', model, {headers: this.getHeaders()})).data;
   }
 

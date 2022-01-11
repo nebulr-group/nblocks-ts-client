@@ -33,4 +33,10 @@ export class AppModel {
   
     /** URL to a page on your website containing a Terms of service for your app users. E.g. checkout process will link to this url. */
     termsOfServiceUrl: string;
+
+    /** Emails sent from Nblocks will have this sender name */
+    emailSenderName: string;
+
+    /** Emails sent from Nblocks will have this sender email. You'll have to verify this email before */
+    emailSenderEmail: string;
 }
