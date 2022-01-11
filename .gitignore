@@ -2,6 +2,9 @@
 /dist
 /node_modules
 
+# secrets
+.devcontainer/secrets.env
+
 # OS
 .DS_Store
 

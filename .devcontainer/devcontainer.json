@@ -1,0 +1,25 @@
+{
+	"name": "Node.js",
+	"build": {
+		"dockerfile": "Dockerfile",
+	},
+	"containerEnv": {},
+	"runArgs": [],
+	"settings": {
+		"terminal.integrated.shell.linux": "/bin/bash"
+	},
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"dbaeumer.vscode-eslint",
+		"esbenp.prettier-vscode",
+		"mikestead.dotenv",
+		"redhat.vscode-yaml"
+	],
+	//this improves container performance
+	"mounts": [
+		"target=${containerWorkspaceFolder}/node_modules,type=volume",
+		"target=${containerWorkspaceFolder}/dist,type=volume",
+		// "source=serverless,target=${containerWorkspaceFolder}/.serverless,type=volume",  Docker complains that resource is busy or locked when running sls deploy
+	],
+	"postCreateCommand": "bash .devcontainer/init.sh ${containerWorkspaceFolder}",
+}
