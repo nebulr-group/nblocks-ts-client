@@ -160,8 +160,7 @@ export class PlatformClient extends Client {
         console.log("Response:", response.status, response.data);
       }
       return response;
-    }, function (error: AxiosError) {
-      
+    }, function (error: AxiosError) {      
       if (!error.response)
         return Promise.reject(error);
 
@@ -173,6 +172,10 @@ export class PlatformClient extends Client {
 
         case 403:
           customError = new ForbiddenError(`${error.response.status}: ${JSON.stringify(error.response.data)}`);
+          break;
+
+        case 409:
+          customError = new Error(`${JSON.stringify(error.response.data)}`);
           break;
       
         default:
