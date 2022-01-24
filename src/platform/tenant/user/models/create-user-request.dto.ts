@@ -3,7 +3,7 @@ export class CreateUserRequestDto {
     username: string;
   
     /** The role must be present in App.roles */
-    role: string;
+    role?: string;
   
     firstName?: string;
     lastName?: string;
