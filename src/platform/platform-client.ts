@@ -164,24 +164,7 @@ export class PlatformClient extends Client {
       if (!error.response)
         return Promise.reject(error);
 
-      let customError: Error;
-      switch (error.response.status) {
-        case 401:
-          customError = new UnauthenticatedError(`${error.response.status}: ${JSON.stringify(error.response.data)}`);
-          break;
-
-        case 403:
-          customError = new ForbiddenError(`${error.response.status}: ${JSON.stringify(error.response.data)}`);
-          break;
-
-        case 409:
-          customError = new Error(`${JSON.stringify(error.response.data)}`);
-          break;
-      
-        default:
-          customError = new Error(`Generic error: ${JSON.stringify(error.response.data)}`);
-          break;
-      }
+      const customError = new Error(`${JSON.stringify(error.response.data)}`);
       return Promise.reject(customError);
     });
   }
