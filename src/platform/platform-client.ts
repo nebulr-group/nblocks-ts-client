@@ -5,8 +5,6 @@ import { Tenants } from './tenant/tenants';
 import { Tenant } from './tenant/tenant';
 import { Client } from '../abstracts/client';
 import { FileClient } from './file/file';
-import { UnauthenticatedError } from '../errors/UnauthenticatedError';
-import { ForbiddenError } from '../errors/ForbiddenError';
 import { CommunicationClient } from './communication/communication';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
