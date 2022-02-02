@@ -1,7 +1,6 @@
 import { PlatformClient } from './platform/platform-client';
 import { AppModel } from './platform/models/app.model';
 import { EventWebhookDto } from './shared/event-webhook.dto';
-import { ForbiddenError } from './errors/ForbiddenError';
 import { UnauthenticatedError } from './errors/UnauthenticatedError';
 import { AuthTenantResponseDto } from './platform/auth/models/auth-tenant-response.dto';
 import { AuthTenantUserResponseDto } from './platform/auth/models/auth-tenant-user-response.dto';
@@ -30,6 +29,5 @@ export {
     DeauthenticateResponse,
     UpdatePasswordRequestDto,
     UpdateUserInfoRequestDto,
-    ForbiddenError, 
     UnauthenticatedError 
 }
