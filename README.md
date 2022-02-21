@@ -7,6 +7,8 @@ This library contains the low level NBlocks client that is shipped with all of o
 
 This library is written in typescript and comes with types and documentation built in.
 
+## Documentation
+https://nebulr-group.github.io/nblocks-docs/docs/guides/api-client
 ## Sign up for access
 Sign up, register your project and obtain an access token today [here](https://nblocks.dev)!
 
