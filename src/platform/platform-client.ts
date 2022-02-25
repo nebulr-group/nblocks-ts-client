@@ -6,6 +6,8 @@ import { Tenant } from './tenant/tenant';
 import { Client } from '../abstracts/client';
 import { FileClient } from './file/file';
 import { CommunicationClient } from './communication/communication';
+import { UnauthenticatedError } from '../errors/UnauthenticatedError';
+import { ForbiddenError } from '../errors/ForbiddenError';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
@@ -14,7 +16,7 @@ export class PlatformClient extends Client {
   private readonly BASE_URLS = {
     'PROD':'https://account-api.nebulr-core.com',
     'STAGE':'https://account-api-stage.nebulr-core.com',
-    'DEV':'http://localhost:3010'
+    'DEV':'http://172.17.0.2:3000'
   };
   private readonly httpClient: AxiosInstance;
   private readonly apiKey: string;
@@ -158,11 +160,29 @@ export class PlatformClient extends Client {
         console.log("Response:", response.status, response.data);
       }
       return response;
-    }, function (error: AxiosError) {      
+    }, function (error: AxiosError) {
+      
+      if (debug) {
+        console.log("Error response:", `Http status: ${error.response.status}`, error.response.data);
+      }
+
       if (!error.response)
         return Promise.reject(error);
 
-      const customError = new Error(`${JSON.stringify(error.response.data)}`);
+      let customError: Error;
+      switch (error.response.status) {
+        case 401:
+          customError = new UnauthenticatedError(error.response.data);
+          break;
+
+        case 403:
+          customError = new ForbiddenError(error.response.data);
+          break;
+      
+        default:
+          customError = new Error(error.response.data);
+          break;
+      }
       return Promise.reject(customError);
     });
   }

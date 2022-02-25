@@ -17,20 +17,20 @@ describe('Tenant client', () => {
     });
 
     // Reactivate as soon as we can remove tenants
-    // test('Create a tenant', async () => {
-    //     const response = await client.tenants.create({
-    //         name: "Platform TS Lib test",
-    //         plan: "TEAM",
-    //         email: "john.doe@example.com",
-    //         metadata: {
-    //             deleteMe: "true"
-    //         }
-    //     });
-    //     expect(response.id).toBeDefined();
-    //     expect(response.metadata["deleteMe"]).toBe("true");
-    //     expect(response.name).toBe("Platform TS Lib test");
-    //     newTenantId = response.id;
-    // });
+    test('Create a tenant', async () => {
+        const response = await client.tenants.create({
+            name: "Platform TS Lib test",
+            plan: "TEAM",
+            email: testData.USERNAME,
+            metadata: {
+                deleteMe: "true"
+            }
+        });
+        expect(response.id).toBeDefined();
+        expect(response.metadata["deleteMe"]).toBe("true");
+        expect(response.name).toBe("Platform TS Lib test");
+        newTenantId = response.id;
+    });
 
     // Calls with ID -------------------------------------------------
 

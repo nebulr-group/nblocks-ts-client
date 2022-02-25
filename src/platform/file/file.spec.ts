@@ -2,7 +2,7 @@ import * as testData from '../../../test/testData.json'
 import {PlatformClient, Stage} from '../platform-client'
 import { readFileSync } from 'fs';
 import { FileClient } from './file';
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 
 describe('File client', () => {
 
@@ -28,9 +28,9 @@ describe('File client', () => {
     //     console.log(resp);
     // });
 
-    test('Upload a file A-B', async () => {
+    test('[persisted/private] Upload a file A-B', async () => {
         const file = readFileSync(testFile.location);
-        const resp = await fileClient.uploadFile(file, testFile.file, testFile.contentType, true);
+        const resp = await fileClient.uploadFile(file, testFile.file, testFile.contentType, true, false);
         uploadedKey = resp.key;
         persistedSignedUrl = resp.signedUrl;
 	    console.log(`Uploaded a file: ${resp.key}`);
@@ -38,19 +38,45 @@ describe('File client', () => {
         await axios.create().get(persistedSignedUrl);
     });
 
-    test('Get signed url for an Object', async () => {
+    test('[persisted/private] Get signed url for an Object', async () => {
         const response = await fileClient.getSignedUrls([uploadedKey]);
         expect(response).toHaveLength(1);
     });
 
-    test('Delete an Object', async () => {
+    test('[persisted/private] Delete an Object', async () => {
         // File should be available
         await axios.create().get(persistedSignedUrl);
         
-        await fileClient.delete(uploadedKey);
+        await fileClient.delete({key: uploadedKey, publicFile: false});
 
         // File should NOT be available anymore
         const httpPromise = axios.create().get(persistedSignedUrl);
-        expect(httpPromise).rejects.toThrow();
+        await expect(httpPromise).rejects.toThrow();
+    });
+
+    test('[persisted/public] Upload a file A-B', async () => {
+        const file = readFileSync(testFile.location);
+        const resp = await fileClient.uploadFile(file, testFile.file, testFile.contentType, true, true);
+        uploadedKey = resp.key;
+        persistedSignedUrl = resp.signedUrl;
+	    console.log(`Uploaded a file: ${resp.key}`);
+        // File should be available
+        await axios.create().get(persistedSignedUrl);
+    });
+
+    test('[persisted/public] Get signed url for an Object', async () => {
+        const response = await fileClient.getSignedUrls([uploadedKey]);
+        expect(response).toHaveLength(1);
+    });
+
+    test('[persisted/public] Delete an Object', async () => {
+        // File should be available
+        await axios.create().get(persistedSignedUrl);
+        
+        await fileClient.delete({key: uploadedKey, publicFile: false});
+
+        // File should NOT be available anymore
+        const httpPromise = axios.create().get(persistedSignedUrl);
+        await expect(httpPromise).rejects.toThrow();
     });
 })

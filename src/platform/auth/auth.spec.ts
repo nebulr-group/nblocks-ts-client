@@ -9,12 +9,12 @@ describe('Auth client', () => {
     let tenantUserId: string;
     
     beforeAll(() => {
-        client = new PlatformClient(testData.API_KEY, 1, false, testData.STAGE as Stage);
+        client = new PlatformClient(testData.API_KEY, 1, true, testData.STAGE as Stage);
     });
 
     test('Authenticate user with wrong credentials should throw UnauthenticatedError', async () => {
         const promise = client.auth.authenticate({username: testData.USERNAME, password: "password"}, "automated-test");
-        expect(promise).rejects.toThrowError(UnauthenticatedError);
+        await expect(promise).rejects.toThrowError(UnauthenticatedError);
     })
 
     test('Authenticate user', async () => {

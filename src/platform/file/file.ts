@@ -8,6 +8,8 @@ import { PrepareUploadRequestDto } from './models/prepare-upload-request.dto';
 import { CreatePresignedPostResponseDto } from './models/create-presigned-post-response.dto';
 import { FinishUploadArgs } from './models/finish-upload-args';
 import { FinishUploadRequestDto } from './models/finish-upload-request.dto';
+import { DeleteFileArgs } from './models/delete-file-args';
+import { DeleteFileRequestDto } from './models/delete-file-request.dto';
 
 export class FileClient extends Client {
 
@@ -64,8 +66,9 @@ export class FileClient extends Client {
    * @param key 
    * @returns 
    */
-  async delete(key: string): Promise<void> {
-    return (await this.getHttpClient().post(`file/delete`, {key, tenantId: this.tenantId}, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
+  async delete(args: DeleteFileArgs): Promise<void> {
+    const reqArgs: DeleteFileRequestDto = {...args, tenantId: this.tenantId};
+    return (await this.getHttpClient().post(`file/delete`, reqArgs, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
   }
 
   /**
@@ -74,7 +77,7 @@ export class FileClient extends Client {
    * @param persist if you wish to have the object saved. Otherwise the object will expire within 24h
    * @returns Returns a signed URL for temporary access to the object
    */
-   async uploadFile(file: Buffer, fileName: string, contentType: string, persist: boolean): Promise<{key: string, signedUrl: string}> {
+   async uploadFile(file: Buffer, fileName: string, contentType: string, persist: boolean, publicFile: boolean): Promise<{key: string, signedUrl: string}> {
     const uploadSession = await this.startUploadSession({fileName, contentType});
 
     // The code and customer Content-Length generation within the try catch block is based on the discussion here https://github.com/axios/axios/issues/1006
@@ -100,7 +103,7 @@ export class FileClient extends Client {
       throw new Error(`Could not upload file due to error`)
     }
 
-    const signedUrl = await this.finishUploadSession({key: uploadSession.key, persist});
+    const signedUrl = await this.finishUploadSession({key: uploadSession.key, persist, publicFile});
     return {key: uploadSession.key, signedUrl};
   }
 
