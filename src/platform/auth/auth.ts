@@ -29,6 +29,22 @@ export class Auth extends Entity{
     return (await this.parentEntity.getHttpClient().post<AuthenticateResponseDto>('/auth/authenticate', credentials, {headers: {...this.getHeaders(), 'User-Agent': userAgent}})).data;
   }
 
+  async commitMfaCode(args: CommitMfaCodeRequestDto): Promise<CommitMfaCodeResponseDto> {
+    return (await this.parentEntity.getHttpClient().post<CommitMfaCodeResponseDto>('/auth/commitMfaCode', args, {headers: {...this.getHeaders()}})).data;
+  }
+
+  async startMfaUserSetup(args: StartUserMfaSetupRequestDto): Promise<void> {
+    return (await this.parentEntity.getHttpClient().post<void>('/auth/startMfaUserSetup', args, {headers: {...this.getHeaders()}})).data;
+  }
+
+  async finishMfaUserSetup(args: FinishUserMfaSetupRequestDto): Promise<FinishUserMfaSetupResponseDto> {
+    return (await this.parentEntity.getHttpClient().post<FinishUserMfaSetupResponseDto>('/auth/finishMfaUserSetup', args, {headers: {...this.getHeaders()}})).data;
+  }
+
+  async resetUserMfaSetup(args: ResetUserMfaSetupRequestDto): Promise<void> {
+    return (await this.parentEntity.getHttpClient().post<void>('/auth/resetUserMfaSetup', args, {headers: {...this.getHeaders()}})).data;
+  }
+
   /**
    * Check if a user session token is valid.
    * @param token The user token
