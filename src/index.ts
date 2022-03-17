@@ -13,6 +13,7 @@ import { AuthenticatedResponse } from './platform/auth/models/authenticated-resp
 import { UpdatePasswordRequestDto } from './platform/auth/models/update-password-request.dto';
 import { UpdateUserInfoRequestDto } from './platform/auth/models/update-user-info-request.dto';
 import { DeauthenticateResponse } from './platform/auth/models/deauthenticated-response';
+import { ForbiddenError } from './errors/ForbiddenError';
 
 export { 
     AppModel, 
@@ -29,5 +30,6 @@ export {
     DeauthenticateResponse,
     UpdatePasswordRequestDto,
     UpdateUserInfoRequestDto,
-    UnauthenticatedError 
+    UnauthenticatedError,
+    ForbiddenError
 }
