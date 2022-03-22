@@ -4,7 +4,13 @@ import { AuthenticateRequestDto } from './models/authenticate-request.dto';
 import { AuthenticateResponseDto } from './models/authenticate-response.dto';
 import { AuthenticatedResponse } from './models/authenticated-response';
 import { AuthorizeResponseDto } from './models/authorize-response.dto';
+import { CommitMfaCodeRequestDto } from './models/commit-mfa-code-request.dto';
+import { CommitMfaCodeResponseDto } from './models/commit-mfa-code-response.dto';
 import { DeauthenticateResponse } from './models/deauthenticated-response';
+import { FinishUserMfaSetupRequestDto } from './models/finish-user-mfa-setup-request.dto';
+import { FinishUserMfaSetupResponseDto } from './models/finish-user-mfa-setup-response.dto';
+import { ResetUserMfaSetupRequestDto } from './models/reset-user-mfa-setup-request-dto';
+import { StartUserMfaSetupRequestDto } from './models/start-user-mfa-setup-request-dto';
 import { UpdatePasswordRequestDto } from './models/update-password-request.dto';
 import { UpdateUserInfoRequestDto } from './models/update-user-info-request.dto';
 
@@ -23,10 +29,44 @@ export class Auth extends Entity{
    * Returns a session token to be used in all user<->app interactions. No app or tenant context required.
    * @param credentials User provided credentials
    * @param userAgent The user agent header
-   * @returns `AuthenticateResponseDto` including the session token
+   * @returns `AuthenticateResponseDto` including the session token and MFA state should the user be required to provide MFA
    */
   async authenticate(credentials: AuthenticateRequestDto, userAgent: string): Promise<AuthenticateResponseDto> {
     return (await this.parentEntity.getHttpClient().post<AuthenticateResponseDto>('/auth/authenticate', credentials, {headers: {...this.getHeaders(), 'User-Agent': userAgent}})).data;
+  }
+
+  /**
+   * Commit the MFA OTP code recieved
+   * @param args `CommitMfaCodeRequestDto`
+   * @returns `CommitMfaCodeResponseDto` including MFA token to be used in future calls
+   */
+  async commitMfaCode(args: CommitMfaCodeRequestDto): Promise<CommitMfaCodeResponseDto> {
+    return (await this.parentEntity.getHttpClient().post<CommitMfaCodeResponseDto>('/auth/commitMfaCode', args, {headers: {...this.getHeaders()}})).data;
+  }
+
+  /**
+   * Initiates the MFA setup process for users missing phone number
+   * @param args `StartUserMfaSetupRequestDto`
+   */
+  async startMfaUserSetup(args: StartUserMfaSetupRequestDto): Promise<void> {
+    await this.parentEntity.getHttpClient().post<void>('/auth/startMfaUserSetup', args, {headers: {...this.getHeaders()}});
+  }
+
+  /**
+   * Finish the MFA setup process by providing the received OTP thus validating the phone numer and recieve MFA token and backup code
+   * @param args `FinishUserMfaSetupRequestDto`
+   * @returns `FinishUserMfaSetupResponseDto` including MFA token to be used in future calls and the backup code that can be used to reset the MFA in the future. The backup code should be stored safely
+   */
+  async finishMfaUserSetup(args: FinishUserMfaSetupRequestDto): Promise<FinishUserMfaSetupResponseDto> {
+    return (await this.parentEntity.getHttpClient().post<FinishUserMfaSetupResponseDto>('/auth/finishMfaUserSetup', args, {headers: {...this.getHeaders()}})).data;
+  }
+
+  /**
+   * Use the previously recieved backup code to reset the MFA setup. This allows `startMfaUserSetup` to be called again
+   * @param args `ResetUserMfaSetupRequestDto`
+   */
+  async resetUserMfaSetup(args: ResetUserMfaSetupRequestDto): Promise<void> {
+    return (await this.parentEntity.getHttpClient().post<void>('/auth/resetUserMfaSetup', args, {headers: {...this.getHeaders()}})).data;
   }
 
   /**
