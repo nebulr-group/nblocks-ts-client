@@ -20,6 +20,7 @@ describe('Auth client', () => {
     test('Authenticate user', async () => {
         const response = await client.auth.authenticate({username: testData.USERNAME, password: testData.PASSWORD}, "automated-test");
         expect(response.token).toBeDefined();
+        expect(response.mfaState).toBeDefined();
         authToken = response.token;
     })
 
