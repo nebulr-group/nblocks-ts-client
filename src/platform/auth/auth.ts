@@ -66,7 +66,7 @@ export class Auth extends Entity{
    * @param args `ResetUserMfaSetupRequestDto`
    */
   async resetUserMfaSetup(args: ResetUserMfaSetupRequestDto): Promise<void> {
-    return (await this.parentEntity.getHttpClient().post<void>('/auth/resetUserMfaSetup', args, {headers: {...this.getHeaders()}})).data;
+    await this.parentEntity.getHttpClient().post<void>('/auth/resetUserMfaSetup', args, {headers: {...this.getHeaders()}});
   }
 
   /**
