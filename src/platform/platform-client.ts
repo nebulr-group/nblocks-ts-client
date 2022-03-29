@@ -16,7 +16,6 @@ export class PlatformClient extends Client {
   private readonly BASE_URLS = {
     'PROD':'https://account-api.nebulr-core.com',
     'STAGE':'https://account-api-stage.nebulr-core.com',
-    'DEV':'http://172.17.0.2:3000'
   };
   private readonly httpClient: AxiosInstance;
   private readonly apiKey: string;
@@ -63,6 +62,8 @@ export class PlatformClient extends Client {
 
     //this.fileClient = new FileClient(this, this.debug);
     this.communicationClient = new CommunicationClient(this, this.debug);
+
+    this._log(`Initialized PlatformClient with base url: ${this.getApiBaseUrl(stage)}, apiKey: ${apiKey.substring(0, 5)}...`);
   }
   
   /** **Internal functionality. Do not use this function** */
@@ -142,7 +143,7 @@ export class PlatformClient extends Client {
 
   /** **Internal functionality. Do not use this function** */
   private getApiBaseUrl(stage: Stage): string {
-    return this.BASE_URLS[stage];
+    return process.env.NEBULR_PLATFORM_CORE_API_URL || this.BASE_URLS[stage];
   }
 
   private configureHttpClient(httpClient: AxiosInstance): void {

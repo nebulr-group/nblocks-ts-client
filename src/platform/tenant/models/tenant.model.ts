@@ -20,6 +20,9 @@
    /** Url to a public accessible logo */
    logo?: string;
 
+   /** Require users to login with MFA/2FA */
+   mfa: boolean;
+
    /** Store app specific meta data for this tenant */
    metadata?: Record<string, string>;
 

@@ -6,6 +6,9 @@ export class UpdateTenantRequestDto {
   
     /** A url to a logo */
     logo?: string;
+
+    /** Require users to login with MFA/2FA */
+    mfa?: boolean;
   
     /** Store metadata for your own business logic that will be returned in every Tenant response. This data will never be outputted to the end user */
     metadata?: Record<string, string>;
