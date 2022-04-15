@@ -4,7 +4,9 @@
 		"dockerfile": "Dockerfile",
 	},
 	"containerEnv": {},
-	"runArgs": [],
+	"runArgs": [
+		"--network=nblocks-stack_shared-network"
+	],
 	"settings": {
 		"terminal.integrated.shell.linux": "/bin/bash"
 	},

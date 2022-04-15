@@ -9,6 +9,7 @@ import { TranslateTextRequest } from './models/translate-text-request';
 import { TranslateTextResponse } from './models/translate-text-response';
 import { UpdateTenantRequestDto } from './models/update-tenant-request.dto';
 import { AuthTenantResponseDto } from '../auth/models/auth-tenant-response.dto';
+import { CommunicationClient } from './communication/communication';
 
 /**
  * A specific `Tenant` client for a particular Tenant id. 
@@ -18,12 +19,14 @@ export class Tenant extends SpecificEntity{
 
   readonly users: Users;
   readonly fileClient: FileClient;
+  readonly communicationClient: CommunicationClient;
 
   constructor (parentEntity: Entity, id:string, debug = false) {
     super(id, parentEntity, debug);
 
     this.users = new Users(this, this.debug);
     this.fileClient = new FileClient(this, this.debug);
+    this.communicationClient = new CommunicationClient(this, this.debug);
   }
 
   /** Override */

@@ -5,7 +5,7 @@ import { Tenants } from './tenant/tenants';
 import { Tenant } from './tenant/tenant';
 import { Client } from '../abstracts/client';
 import { FileClient } from './file/file';
-import { CommunicationClient } from './communication/communication';
+import { CommunicationClient } from './tenant/communication/communication';
 import { UnauthenticatedError } from '../errors/UnauthenticatedError';
 import { ForbiddenError } from '../errors/ForbiddenError';
 
@@ -16,6 +16,7 @@ export class PlatformClient extends Client {
   private readonly BASE_URLS = {
     'PROD':'https://account-api.nebulr-core.com',
     'STAGE':'https://account-api-stage.nebulr-core.com',
+    'DEV':'http://account-api:3000'
   };
   private readonly httpClient: AxiosInstance;
   private readonly apiKey: string;
@@ -35,16 +36,6 @@ export class PlatformClient extends Client {
    */
   auth: Auth;
 
-  //fileClient: FileClient;
-
-  /**
-   * A generic communication client.
-   * Use this to tool to send emails and text messages to anyone.
-   * 
-   * Do you wish to communicate easier directly with a known user? See `User` client, avaiable via `tenant(id).user(id).sendEmail()`
-   */
-  communicationClient: CommunicationClient;
-
   constructor (apiKey: string, version : 1 = 1, debug = false, stage: Stage = 'PROD') {
     super(null, debug);
     this.apiKey = apiKey;
@@ -59,9 +50,6 @@ export class PlatformClient extends Client {
 
     this.auth = new Auth(this, this.debug);
     this.tenants = new Tenants(this, this.debug);
-
-    //this.fileClient = new FileClient(this, this.debug);
-    this.communicationClient = new CommunicationClient(this, this.debug);
 
     this._log(`Initialized PlatformClient with base url: ${this.getApiBaseUrl(stage)}, apiKey: ${apiKey.substring(0, 5)}...`);
   }

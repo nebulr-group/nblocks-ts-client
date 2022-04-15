@@ -21,10 +21,9 @@ export class FileClient extends Client {
     'DEV':'http://localhost:3030'
   };
 
-  constructor (parentEntity: Tenant | PlatformClient, debug = false) {
+  constructor (parentEntity: Tenant, debug = false) {
     super(parentEntity, debug);
-    if (parentEntity instanceof Tenant)
-      this.tenantId = parentEntity.id;
+    this.tenantId = parentEntity.id;
   }
 
   /**
