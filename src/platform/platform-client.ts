@@ -51,7 +51,7 @@ export class PlatformClient extends Client {
     this.auth = new Auth(this, this.debug);
     this.tenants = new Tenants(this, this.debug);
 
-    this._log(`Initialized PlatformClient with base url: ${this.getApiBaseUrl(stage)}, apiKey: ${apiKey.substring(0, 5)}...`);
+    this._log(`Initialized PlatformClient in stage ${this.stage} with base url: ${this.getApiBaseUrl(stage)}, apiKey: ${apiKey.substring(0, 5)}...`);
   }
   
   /** **Internal functionality. Do not use this function** */

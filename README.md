@@ -182,6 +182,14 @@ await client.tenant(user.tenant.id).user(user.id).sendSms({text: "Hello you"});
 ## Docker container
 This project can be opened inside a dev container in visual studio. During the container setup all requirements and tools will be installed
 
+## Developer guide
+
+### Debug log output
+*TODO*
+### Override service urls
+You can override the service urls used for different calls by providing environment variables. These are:
+* `NEBULR_PLATFORM_CORE_API_URL`
+* `NEBULR_COMMUNICATION_API_URL`
 ## Npm publish
 * To publish a library, make sure to update the package.json version in the project sub folder.
 * Make sure you're logged into npm. E.g. `npm login`

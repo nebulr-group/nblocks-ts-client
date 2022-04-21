@@ -29,10 +29,16 @@ describe('Communcation client', () => {
         const rules = await client.listVoiceRedirectRules();
         expect(rules.length).toBeGreaterThanOrEqual(1);
     });
+    
+    test('List redirect rule errors', async () => {
+        const errors = await client.listVoiceRedirectErrors("626167b8b28ce80009ab319a");
+        expect(errors).toBeDefined();
+    });
 
     test('Update redirect rule', async () => {
         redirectRule.targets.push({
             available: true,
+            name: "Oscar",
             phoneNumber: "+123456"
         })
         const rule = await client.updateVoiceRedirectRule(redirectRule);

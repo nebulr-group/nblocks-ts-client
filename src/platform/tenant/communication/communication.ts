@@ -3,6 +3,7 @@ import { PlatformClient } from '../../platform-client';
 import { Tenant } from '../tenant';
 import { SendOtpSmsResponseDto } from '../user/models/send-otp-sms-response.dto';
 import { User } from '../user/user';
+import { RedirectErrorEventDto } from './models/redirect-error-event.dto';
 import { RedirectRuleDto } from './models/redirect-rule.dto';
 import { SendEmailRequestDto } from './models/send-email-request.dto';
 
@@ -16,6 +17,7 @@ export class CommunicationClient extends Client {
 
   constructor (parentEntity: Tenant, debug = false) {
     super(parentEntity, debug);
+    this._log(`Initialized CommunicationClient with url: ${this._getBaseUrl()}`);
   }
 
   /**
@@ -24,6 +26,11 @@ export class CommunicationClient extends Client {
    */
   async listVoiceRedirectRules(): Promise<RedirectRuleDto[]>{
     const rules = (await this.getHttpClient().get<RedirectRuleDto[]>(`voice/redirectRule`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
+    return rules;
+  }
+
+  async listVoiceRedirectErrors(id: string, limit = 5): Promise<RedirectErrorEventDto[]>{
+    const rules = (await this.getHttpClient().get<RedirectErrorEventDto[]>(`/voice/redirectRule/errors/${id}/${limit}`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
     return rules;
   }
 
@@ -92,6 +99,6 @@ export class CommunicationClient extends Client {
    * @returns 
    */
    private _getBaseUrl(): string {
-    return this.BASE_URLS[this.getPlatformClient().stage];
+    return process.env.NEBULR_COMMUNICATION_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
   }
 }
