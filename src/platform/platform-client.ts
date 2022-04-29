@@ -4,8 +4,6 @@ import { AppModel } from './models/app.model';
 import { Tenants } from './tenant/tenants';
 import { Tenant } from './tenant/tenant';
 import { Client } from '../abstracts/client';
-import { FileClient } from './file/file';
-import { CommunicationClient } from './tenant/communication/communication';
 import { UnauthenticatedError } from '../errors/UnauthenticatedError';
 import { ForbiddenError } from '../errors/ForbiddenError';
 

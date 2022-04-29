@@ -1,11 +1,7 @@
 import { Client } from '../../../abstracts/client';
-import { PlatformClient } from '../../platform-client';
 import { Tenant } from '../tenant';
-import { SendOtpSmsResponseDto } from '../user/models/send-otp-sms-response.dto';
-import { User } from '../user/user';
 import { RedirectErrorEventDto } from './models/redirect-error-event.dto';
 import { RedirectRuleDto } from './models/redirect-rule.dto';
-import { SendEmailRequestDto } from './models/send-email-request.dto';
 
 export class CommunicationClient extends Client {
 
@@ -84,14 +80,6 @@ export class CommunicationClient extends Client {
    */
   // async sendOtpSms(args: { to: string, locale: 'en' | 'sv' | string }): Promise<SendOtpSmsResponseDto> {
   //   return (await this.getHttpClient().post<SendOtpSmsResponseDto>(`communication/smsOtp`, args, { headers: this.getHeaders()})).data;
-  // }
-
-  /**
-   * Gets the base url by fetching current stage from Platform
-   * @returns 
-   */
-  //  private _getBaseUrl(): string {
-  //   return this.BASE_URLS[this.getPlatformClient().stage];
   // }
 
   /**

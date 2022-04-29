@@ -2,7 +2,6 @@ import { Client } from '../../abstracts/client';
 import * as FormData from 'form-data'
 import axios from 'axios';
 import { Tenant } from '../tenant/tenant';
-import { PlatformClient } from '../platform-client';
 import { PrepareUploadArgs } from './models/prepare-upload-args';
 import { PrepareUploadRequestDto } from './models/prepare-upload-request.dto';
 import { CreatePresignedPostResponseDto } from './models/create-presigned-post-response.dto';
@@ -18,7 +17,7 @@ export class FileClient extends Client {
   private readonly BASE_URLS = {
     'PROD':'https://file-api.nebulr-core.com',
     'STAGE':'https://file-api-stage.nebulr-core.com',
-    'DEV':'http://localhost:3030'
+    'DEV':'http://file-api:3000'
   };
 
   constructor (parentEntity: Tenant, debug = false) {
@@ -111,6 +110,6 @@ export class FileClient extends Client {
    * @returns 
    */
   private _getBaseUrl(): string {
-    return this.BASE_URLS[this.getPlatformClient().stage];
+    return process.env.NEBULR_FILE_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
   }
 }

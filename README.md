@@ -3,12 +3,13 @@ Welcome to NBlocks, the platform toolbox from Nebulr made by developers for deve
 
 [nblocks.dev](https://nblocks.dev)
 
-This library contains the low level NBlocks client that is shipped with all of our NBlocks plug-n-play experiences for different technologies.  If you haven't looked them in you should as it might save you a bunch of time building your next app and you don't need to install this plugin as it already comes bundled. See the [NBlocks download](https://nblocks.dev/download)
+This library contains the low level NBlocks client that is shipped with all of our NBlocks plug-n-play experiences for different technologies.  If you haven't looked them in you should as it might save you a bunch of time building your next app and you don't need to install this plugin as it already comes bundled. See the [NBlocks](https://nblocks.dev)
 
 This library is written in typescript and comes with types and documentation built in.
 
 ## Documentation
 https://nebulr-group.github.io/nblocks-docs/docs/guides/api-client
+
 ## Sign up for access
 Sign up, register your project and obtain an access token today [here](https://nblocks.dev)!
 
@@ -187,9 +188,10 @@ This project can be opened inside a dev container in visual studio. During the c
 ### Debug log output
 *TODO*
 ### Override service urls
-You can override the service urls used for different calls by providing environment variables. These are:
+You can override the built in micro service urls to external Nblocks services used for different calls by providing environment variables. These are:
 * `NEBULR_PLATFORM_CORE_API_URL`
 * `NEBULR_COMMUNICATION_API_URL`
+* `NEBULR_FILE_API_URL`
 ## Npm publish
 * To publish a library, make sure to update the package.json version in the project sub folder.
 * Make sure you're logged into npm. E.g. `npm login`
