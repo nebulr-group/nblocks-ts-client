@@ -21,6 +21,9 @@ export class TenantUserResponseDto {
   
     /** If user is onboarded or not (should be put through app onboarding) */
     onboarded: boolean;
+
+    /** If user have left consent to the app privacy policy or not (should be set during app onboarding) */
+    consentsToPrivacyPolicy: boolean;
   
     /**
      * Custom properties different from AuthTenantUserResponseDto

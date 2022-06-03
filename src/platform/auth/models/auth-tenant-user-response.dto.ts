@@ -1,7 +1,7 @@
 import { AuthTenantResponseDto } from "./auth-tenant-response.dto";
 
 /**
- * A lightweight version of TenantUserModel
+ * A lightweight version of TenantUserResponseDto. See TenantUserResponseDto for more type information
  */
 export class AuthTenantUserResponseDto {
   id!: string;
@@ -11,6 +11,7 @@ export class AuthTenantUserResponseDto {
   fullName?: string;
 
   onboarded!: boolean;
+  consentsToPrivacyPolicy: boolean;
 
   tenant: AuthTenantResponseDto
 }

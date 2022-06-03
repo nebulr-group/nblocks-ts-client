@@ -3,4 +3,5 @@ export class UpdateUserInfoRequestDto {
     firstName: string;
     lastName: string;
     phoneNumber?: string;
+    consentsToPrivacyPolicy?: boolean;
 }

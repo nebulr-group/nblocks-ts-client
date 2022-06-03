@@ -30,7 +30,10 @@ describe('Auth client', () => {
     })
 
     test('Update user data', async () => {
-        await client.auth.updateUser({authToken, firstName: "John", lastName: "Doe"});
+        await client.auth.updateUser({authToken, firstName: "John", lastName: "Doe", consentsToPrivacyPolicy: true});
+        const response = await client.auth.listTenantUsers(authToken);
+        expect(response[0].consentsToPrivacyPolicy).toBeTruthy();
+        expect(response[0].fullName).toBe("John Doe");
     })
 
     test('List TenantUsers for session', async () => {
