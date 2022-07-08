@@ -1,7 +1,7 @@
-import { ClientError } from "./ClientError";
+import { ClientError, NblocksErrorData } from "./ClientError";
 
 export class UnauthenticatedError extends ClientError {
-    constructor(data: {message: string, error: string}) {
-        super(401, data);
+    constructor(data: NblocksErrorData) {
+        super(data, 401);
     }
 }

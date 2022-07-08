@@ -6,6 +6,7 @@ import { Tenant } from './tenant/tenant';
 import { Client } from '../abstracts/client';
 import { UnauthenticatedError } from '../errors/UnauthenticatedError';
 import { ForbiddenError } from '../errors/ForbiddenError';
+import { ClientError } from '../errors/ClientError';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
@@ -167,7 +168,7 @@ export class PlatformClient extends Client {
           break;
       
         default:
-          customError = new Error(error.response.data);
+          customError = new ClientError(error.response.data);
           break;
       }
       return Promise.reject(customError);
