@@ -14,6 +14,7 @@ import { UpdatePasswordRequestDto } from './platform/auth/models/update-password
 import { UpdateUserInfoRequestDto } from './platform/auth/models/update-user-info-request.dto';
 import { DeauthenticateResponse } from './platform/auth/models/deauthenticated-response';
 import { ForbiddenError } from './errors/ForbiddenError';
+import { ClientError } from './errors/ClientError';
 
 export { 
     AppModel, 
@@ -31,5 +32,6 @@ export {
     UpdatePasswordRequestDto,
     UpdateUserInfoRequestDto,
     UnauthenticatedError,
-    ForbiddenError
+    ForbiddenError,
+    ClientError
 }
