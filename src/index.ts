@@ -15,6 +15,7 @@ import { UpdateUserInfoRequestDto } from './platform/auth/models/update-user-inf
 import { DeauthenticateResponse } from './platform/auth/models/deauthenticated-response';
 import { ForbiddenError } from './errors/ForbiddenError';
 import { ClientError } from './errors/ClientError';
+import { FinishUploadArgs } from './platform/file/models/finish-upload-args';
 
 export { 
     AppModel, 
@@ -33,5 +34,6 @@ export {
     UpdateUserInfoRequestDto,
     UnauthenticatedError,
     ForbiddenError,
-    ClientError
+    ClientError,
+    FinishUploadArgs
 }

@@ -75,7 +75,7 @@ export class FileClient extends Client {
    * @param persist if you wish to have the object saved. Otherwise the object will expire within 24h
    * @returns Returns a signed URL for temporary access to the object
    */
-   async uploadFile(file: Buffer, fileName: string, contentType: string, persist: boolean, publicFile: boolean): Promise<{key: string, signedUrl: string}> {
+   async uploadFile(file: Buffer, fileName: string, contentType: string, options: Pick<FinishUploadArgs, 'persist' | 'publicFile' | 'removeMetaData'>): Promise<{key: string, signedUrl: string}> {
     const uploadSession = await this.startUploadSession({fileName, contentType});
 
     // The code and customer Content-Length generation within the try catch block is based on the discussion here https://github.com/axios/axios/issues/1006
@@ -101,7 +101,8 @@ export class FileClient extends Client {
       throw new Error(`Could not upload file due to error`)
     }
 
-    const signedUrl = await this.finishUploadSession({key: uploadSession.key, persist, publicFile});
+    const {persist, publicFile, removeMetaData} = options;
+    const signedUrl = await this.finishUploadSession({key: uploadSession.key, persist, publicFile, removeMetaData});
     return {key: uploadSession.key, signedUrl};
   }
 

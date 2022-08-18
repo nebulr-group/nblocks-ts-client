@@ -30,7 +30,17 @@ describe('File client', () => {
 
     test('[persisted/private] Upload a file A-B', async () => {
         const file = readFileSync(testFile.location);
-        const resp = await fileClient.uploadFile(file, testFile.file, testFile.contentType, true, false);
+        const resp = await fileClient.uploadFile(file, testFile.file, testFile.contentType, {persist: true, publicFile: false});
+        uploadedKey = resp.key;
+        persistedSignedUrl = resp.signedUrl;
+	    console.log(`Uploaded a file: ${resp.key}`);
+        // File should be available
+        await axios.create().get(persistedSignedUrl);
+    });
+
+    test('[persisted/private] Upload a file A-B and remove metadata', async () => {
+        const file = readFileSync(testFile.location);
+        const resp = await fileClient.uploadFile(file, testFile.file, testFile.contentType, {persist: true, publicFile: false, removeMetaData: true});
         uploadedKey = resp.key;
         persistedSignedUrl = resp.signedUrl;
 	    console.log(`Uploaded a file: ${resp.key}`);
@@ -56,7 +66,7 @@ describe('File client', () => {
 
     test('[persisted/public] Upload a file A-B', async () => {
         const file = readFileSync(testFile.location);
-        const resp = await fileClient.uploadFile(file, testFile.file, testFile.contentType, true, true);
+        const resp = await fileClient.uploadFile(file, testFile.file, testFile.contentType, {persist: true, publicFile: true});
         uploadedKey = resp.key;
         persistedSignedUrl = resp.signedUrl;
 	    console.log(`Uploaded a file: ${resp.key}`);
@@ -64,6 +74,7 @@ describe('File client', () => {
         await axios.create().get(persistedSignedUrl);
     });
 
+    //TODO file should be publically available?
     test('[persisted/public] Get signed url for an Object', async () => {
         const response = await fileClient.getSignedUrls([uploadedKey]);
         expect(response).toHaveLength(1);
