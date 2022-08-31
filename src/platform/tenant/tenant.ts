@@ -1,5 +1,6 @@
 import { SpecificEntity } from '../../abstracts/specific-entity';
 import { FileClient } from '../file/file';
+import { PdfServiceClient } from '../pdf/pdf';
 import { Users } from './user/users';
 import { User } from './user/user';
 import { Entity } from '../../abstracts/generic-entity';
@@ -19,6 +20,7 @@ export class Tenant extends SpecificEntity{
 
   readonly users: Users;
   readonly fileClient: FileClient;
+  readonly pdfServiceClient: PdfServiceClient;
   readonly communicationClient: CommunicationClient;
 
   constructor (parentEntity: Entity, id:string, debug = false) {
@@ -26,6 +28,7 @@ export class Tenant extends SpecificEntity{
 
     this.users = new Users(this, this.debug);
     this.fileClient = new FileClient(this, this.debug);
+    this.pdfServiceClient = new PdfServiceClient(this, this.debug);
     this.communicationClient = new CommunicationClient(this, this.debug);
   }
 

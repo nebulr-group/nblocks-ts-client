@@ -11,17 +11,17 @@ import { ClientError } from '../errors/ClientError';
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
 export class PlatformClient extends Client {
-  
+
   private readonly BASE_URLS = {
-    'PROD':'https://account-api.nebulr-core.com',
-    'STAGE':'https://account-api-stage.nebulr-core.com',
-    'DEV':'http://account-api:3000'
+    'PROD': 'https://account-api.nebulr-core.com',
+    'STAGE': 'https://account-api-stage.nebulr-core.com',
+    'DEV': 'http://account-api:3000'
   };
   private readonly httpClient: AxiosInstance;
   private readonly apiKey: string;
 
   readonly stage: Stage
-  readonly version : 1;
+  readonly version: 1;
 
   /**
    * A generic Tenants client. 
@@ -35,7 +35,7 @@ export class PlatformClient extends Client {
    */
   auth: Auth;
 
-  constructor (apiKey: string, version : 1 = 1, debug = false, stage: Stage = 'PROD') {
+  constructor(apiKey: string, version: 1 = 1, debug = false, stage: Stage = 'PROD') {
     super(null, debug);
     this.apiKey = apiKey;
     this.version = version;
@@ -52,7 +52,7 @@ export class PlatformClient extends Client {
 
     this._log(`Initialized PlatformClient in stage ${this.stage} with base url: ${this.getApiBaseUrl(stage)}, apiKey: ${apiKey.substring(0, 5)}...`);
   }
-  
+
   /** **Internal functionality. Do not use this function** */
   getPlatformClient(): PlatformClient {
     return this;
@@ -65,7 +65,7 @@ export class PlatformClient extends Client {
 
   /** **Internal functionality. Do not use this function** */
   getHeaders(): Record<string, string> {
-    return {"x-api-key": this.apiKey};
+    return { "x-api-key": this.apiKey };
   }
 
   /**
@@ -85,7 +85,7 @@ export class PlatformClient extends Client {
    * @returns Returns AppModel
    */
   async getApp(): Promise<AppModel> {
-    const response = await this.httpClient.get<AppModel>('/app', {headers: this.getHeaders()});
+    const response = await this.httpClient.get<AppModel>('/app', { headers: this.getHeaders() });
     return response.data;
   }
 
@@ -107,7 +107,7 @@ export class PlatformClient extends Client {
    * @returns Returns AppModel
    */
   async updateApp(model: Partial<Omit<AppModel, "id" | "domain">>): Promise<AppModel> {
-    return (await this.httpClient.put<AppModel>('/app', model, {headers: this.getHeaders()})).data;
+    return (await this.httpClient.put<AppModel>('/app', model, { headers: this.getHeaders() })).data;
   }
 
   /**
@@ -116,8 +116,8 @@ export class PlatformClient extends Client {
    * 
    * E.g. Stripe integration, social login providers like Google, Facebook, Github etc.
    */
-   async updateAppCredentials(credentials: Record<string, string>): Promise<void> {
-    
+  async updateAppCredentials(credentials: Record<string, string>): Promise<void> {
+
   }
 
   /**
@@ -125,7 +125,7 @@ export class PlatformClient extends Client {
    * Create a checkout session with Stripe. Use the resulting session id to redirect users to Stripe Checkout using the Stripe SDK. https://stripe.com/docs/billing/subscriptions/checkout#add-redirect
    */
   async createCheckoutSession(): Promise<void> {
-    
+
   }
 
   /** **Internal functionality. Do not use this function** */
@@ -149,7 +149,7 @@ export class PlatformClient extends Client {
       }
       return response;
     }, function (error: AxiosError) {
-      
+
       if (debug) {
         console.log("Error response:", `Http status: ${error.response.status}`, error.response.data);
       }
@@ -166,7 +166,7 @@ export class PlatformClient extends Client {
         case 403:
           customError = new ForbiddenError(error.response.data);
           break;
-      
+
         default:
           customError = new ClientError(error.response.data);
           break;

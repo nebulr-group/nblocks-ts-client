@@ -2,13 +2,15 @@ import { Client } from '../../../abstracts/client';
 import { Tenant } from '../tenant';
 import { RedirectErrorEventDto } from './models/redirect-error-event.dto';
 import { RedirectRuleDto } from './models/redirect-rule.dto';
+import { SendEmailRequestDto } from './models/send-email-request.dto';
+import { SendEmailResponseDto } from './models/send-email-response.dto';
 
 export class CommunicationClient extends Client {
 
   private readonly BASE_URLS = {
-    'PROD':'https://communication-api.nebulr-core.com',
-    'STAGE':'https://communication-api-stage.nebulr-core.com',
-    'DEV':'http://communication-api:3000'
+    'PROD': 'https://communication-api.nebulr-core.com',
+    'STAGE': 'https://communication-api-stage.nebulr-core.com',
+    'DEV': 'http://communication-api:3000'
   };
 
   constructor (parentEntity: Tenant, debug = false) {
@@ -60,10 +62,11 @@ export class CommunicationClient extends Client {
   /**
    * Send an email to anyone.
    * @param args 
+   * @returns SendEmailResponseDto
    */
-  // async sendEmail(args: SendEmailRequestDto): Promise<void> {
-  //   await this.getHttpClient().post<string>(`email/send`, args, { headers: this.getHeaders()});
-  // }
+  async sendEmail(args: SendEmailRequestDto): Promise<SendEmailResponseDto> {
+    return (await this.getHttpClient().post<SendEmailResponseDto>(`email/send`, args, { headers: this.getHeaders() })).data;
+  }
 
   /**
    * Send an SMS to anyone
@@ -86,7 +89,7 @@ export class CommunicationClient extends Client {
    * Gets the base url by fetching current stage from Platform
    * @returns 
    */
-   private _getBaseUrl(): string {
+  private _getBaseUrl(): string {
     return process.env.NEBULR_COMMUNICATION_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
   }
 }

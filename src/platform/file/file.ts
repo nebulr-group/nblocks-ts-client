@@ -9,6 +9,8 @@ import { FinishUploadArgs } from './models/finish-upload-args';
 import { FinishUploadRequestDto } from './models/finish-upload-request.dto';
 import { DeleteFileArgs } from './models/delete-file-args';
 import { DeleteFileRequestDto } from './models/delete-file-request.dto';
+import { CreateZipArgs } from './models/create-zip-args';
+import { CreateZipRequestDto } from './models/create-zip-request.dto';
 
 export class FileClient extends Client {
 
@@ -61,12 +63,12 @@ export class FileClient extends Client {
 
   /**
    * Delete an object from storage
-   * @param key 
+   * @param args 
    * @returns 
    */
   async delete(args: DeleteFileArgs): Promise<void> {
-    const reqArgs: DeleteFileRequestDto = {...args, tenantId: this.tenantId};
-    return (await this.getHttpClient().post(`file/delete`, reqArgs, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
+    const reqArgs: DeleteFileRequestDto = { ...args, tenantId: this.tenantId };
+    return (await this.getHttpClient().post(`file/delete`, reqArgs, { headers: this.getHeaders(), baseURL: this._getBaseUrl() })).data;
   }
 
   /**
@@ -90,12 +92,12 @@ export class FileClient extends Client {
       const contentLength:number = await new Promise((resolve, reject) => {
         formData.getLength((err, length) => {
             if(err) { reject(err); }
-            resolve(length);
+          resolve(length);
         });
-    });
+      });
 
     await axios.create().post(uploadSession.session.url, formData, {headers: {...formData.getHeaders(), 'Content-Length': contentLength}});
-    
+
     } catch (error) {
       console.error(error);
       throw new Error(`Could not upload file due to error`)
@@ -104,6 +106,16 @@ export class FileClient extends Client {
     const {persist, publicFile, removeMetaData} = options;
     const signedUrl = await this.finishUploadSession({key: uploadSession.key, persist, publicFile, removeMetaData});
     return {key: uploadSession.key, signedUrl};
+  }
+
+  /**
+  * Initiate creation of zip archive for provided files keys
+  * @param args 
+  * @returns Returns a signed URL for temporary access to the zip object and key of the zip object
+  */
+  async createZipFile(args: CreateZipArgs): Promise<string> {
+    const reqArgs: CreateZipRequestDto = { ...args, tenantId: this.tenantId };
+    return (await this.getHttpClient().post<string>(`file/createZipFile`, reqArgs, { headers: this.getHeaders(), baseURL: this._getBaseUrl() })).data;
   }
 
   /**
