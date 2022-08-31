@@ -5,7 +5,7 @@ export class CreateZipRequestDto {
 }
 
 export class ZipProps {
-  zippedFileKey: string;
+  zippedFileName: string;
   files: ZipPropsFile[]
 };
 
