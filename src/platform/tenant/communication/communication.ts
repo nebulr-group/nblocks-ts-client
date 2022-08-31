@@ -13,7 +13,7 @@ export class CommunicationClient extends Client {
     'DEV': 'http://communication-api:3000'
   };
 
-  constructor (parentEntity: Tenant, debug = false) {
+  constructor(parentEntity: Tenant, debug = false) {
     super(parentEntity, debug);
     this._log(`Initialized CommunicationClient with url: ${this._getBaseUrl()}`);
   }
@@ -64,9 +64,9 @@ export class CommunicationClient extends Client {
    * @param args 
    * @returns SendEmailResponseDto
    */
-  async sendEmail(args: SendEmailRequestDto): Promise<SendEmailResponseDto> {
-    return (await this.getHttpClient().post<SendEmailResponseDto>(`email/send`, args, { headers: this.getHeaders() })).data;
-  }
+  // async sendEmail(args: SendEmailRequestDto): Promise<SendEmailResponseDto> {
+  //   return (await this.getHttpClient().post<SendEmailResponseDto>(`email/send`, args, { headers: this.getHeaders() })).data;
+  // }
 
   /**
    * Send an SMS to anyone

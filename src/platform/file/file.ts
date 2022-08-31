@@ -11,6 +11,7 @@ import { DeleteFileArgs } from './models/delete-file-args';
 import { DeleteFileRequestDto } from './models/delete-file-request.dto';
 import { CreateZipArgs } from './models/create-zip-args';
 import { CreateZipRequestDto } from './models/create-zip-request.dto';
+import { CreateZipResponseDto } from './models/create-zip-response.dto';
 
 export class FileClient extends Client {
 
@@ -111,11 +112,15 @@ export class FileClient extends Client {
   /**
   * Initiate creation of zip archive for provided files keys
   * @param args 
-  * @returns Returns a signed URL for temporary access to the zip object and key of the zip object
+  * @returns Returns Key of the zip object
   */
-  async createZipFile(args: CreateZipArgs): Promise<string> {
+  async createZipFile(args: CreateZipArgs): Promise<CreateZipResponseDto> {
     const reqArgs: CreateZipRequestDto = { ...args, tenantId: this.tenantId };
-    return (await this.getHttpClient().post<string>(`file/createZipFile`, reqArgs, { headers: this.getHeaders(), baseURL: this._getBaseUrl() })).data;
+    return (await this.getHttpClient().post<CreateZipResponseDto>(
+      `file/createZipFile`,
+      reqArgs,
+      { headers: this.getHeaders(), baseURL: this._getBaseUrl() }
+    )).data;
   }
 
   /**
