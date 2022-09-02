@@ -43,7 +43,7 @@ export class FileClient extends Client {
 
   /**
    * Mark the uploading session as finished and returns a signed URL for temporary access to the object
-   * Don't forget to provide `persist:true` if you wish to have the object saved. Otherwise the object will expire within 24h
+   * Provide `persist:true` if you wish to have the object saved. Otherwise the object will expire within 24h
    * If the uploaded file is an image, two thumbnails will be created alongside for later retrieval
    * @param args 
    * @returns 
@@ -51,6 +51,17 @@ export class FileClient extends Client {
   async finishUploadSession(args: FinishUploadArgs): Promise<string> {
     const reqArgs: FinishUploadRequestDto = {...args, tenantId: this.tenantId};
     return (await this.getHttpClient().post<string>(`upload/finish`, reqArgs, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
+  }
+
+  /**
+   * Persists an uploaded file. Shorthand for `finishUploadSession` but with persist:true.
+   * If the uploaded file is an image, two thumbnails will be created alongside for later retrieval
+   * @param args 
+   * @returns 
+   */
+  async persistUploadedFile(args: Pick<FinishUploadArgs, 'key' | 'publicFile' | 'removeMetaData'>): Promise<string> {
+    const res = await this.finishUploadSession({...args, ...{persist: true}});
+    return res;
   }
 
   /**

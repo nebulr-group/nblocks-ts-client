@@ -1,8 +1,8 @@
 import { Client } from '../../abstracts/client';
 import { Tenant } from '../tenant/tenant';
-import { CreateFromHtmlArgsDto } from './models/create-from-html-args.dto';
-import { CreateFromHtmlRequestDto } from './models/create-from-html-request.dto';
-import { CreateFromHtmlResponseDto } from './models/create-from-html-response.dto';
+import { CreateArgsDto } from './models/create-args.dto';
+import { CreateRequestDto } from './models/create-request.dto';
+import { CreateResponseDto } from './models/create-response.dto';
 import { CreatePresignedPostResponseDto } from '../file/models/create-presigned-post-response.dto';
 
 export class PdfServiceClient extends Client {
@@ -22,19 +22,36 @@ export class PdfServiceClient extends Client {
 
   /**
    * Generate PDF file on the base of provided HTML file
-   * @param args 
+   * @param args CreateArgsDto
    * 
-   * @returns Zip file AWS S3 key
+   * @returns CreateResponseDto
    */
-  async createFromHtml(args: CreateFromHtmlArgsDto): Promise<CreateFromHtmlResponseDto> {
-    const reqArgs: CreateFromHtmlRequestDto = { ...args, tenantId: this.tenantId };
-    const session = (await this.getHttpClient().post<CreatePresignedPostResponseDto>(
+  async createFromHtml(args: CreateArgsDto): Promise<CreateResponseDto> {
+    const reqArgs: CreateRequestDto = { ...args, tenantId: this.tenantId };
+    const response = (await this.getHttpClient().post<CreateResponseDto>(
       `pdf/createFromHtml`,
       reqArgs,
       { headers: this.getHeaders(), baseURL: this._getBaseUrl() })
     ).data;
-    return { key: session.fields['key'] };
+    return response;
   }
+
+  /**
+   * Generate PDF file based on URL
+   * @param args CreateArgsDto
+   * 
+   * @returns CreateResponseDto
+   */
+   async createFromUrl(args: CreateArgsDto): Promise<CreateResponseDto> {
+    const reqArgs: CreateRequestDto = { ...args, tenantId: this.tenantId };
+    const response = (await this.getHttpClient().post<CreateResponseDto>(
+      `pdf/createFromHtml`,
+      reqArgs,
+      { headers: this.getHeaders(), baseURL: this._getBaseUrl() })
+    ).data;
+    return response;
+  }
+  
 
   /**
   * Gets the base url by fetching current stage from Platform

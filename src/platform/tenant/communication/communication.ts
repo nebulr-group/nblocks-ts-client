@@ -72,6 +72,7 @@ export class CommunicationClient extends Client {
    * Send an SMS to anyone
    * @param args 
    */
+  // Don't implement like this, communication controller in account-api is deprecated
   // async sendSms(args: { to: string, text: string }): Promise<void> {
   //   await this.getHttpClient().post<string>(`communication/sms`, args, { headers: this.getHeaders()});
   // }
@@ -81,6 +82,7 @@ export class CommunicationClient extends Client {
    * @param args 
    * @returns `SendOtpSmsResponseDto` containing the generated OTP
    */
+    // Don't implement like this, communication controller in account-api is deprecated
   // async sendOtpSms(args: { to: string, locale: 'en' | 'sv' | string }): Promise<SendOtpSmsResponseDto> {
   //   return (await this.getHttpClient().post<SendOtpSmsResponseDto>(`communication/smsOtp`, args, { headers: this.getHeaders()})).data;
   // }
