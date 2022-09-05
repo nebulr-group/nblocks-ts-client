@@ -3,7 +3,6 @@ import { Tenant } from '../tenant/tenant';
 import { CreateArgsDto } from './models/create-args.dto';
 import { CreateRequestDto } from './models/create-request.dto';
 import { CreateResponseDto } from './models/create-response.dto';
-import { CreatePresignedPostResponseDto } from '../file/models/create-presigned-post-response.dto';
 
 export class PdfServiceClient extends Client {
 
