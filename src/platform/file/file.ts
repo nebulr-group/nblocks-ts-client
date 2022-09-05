@@ -9,6 +9,9 @@ import { FinishUploadArgs } from './models/finish-upload-args';
 import { FinishUploadRequestDto } from './models/finish-upload-request.dto';
 import { DeleteFileArgs } from './models/delete-file-args';
 import { DeleteFileRequestDto } from './models/delete-file-request.dto';
+import { CreateZipArgs } from './models/create-zip-args';
+import { CreateZipRequestDto } from './models/create-zip-request.dto';
+import { CreateZipResponseDto } from './models/create-zip-response.dto';
 
 export class FileClient extends Client {
 
@@ -40,7 +43,7 @@ export class FileClient extends Client {
 
   /**
    * Mark the uploading session as finished and returns a signed URL for temporary access to the object
-   * Don't forget to provide `persist:true` if you wish to have the object saved. Otherwise the object will expire within 24h
+   * Provide `persist:true` if you wish to have the object saved. Otherwise the object will expire within 24h
    * If the uploaded file is an image, two thumbnails will be created alongside for later retrieval
    * @param args 
    * @returns 
@@ -48,6 +51,17 @@ export class FileClient extends Client {
   async finishUploadSession(args: FinishUploadArgs): Promise<string> {
     const reqArgs: FinishUploadRequestDto = {...args, tenantId: this.tenantId};
     return (await this.getHttpClient().post<string>(`upload/finish`, reqArgs, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
+  }
+
+  /**
+   * Persists an uploaded file. Shorthand for `finishUploadSession` but with persist:true.
+   * If the uploaded file is an image, two thumbnails will be created alongside for later retrieval
+   * @param args 
+   * @returns 
+   */
+  async persistUploadedFile(args: Pick<FinishUploadArgs, 'key' | 'publicFile' | 'removeMetaData'>): Promise<string> {
+    const res = await this.finishUploadSession({...args, ...{persist: true}});
+    return res;
   }
 
   /**
@@ -61,12 +75,12 @@ export class FileClient extends Client {
 
   /**
    * Delete an object from storage
-   * @param key 
+   * @param args 
    * @returns 
    */
   async delete(args: DeleteFileArgs): Promise<void> {
-    const reqArgs: DeleteFileRequestDto = {...args, tenantId: this.tenantId};
-    return (await this.getHttpClient().post(`file/delete`, reqArgs, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
+    const reqArgs: DeleteFileRequestDto = { ...args, tenantId: this.tenantId };
+    return (await this.getHttpClient().post(`file/delete`, reqArgs, { headers: this.getHeaders(), baseURL: this._getBaseUrl() })).data;
   }
 
   /**
@@ -90,12 +104,12 @@ export class FileClient extends Client {
       const contentLength:number = await new Promise((resolve, reject) => {
         formData.getLength((err, length) => {
             if(err) { reject(err); }
-            resolve(length);
+          resolve(length);
         });
-    });
+      });
 
     await axios.create().post(uploadSession.session.url, formData, {headers: {...formData.getHeaders(), 'Content-Length': contentLength}});
-    
+
     } catch (error) {
       console.error(error);
       throw new Error(`Could not upload file due to error`)
@@ -104,6 +118,20 @@ export class FileClient extends Client {
     const {persist, publicFile, removeMetaData} = options;
     const signedUrl = await this.finishUploadSession({key: uploadSession.key, persist, publicFile, removeMetaData});
     return {key: uploadSession.key, signedUrl};
+  }
+
+  /**
+  * Initiate creation of zip archive for provided files keys
+  * @param args 
+  * @returns Returns Key of the zip object
+  */
+  async createZipFile(args: CreateZipArgs): Promise<CreateZipResponseDto> {
+    const reqArgs: CreateZipRequestDto = { ...args, tenantId: this.tenantId };
+    return (await this.getHttpClient().post<CreateZipResponseDto>(
+      `file/createZipFile`,
+      reqArgs,
+      { headers: this.getHeaders(), baseURL: this._getBaseUrl() }
+    )).data;
   }
 
   /**
