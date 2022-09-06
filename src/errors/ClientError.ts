@@ -4,16 +4,15 @@ export class ClientError extends Error {
     errorCode:string;
     details: NblocksErrorData;
 
-    constructor(data: NblocksErrorData | string, httpStatus?: number, ) {
+    constructor(data: NblocksErrorData | string | undefined, httpStatus?: number, ) {
         if(typeof data === 'string') {
             super(data);
             this.httpStatus = httpStatus ? httpStatus : 0;
         } else {
-            super(data.message);
-            this.errorCode = data.error;
+            super(data?.message);
+            this.errorCode = data?.error;
             this.details = data;
-            this.httpStatus = httpStatus ? httpStatus : data.statusCode;
+            this.httpStatus = httpStatus ? httpStatus : data?.statusCode;
         }
-        
     }
 }

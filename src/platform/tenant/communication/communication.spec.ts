@@ -1,24 +1,41 @@
-import { PlatformClient, Stage } from "../../platform-client";
-import * as testData from '../../../../test/testData.json'
+import { PlatformClient } from "../../platform-client";
+import * as createRuleMock from '../../../../test/create-redirect-rule-response.mock.json';
+import * as listRulesMock from '../../../../test/list-redirect-rules-response.mock.json';
+import * as updateRuleMock from '../../../../test/update-redirect-rule-response.mock.json';
+import * as listRuleErrorsMock from '../../../../test/list-redirect-rule-errors-response.mock.json';
 import { CommunicationClient } from "./communication";
 import { RedirectRuleDto } from "./models/redirect-rule.dto";
+import MockAdapter from "axios-mock-adapter";
 
 describe('Communcation client', () => {
 
-    let client: CommunicationClient;
+    let comClient: CommunicationClient;
 
     let redirectRule:RedirectRuleDto;
 
+    let mockApi: MockAdapter;
     beforeAll(() => {
-        client = new PlatformClient(testData.API_KEY, 1, true, testData.STAGE as Stage).tenant(testData.TENANT).communicationClient;
+        const client = new PlatformClient("SECRET", 1, false, 'DEV');
+        mockApi = new MockAdapter(client["httpClient"]);
+        comClient = client.tenant("1234").communicationClient
+    });
+
+    beforeEach(() => {
+        mockApi.reset();
     });
 
     test('Create redirect rule', async () => {
-        const rule = await client.createVoiceRedirectRule(
+        mockApi.onPost("/voice/redirectRule").reply(200, createRuleMock);
+        const rule = await comClient.createVoiceRedirectRule(
             {
                 anonymous: true,
                 phoneNumber: "+4612345678",
-                targets: [],
+                targets: [
+                    {
+                        "phoneNumber": "+46987654321",
+                        "available": true
+                    }
+                ],
             }
         );
         redirectRule = rule;
@@ -26,28 +43,32 @@ describe('Communcation client', () => {
     });
 
     test('List redirect rules', async () => {
-        const rules = await client.listVoiceRedirectRules();
+        mockApi.onGet("/voice/redirectRule").reply(200, listRulesMock);
+        const rules = await comClient.listVoiceRedirectRules();
         expect(rules.length).toBeGreaterThanOrEqual(1);
     });
     
     test('List redirect rule errors', async () => {
-        const errors = await client.listVoiceRedirectErrors("626167b8b28ce80009ab319a");
+        mockApi.onGet(`/voice/redirectRule/errors/${redirectRule.id!}/3`).reply(200, listRuleErrorsMock);
+        const errors = await comClient.listVoiceRedirectErrors(redirectRule.id!, 3);
         expect(errors).toBeDefined();
     });
 
     test('Update redirect rule', async () => {
+        mockApi.onPut("/voice/redirectRule").reply(200, updateRuleMock);
         redirectRule.targets.push({
             available: true,
             name: "Oscar",
             phoneNumber: "+123456"
         })
-        const rule = await client.updateVoiceRedirectRule(redirectRule);
+        const rule = await comClient.updateVoiceRedirectRule(redirectRule);
         expect(rule).toBeDefined();
-        expect(rule.targets).toHaveLength(1);
+        expect(rule.targets).toHaveLength(2);
     });
 
     test('Delete redirect rule', async () => {
-        await client.deleteVoiceRedirectRule(redirectRule.id);
+        mockApi.onDelete(`/voice/redirectRule/${redirectRule.id}`).reply(200);
+        await comClient.deleteVoiceRedirectRule(redirectRule.id!);
     });
 
     // test('Send an email to anyone', async () => {

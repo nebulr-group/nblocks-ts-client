@@ -7,6 +7,8 @@ import { Client } from '../abstracts/client';
 import { UnauthenticatedError } from '../errors/UnauthenticatedError';
 import { ForbiddenError } from '../errors/ForbiddenError';
 import { ClientError } from '../errors/ClientError';
+import { NotFoundError } from '../errors/NotFoundError';
+import { UpdateCredentials } from './models/update-credentials-request.dto';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
@@ -111,13 +113,13 @@ export class PlatformClient extends Client {
   }
 
   /**
-   * TODO FIX THIS
-   * Store sensitive credentials for your app so nBlocks can authorize with 3d party services on your behalf.
+   * Store sensitive credentials for your app so NBlocks can authorize with 3d party services on your behalf.
+   * These credentials are never outputted back again
    * 
    * E.g. Stripe integration, social login providers like Google, Facebook, Github etc.
    */
-  async updateAppCredentials(credentials: Record<string, string>): Promise<void> {
-
+  async updateAppCredentials(credentials: UpdateCredentials): Promise<void> {
+    await this.httpClient.put<void>('/app/credentials', credentials, { headers: this.getHeaders() });
   }
 
   /**
@@ -165,6 +167,10 @@ export class PlatformClient extends Client {
 
         case 403:
           customError = new ForbiddenError(error.response.data);
+          break;
+
+        case 404:
+          customError = new NotFoundError(error.response.data);
           break;
 
         default:
