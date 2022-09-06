@@ -42,11 +42,12 @@ export class FileClient extends Client {
   }
 
   /**
-   * Mark the uploading session as finished and returns a signed URL for temporary access to the object
+   * Mark the uploading session as finished and returns a signed URL for temporary access to the object.
+   * 
    * Provide `persist:true` if you wish to have the object saved. Otherwise the object will expire within 24h
    * If the uploaded file is an image, two thumbnails will be created alongside for later retrieval
    * @param args 
-   * @returns 
+   * @returns Returns a signed URL for temporary access to the object
    */
   async finishUploadSession(args: FinishUploadArgs): Promise<string> {
     const reqArgs: FinishUploadRequestDto = {...args, tenantId: this.tenantId};
@@ -57,7 +58,7 @@ export class FileClient extends Client {
    * Persists an uploaded file. Shorthand for `finishUploadSession` but with persist:true.
    * If the uploaded file is an image, two thumbnails will be created alongside for later retrieval
    * @param args 
-   * @returns 
+   * @returns Returns a signed URL for temporary access to the object
    */
   async persistUploadedFile(args: Pick<FinishUploadArgs, 'key' | 'publicFile' | 'removeMetaData'>): Promise<string> {
     const res = await this.finishUploadSession({...args, ...{persist: true}});
@@ -65,9 +66,19 @@ export class FileClient extends Client {
   }
 
   /**
-   * Get signed URLs for temporary access to objects saved before
+   * Gets a single signed url from a file that has not been persisted yet. This can be done as long as the object has not expired (24h).
+   * @param key 
+   * @returns Returns a signed URL for temporary access to the object
+   */
+   async getSignedUrlForNonPersistedObject(key: string): Promise<string> {
+    const res = await this.finishUploadSession({key});
+    return res;
+  }
+
+  /**
+   * Get signed URLs for temporary access to persisted private objects
    * @param keys 
-   * @returns 
+   * @returns Returns a signed URL for temporary access to the object
    */
   async getSignedUrls(keys: string[]): Promise<string []> {
     return (await this.getHttpClient().post<string []>(`file/signedUrl`, {keys, tenantId: this.tenantId}, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
