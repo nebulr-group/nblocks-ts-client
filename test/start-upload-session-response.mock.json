@@ -1,0 +1,15 @@
+{
+    "url": "https://s3.eu-west-1.amazonaws.com/file-upload-bucket",
+    "fields": {
+        "key": "624c14cc0c01e70033356282/624c14cc0c01e70033356285/05f71f5e-b1cc-42af-a8a5-8c4be7ee823c/aa866bce-311a-4f68-9166-e31311d48f99.png",
+        "acl": "private",
+        "x-amz-server-side-encryption": "AES256",
+        "Content-Type": "image/png",
+        "bucket": "file-upload-bucket",
+        "X-Amz-Algorithm": "AWS4-HMAC-SHA256",
+        "X-Amz-Credential": "OIFJAIOSJDSA/20220906/eu-west-1/s3/aws4_request",
+        "X-Amz-Date": "20220906T150954Z",
+        "Policy": "HGHJALKJSHDKASJHsajhdlkasjhdklahsdlajkshdlkjashd=",
+        "X-Amz-Signature": "g79a78ds6das9878d68as"
+    }
+}
