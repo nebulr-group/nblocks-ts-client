@@ -1,0 +1,11 @@
+{
+    "id":"63176dd2e8cea9003ac2847f",
+    "phoneNumber":"+4612345678",
+    "targets":[
+        {
+            "phoneNumber":"+46987654321",
+            "available":true
+        }
+    ],
+    "anonymous":false
+}

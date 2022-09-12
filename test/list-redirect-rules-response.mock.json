@@ -1,0 +1,46 @@
+[
+    {
+        "id":"625ed1bdb14e5304e85b940e",
+        "phoneNumber":"+4610123456",
+        "targets":[
+            {
+                "available":true,
+                "name":null,
+                "phoneNumber":"+461234567"
+            },
+            {
+                "available":false,
+                "name":null,
+                "phoneNumber":"+461234567"
+            },
+            {
+                "available":true,
+                "name":"John Doe",
+                "phoneNumber":"+461234567"
+            }
+        ],
+        "anonymous":true
+    },
+    {
+        "id":"625ed1bdb14e5304e85b940b",
+        "phoneNumber":"+4610123457",
+        "targets":[
+            {
+                "available":true,
+                "name":null,
+                "phoneNumber":"+461234567"
+            },
+            {
+                "available":false,
+                "name":null,
+                "phoneNumber":"+461234567"
+            },
+            {
+                "available":true,
+                "name":"John Doe",
+                "phoneNumber":"+461234567"
+            }
+        ],
+        "anonymous":true
+    }
+]
