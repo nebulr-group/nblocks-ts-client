@@ -1,0 +1,46 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+updates:
+  - package-ecosystem: "npm" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    # Raise pull requests for version updates
+    # to npm against the `develop` branch,
+    # Note: When you use this option, the settings for this package manager will no longer affect any pull requests raised for security update.
+    target-branch: "develop"
+    schedule:
+      interval: "daily"
+      time: "09:00"
+      timezone: "Europe/Stockholm"
+    # Dependabot generates a branch for each pull request. Each branch name includes 'dependabot',
+    # and the package manager and dependency that are updated. By default these parts are separated by a / symbol.
+    # for example: dependabot/npm_and_yarn/next_js/acorn-6.4.1
+    pull-request-branch-name:
+      # Separate sections of the branch name with a hyphen
+      # for example, `dependabot-npm-axios-0.21.2`
+      separator: "-"
+    # Add assignees, this also affects pull requests for security updates to the manifest files of this package manager
+    # Note: In comparison to an Assignee, who is directly responsible for creating or merging a merge request,
+    # a Reviewer is a team member who may only be involved in one aspect of the merge request, such as a peer review.
+    assignees:
+      - "nemanja255"
+    # reviewers:
+    # - "username"
+    # - "organization" # Full team name including the organization
+    # Specify version number that bot should ignore, preventing major version incomputable changes.
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    # Uncomment if you want to limit the number of open pull requests dependabot can make
+    # By default Dependabot opens a maximum of five pull requests for version updates.
+    # This does not affect pull requests for security updates.
+    # open-pull-requests-limit: 10
+    commit-message:
+      # Prefix all production version bump commit messages with "npm prod" followed by package name and from-to versions.
+      # Prefix all development version bump commit messages with "npm dev", followed by package name and from-to versions.
+      prefix: "npm prod"
+      prefix-development: "npm dev"
+      include: "scope"
