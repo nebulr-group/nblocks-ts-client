@@ -22,8 +22,6 @@ jobs:
           tags: nblocks-ts-client:latest
           target: test
           outputs: type=docker,dest=/tmp/nblocks-ts-client.tar
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           platforms: linux/amd64
       # Upload Docker Image Artifact
       - name: Step 3 - Upload Artifact
@@ -65,8 +63,6 @@ jobs:
           load: true
           tags: ${{ github.run_id }}
           target: test
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
           platforms: linux/amd64
       # Run container using the image aboce and run the publish script
       - name: Step 3 - Publish package to the npm
