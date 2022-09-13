@@ -14,14 +14,8 @@ jobs:
     steps:
       - name: Step 1 - Checkout Github Repository
         uses: actions/checkout@v3
-      # Add parallel builds for multi platform support
-      - name: Step 2 - Set up QEMU
-        uses: docker/setup-qemu-action@v2
-      # The BuildKit Cache
-      - name: Step 3 - Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
       # Push to Docker Engine
-      - name: Step 4 - Build Image & Export to Docker Engine
+      - name: Step 2 - Build Image & Export to Docker Engine
         uses: docker/build-push-action@v2
         with:
           push: false
@@ -32,7 +26,7 @@ jobs:
           cache-to: type=gha,mode=max
           platforms: linux/amd64
       # Upload Docker Image Artifact
-      - name: Step 5 - Upload Artifact
+      - name: Step 3 - Upload Artifact
         uses: actions/upload-artifact@v3
         with:
           name: nblocks-ts-client
@@ -44,20 +38,14 @@ jobs:
       # Checkout Github Repository
       - name: Step 1 - Checkout Github Repository
         uses: actions/checkout@v3
-      # Add parallel builds for multi platform support
-      - name: Step 2 - Set up QEMU
-        uses: docker/setup-qemu-action@v2
-      # The BuildKit Cache
-      - name: Step 3 - Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
       # Download the Artifact Image
-      - name: Step 4 - Downloading Image Artifact
+      - name: Step 2 - Downloading Image Artifact
         uses: actions/download-artifact@v3
         with:
           name: nblocks-ts-client
           path: /tmp
       # For Unit tests (npm test, etc)
-      - name: Step 5 - Unit Testing in Docker
+      - name: Step 3 - Unit Testing in Docker
         run: |
           docker load --input /tmp/nblocks-ts-client.tar
           docker run --rm nblocks-ts-client:latest npm run test
@@ -69,14 +57,8 @@ jobs:
       # Checkout Github Repository
       - name: Step 1 - Checkout Github Repository
         uses: actions/checkout@v3
-        # Add parallel builds for multi platform support
-      - name: Step 2 - Set up QEMU
-        uses: docker/setup-qemu-action@v2
-      # The BuildKit Cache
-      - name: Step 3 - Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
       # If push and to master, then build the image and run it with npm run npm-publish
-      - name: Step 7 - Build Image and Export to Docker Engine
+      - name: Step 2 - Build Image and Export to Docker Engine
         uses: docker/build-push-action@v2
         with:
           push: false
@@ -87,6 +69,6 @@ jobs:
           cache-to: type=gha,mode=max
           platforms: linux/amd64
       # Run container using the image aboce and run the publish script
-      - name: Step 8 - Publish package to the npm
+      - name: Step 3 - Publish package to the npm
         run: |
           docker run -e NPM_TOKEN=${{ secrets.NPM_TOKEN }} --rm ${{ github.run_id }} /bin/bash -c "sh ./publish.sh; npm run npm-publish"
