@@ -1,0 +1,3 @@
+# The Dockerfile refers to the file specified in a instruction, for example, a COPY instruction.
+# To increase build performance, exclude files and directories by adding a .dockerignore file and add node_modules directory in it
+node_modules
