@@ -1,34 +1,47 @@
-import * as testData from '../../../test/testData.json'
-import { PlatformClient, Stage } from '../platform-client';
+import MockAdapter from 'axios-mock-adapter';
+import * as listTenantsMock from '../../../test/list-tenants-response.mock.json';
+import * as createTenantsMock from '../../../test/create-tenant-response.mock.json';
+import * as tenantMock from '../../../test/tenant-response.mock.json';
+import * as translateMock from '../../../test/translate-response.mock.json';
+import * as customerPortalMock from '../../../test/customer-portal-response.mock.json';
+import { PlatformClient } from '../platform-client';
 
 describe('Tenant client', () => {
 
     let client: PlatformClient;
     let newTenantId: string;
+
+    let mockApi: MockAdapter;
     beforeAll(() => {
-        client = new PlatformClient(testData.API_KEY, 1, true, testData.STAGE as Stage);
+        client = new PlatformClient("SECRET", 1, false, 'DEV');
+        mockApi = new MockAdapter(client["httpClient"]);
+    });
+
+    beforeEach(() => {
+        mockApi.reset();
     });
 
     // Generic calls without ID -------------------------------------------------
     
     test('List tenants', async () => {
+        mockApi.onGet("/tenant").reply(200, listTenantsMock);
         const response = await client.tenants.list();
         expect(response.length).toBeGreaterThan(0);
     });
 
-    // Reactivate as soon as we can remove tenants
     test('Create a tenant', async () => {
+        mockApi.onPost("/tenant").reply(200, createTenantsMock);
         const response = await client.tenants.create({
-            name: "Platform TS Lib test",
+            name: "New Company Ltd",
             plan: "TEAM",
-            email: testData.USERNAME,
+            email: "john@example.com",
             metadata: {
-                deleteMe: "true"
+                VIP: "true"
             }
         });
         expect(response.id).toBeDefined();
-        expect(response.metadata["deleteMe"]).toBe("true");
-        expect(response.name).toBe("Platform TS Lib test");
+        expect(response.metadata!["VIP"]).toBeTruthy();
+        expect(response.name).toBe("New Company Ltd");
         newTenantId = response.id;
     });
 
@@ -39,29 +52,32 @@ describe('Tenant client', () => {
     // });
 
     test('Get tenant model', async () => {
-        const response = await client.tenant(testData.TENANT).get();
-        expect(response.id).toBe(testData.TENANT);
+        mockApi.onGet(`/tenant/byId/${newTenantId}`).reply(200, tenantMock);
+        const response = await client.tenant(newTenantId).get();
+        expect(response.id).toBeDefined;
     });
 
     test('Update a tenants logo and locale', async () => {
-        const logo = new Date().toISOString();
-        const response = await client.tenant(testData.TENANT).update({
-             logo, locale: 'en'
+        mockApi.onPut(`/tenant/${newTenantId}`).reply(200, tenantMock);
+        const response = await client.tenant(newTenantId).update({
+             logo: "http://path/to/logo.png",
+             locale: 'en'
         });
-        expect(response.logo).toBe(logo);
+        expect(response.id).toBeDefined();
     });
 
     test('Translate text to Tenant language', async () => {
-        const text = "Hur gammal är du?"
-        const response = await client.tenant(testData.TENANT).translateText({
+        mockApi.onPost(`/tenant/translate/text`).reply(200, translateMock);
+        const response = await client.tenant(newTenantId).translateText({
             sourceLanguage: 'sv',
-            text
+            text: "How old are you?"
         });
-        expect(response.translatedText).toBe("How old are you?");
+        expect(response.translatedText).toBe("Hur gammal är du?");
     });
 
-    // test('Get Customer Portal Url', async () => {
-    //     const response = await client.tenant(testData.TENANT).getStripeCustomerPortalUrl();
-    //     expect(response.url).toBeDefined();
-    // });
+    test('Get Customer Portal Url', async () => {
+        mockApi.onGet(`/tenant/customerPortal`).reply(200, customerPortalMock);
+        const response = await client.tenant(newTenantId).getStripeCustomerPortalUrl();
+        expect(response.url).toBeDefined();
+    });
 })

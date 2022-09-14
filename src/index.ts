@@ -16,10 +16,17 @@ import { DeauthenticateResponse } from './platform/auth/models/deauthenticated-r
 import { ForbiddenError } from './errors/ForbiddenError';
 import { ClientError } from './errors/ClientError';
 import { FinishUploadArgs } from './platform/file/models/finish-upload-args';
+import { NotFoundError } from './errors/NotFoundError';
+import { FileClient } from './platform/file/file';
+import { PdfServiceClient } from './platform/pdf/pdf';
+import { CommunicationClient } from './platform/tenant/communication/communication';
 
 export { 
     AppModel, 
     PlatformClient, 
+    FileClient,
+    PdfServiceClient,
+    CommunicationClient,
     EventWebhookDto, 
     AuthorizeResponseDto, 
     TenantUserResponseDto, 
@@ -34,6 +41,7 @@ export {
     UpdateUserInfoRequestDto,
     UnauthenticatedError,
     ForbiddenError,
+    NotFoundError,
     ClientError,
     FinishUploadArgs
 }

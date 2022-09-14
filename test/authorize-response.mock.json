@@ -1,0 +1,18 @@
+{
+    "granted": true,
+    "user": {
+        "id": "624c14cc0c01e7003335628e",
+        "role": "OWNER",
+        "email": "john@nebulr.group",
+        "username": "john@nebulr.group",
+        "fullName": "John Doe",
+        "onboarded": true,
+        "consentsToPrivacyPolicy": true,
+        "tenant": {
+            "id": "624c14cc0c01e70033356285",
+            "name": "Nebulr AB",
+            "locale": "en",
+            "logo": "https://nebulr-group.github.io/nblocks-docs/img/logo.png"
+        }
+    }
+}

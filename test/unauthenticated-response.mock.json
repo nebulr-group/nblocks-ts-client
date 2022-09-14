@@ -1,0 +1,5 @@
+{
+    "statusCode": 401,
+    "message": "You do not have access to this resource.",
+    "error": "NBLOCKS_UNAUTHORIZED_EXCEPTION"
+}
