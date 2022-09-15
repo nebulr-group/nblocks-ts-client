@@ -5,7 +5,7 @@ on:
     branches:
       - "*"
 env:
-  BUILD_IMAGE_NAME: nblocks-ts
+  BUILD_IMAGE_NAME: nblocks-ts-client
 # A workflow run is made up of one or more jobs that can run sequentially or parallel
 jobs:
   # The first job in this workflow is named build-image
