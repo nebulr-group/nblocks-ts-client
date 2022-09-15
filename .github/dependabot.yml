@@ -10,7 +10,7 @@ updates:
     # Raise pull requests for version updates
     # to npm against the `develop` branch,
     # Note: When you use this option, the settings for this package manager will no longer affect any pull requests raised for security update.
-    target-branch: "develop"
+    target-branch: "stage"
     schedule:
       interval: "daily"
       time: "09:00"
