@@ -29,6 +29,8 @@
       }
     }
   },
+  "workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind",
+  "workspaceFolder": "/app",
   //this improves container performance
   "mounts": [
     "target=${containerWorkspaceFolder}/node_modules,type=volume",
