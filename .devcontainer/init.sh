@@ -9,6 +9,7 @@ apt-get update
 apt-get -y install vim less jq curl
 
 echo "Configuring GIT"
+git config --global core.editor "vim"
 git config --global user.email $GIT_EMAIL
 git config --global user.name $GIT_NAME
 
