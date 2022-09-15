@@ -82,4 +82,4 @@ jobs:
       # Run container using the image aboce and run the publish script
       - name: Step 4 - Publish package to the npm
         run: |
-          docker run -e NPM_TOKEN=${{ secrets.NPM_TOKEN }} --rm ${{ github.run_id }} /bin/bash -c "sh ./publish.sh; npm run npm-publish"
+          docker run -e NPM_TOKEN=${{ secrets.NPM_TOKEN }} --rm ${{ github.run_id }} /bin/bash -c "sh ./npm-config-setter.sh; npm run npm-publish"
