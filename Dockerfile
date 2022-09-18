@@ -3,6 +3,7 @@
 # Supports ARM + x86-64
 # 'as base' allows us to refer to this build stage in other build stages
 FROM node:14-buster as base
+SHELL ["/bin/bash", "-c"]
 
 # Set the root working dir inside container
 # Use relative paths based on the working dir
