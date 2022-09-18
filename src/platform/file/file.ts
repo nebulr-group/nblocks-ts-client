@@ -132,17 +132,19 @@ export class FileClient extends Client {
   }
 
   /**
-  * Initiate creation of zip archive for provided files keys
+  * Initiate creation of zip archive for provided files keys.
+  * The resulting zip file will be put into the upload folder. Callers are urged to either persist the zip file using `persistUploadedFile()` or leave it automatically expiring in upload folder.
   * @param args 
-  * @returns Returns Key of the zip object
+  * @returns Returns Key and signed url of the zip object
   */
   async createZipFile(args: CreateZipArgs): Promise<CreateZipResponseDto> {
     const reqArgs: CreateZipRequestDto = { ...args, tenantId: this.tenantId };
-    return (await this.getHttpClient().post<CreateZipResponseDto>(
+    const result = await this.getHttpClient().post<CreateZipResponseDto>(
       `file/createZipFile`,
       reqArgs,
       { headers: this.getHeaders(), baseURL: this._getBaseUrl() }
-    )).data;
+    );
+    return result.data;
   }
 
   /**
