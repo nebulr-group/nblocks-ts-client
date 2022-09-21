@@ -3,7 +3,7 @@ export class CreateTenantRequestDto {
     plan: string;
   
     /** A user will need to be assigned as an owner to this tenant. Either reused if the user already exist or a new user will be created. The user will be onboarded automatically */
-    email: string;
+    owner: TenantOwnerRequestDto
     
     /** Name of the tenant. Can also be set by tenant owner during onboarding */
     name?: string;
@@ -13,4 +13,11 @@ export class CreateTenantRequestDto {
     
     /** Store metadata for your own business logic that will be returned in every Tenant response. This data will never be outputted to the end user */
     metadata?: Record<string, string>;
+}
+
+export class TenantOwnerRequestDto {
+    /** Required */
+    email: string;
+    firstName?: string;
+    lastName?: string;
 }

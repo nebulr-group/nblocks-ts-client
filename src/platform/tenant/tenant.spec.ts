@@ -34,7 +34,7 @@ describe('Tenant client', () => {
         const response = await client.tenants.create({
             name: "New Company Ltd",
             plan: "TEAM",
-            email: "john@example.com",
+            owner: {email: "john@example.com", firstName: "John", lastName: "Doe"},
             metadata: {
                 VIP: "true"
             }
