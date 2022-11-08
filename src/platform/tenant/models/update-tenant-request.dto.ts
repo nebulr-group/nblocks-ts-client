@@ -7,6 +7,9 @@ export class UpdateTenantRequestDto {
     /** A url to a logo */
     logo?: string;
 
+    /** The plan. Updates might have side effects to billing */
+    plan?: string;  
+
     /** Require users to login with MFA/2FA */
     mfa?: boolean;
   

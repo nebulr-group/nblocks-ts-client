@@ -7,7 +7,7 @@
    id: string;
 
    /** Name of the subscription plan. Automatically set by the payment service if tenant used the checkout process */
-   plan: string;
+   plan?: string;
 
    /** The default locale / lang code for all users in this tenant (`ISO_639-1` format). 
    * This property will set the i18n for all platform emails and can be used to 
