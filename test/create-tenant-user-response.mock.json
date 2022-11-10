@@ -13,6 +13,8 @@
         "id": "624c14cc0c01e70033356285",
         "plan": "TEAM",
         "mfa": false,
+        "paymentsEnabled": false,
+        "paymentsRequired": false,
         "locale": "en",
         "name": "Nebulr AB",
         "logo": "https://nebulr-group.github.io/nblocks-docs/img/logo.png",

@@ -23,6 +23,12 @@
    /** Require users to login with MFA/2FA */
    mfa: boolean;
 
+   /** The tenant has been setup with a payment solution */
+   paymentsEnabled: boolean;
+
+   /** The tenant should setup payment immediately because tenant has not setup payments and the subscribing plan carry a cost or the trial has ended */
+   paymentsRequired: boolean;
+
    /** Store app specific meta data for this tenant */
    metadata?: Record<string, string>;
 
