@@ -122,14 +122,6 @@ export class PlatformClient extends Client {
     await this.httpClient.put<void>('/app/credentials', credentials, { headers: this.getHeaders() });
   }
 
-  /**
-   * TODO FIX THIS
-   * Create a checkout session with Stripe. Use the resulting session id to redirect users to Stripe Checkout using the Stripe SDK. https://stripe.com/docs/billing/subscriptions/checkout#add-redirect
-   */
-  async createCheckoutSession(): Promise<void> {
-
-  }
-
   /** **Internal functionality. Do not use this function** */
   private getApiBaseUrl(stage: Stage): string {
     return process.env.NEBULR_PLATFORM_CORE_API_URL || this.BASE_URLS[stage];

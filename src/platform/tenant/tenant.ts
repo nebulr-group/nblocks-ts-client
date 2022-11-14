@@ -11,6 +11,8 @@ import { TranslateTextResponse } from './models/translate-text-response';
 import { UpdateTenantRequestDto } from './models/update-tenant-request.dto';
 import { AuthTenantResponseDto } from '../auth/models/auth-tenant-response.dto';
 import { CommunicationClient } from './communication/communication';
+import { CheckoutResponsetDto } from './models/checkout-response.dto';
+import { StripeTenantCheckoutIdRequestDto } from './models/stripe-tenant-checkout-id-request.dto';
 
 /**
  * A specific `Tenant` client for a particular Tenant id. 
@@ -47,7 +49,8 @@ export class Tenant extends SpecificEntity{
    * @returns `TenantResponseDto`
    */
   async get(): Promise<TenantResponseDto> {
-    return (await this.getHttpClient().get<TenantResponseDto>(`/tenant/byId/${this.id}`, { headers: this.getHeaders() })).data;
+    const response = await this.getHttpClient().get<TenantResponseDto>(`/tenant/byId/${this.id}`, { headers: this.getHeaders() });
+    return response.data;
   }
 
   /**
@@ -65,7 +68,8 @@ export class Tenant extends SpecificEntity{
    * @returns `TenantResponseDto`
    */
   async update(args: UpdateTenantRequestDto): Promise<TenantResponseDto> {
-    return (await this.getHttpClient().put<TenantResponseDto>(`/tenant/${this.id}`, args, { headers: this.getHeaders() })).data;
+    const response = await this.getHttpClient().put<TenantResponseDto>(`/tenant/${this.id}`, args, { headers: this.getHeaders() });
+    return response.data;
   }
 
   async delete(): Promise<void> {
@@ -78,13 +82,20 @@ export class Tenant extends SpecificEntity{
    * @returns 
    */
   async translateText(args: TranslateTextRequest): Promise<TranslateTextResponse> {
-    return (await this.getHttpClient().post<TranslateTextResponse>(`/tenant/translate/text`, args, { headers: this.getHeaders() })).data;
+    const response = await this.getHttpClient().post<TranslateTextResponse>(`/tenant/translate/text`, args, { headers: this.getHeaders() });
+    return response.data;
+  }
+
+  async createStripeCheckoutSession(args: StripeTenantCheckoutIdRequestDto): Promise<CheckoutResponsetDto> {
+    const response = await this.getHttpClient().post<CheckoutResponsetDto>(`/tenant/${this.id}/checkoutId`, args, { headers: this.getHeaders() });
+    return response.data;
   }
 
   /**
    * Obtain an short lived session url to redirect or present the user its Stripe subscription panel for updating payment or subscription data.
    */
   async getStripeCustomerPortalUrl(): Promise<CustomerPortalResponseDto> {
-    return (await this.getHttpClient().get<CustomerPortalResponseDto>(`/tenant/customerPortal`, { headers: this.getHeaders() })).data;
+    const response = await this.getHttpClient().get<CustomerPortalResponseDto>(`/tenant/customerPortal`, { headers: this.getHeaders() });
+    return response.data;
   }
 }
