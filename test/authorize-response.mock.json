@@ -11,6 +11,7 @@
         "tenant": {
             "id": "624c14cc0c01e70033356285",
             "name": "Nebulr AB",
+            "plan": "TEAM",
             "locale": "en",
             "logo": "https://nebulr-group.github.io/nblocks-docs/img/logo.png"
         }

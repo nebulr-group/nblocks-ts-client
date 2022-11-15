@@ -14,7 +14,7 @@ export class Tenants extends Entity {
 
   /**
    * This will create a new tenant manually without billing capabilities.
-   * A better approach is to let new customers checkout themselves with `PlatformClient.createCheckoutSession()` and spawn as new tenants in your app automatically.
+   * Use `tenant.createStripeCheckoutSession()` to ensure the tenant has billing and payments setup
    * @param args `CreateTenantRequestDto`
    * @returns `TenantResponseDto`
    */

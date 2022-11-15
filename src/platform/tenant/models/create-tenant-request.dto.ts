@@ -1,6 +1,6 @@
 export class CreateTenantRequestDto {
     /** The plan must be present in the configured App business model */
-    plan: string;
+    plan?: string;
   
     /** A user will need to be assigned as an owner to this tenant. Either reused if the user already exist or a new user will be created. The user will be onboarded automatically */
     owner: TenantOwnerRequestDto

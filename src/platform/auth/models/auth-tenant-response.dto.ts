@@ -2,8 +2,9 @@
  * A lightweight version of TenantModel
  */
 export class AuthTenantResponseDto {
-  id!: string;
+  id: string;
   name?: string;
-  locale!: string;
+  plan?: string;
+  locale: string;
   logo?: string;
 }

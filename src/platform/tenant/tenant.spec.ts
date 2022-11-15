@@ -4,6 +4,7 @@ import * as createTenantsMock from '../../../test/create-tenant-response.mock.js
 import * as tenantMock from '../../../test/tenant-response.mock.json';
 import * as translateMock from '../../../test/translate-response.mock.json';
 import * as customerPortalMock from '../../../test/customer-portal-response.mock.json';
+import * as tenantCheckoutMock from '../../../test/tenant-checkout-response.mock.json';
 import { PlatformClient } from '../platform-client';
 
 describe('Tenant client', () => {
@@ -64,6 +65,15 @@ describe('Tenant client', () => {
              locale: 'en'
         });
         expect(response.id).toBeDefined();
+    });
+
+    test('Setup tenant payment', async () => {
+        mockApi.onPost(`/tenant/${newTenantId}/checkoutId`).reply(200, tenantCheckoutMock);
+        const response = await client.tenant(newTenantId).createStripeCheckoutSession({
+            plan: "TEAM"
+        });
+        expect(response.id).toBeDefined();
+        expect(response.publicKey).toBeDefined();
     });
 
     test('Translate text to Tenant language', async () => {

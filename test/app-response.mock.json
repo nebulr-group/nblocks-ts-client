@@ -54,8 +54,49 @@
         ]
     },
     "businessModel": {
-        "plans": [],
-        "taxes": []
+        "taxes": [
+            {
+            "region": "SE",
+            "name": "VAT",
+            "percentage": 25
+            }
+        ],
+        "plans": [
+            {
+            "name": "ESSENTIAL",
+            "prices": [
+                {
+                "region": "SE",
+                "amount": 500,
+                "currency": "SEK",
+                "recurrenceInterval": "month"
+                },
+                {
+                "region": "DE",
+                "amount": 50,
+                "currency": "EUR",
+                "recurrenceInterval": "month"
+                }
+            ]
+            },
+            {
+            "name": "TEAM",
+            "prices": [
+                {
+                "region": "SE",
+                "amount": 1000,
+                "currency": "SEK",
+                "recurrenceInterval": "month"
+                },
+                {
+                "region": "DE",
+                "amount": 100,
+                "currency": "EUR",
+                "recurrenceInterval": "month"
+                }
+            ]
+            }
+        ]
     },
     "logo": "https://public.nblocks.dev/assets/logos/nblocks-logo-purple.png",
     "websiteUrl": "http://localhost",

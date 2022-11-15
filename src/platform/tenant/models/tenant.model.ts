@@ -7,7 +7,7 @@
    id: string;
 
    /** Name of the subscription plan. Automatically set by the payment service if tenant used the checkout process */
-   plan: string;
+   plan?: string;
 
    /** The default locale / lang code for all users in this tenant (`ISO_639-1` format). 
    * This property will set the i18n for all platform emails and can be used to 
@@ -22,6 +22,12 @@
 
    /** Require users to login with MFA/2FA */
    mfa: boolean;
+
+   /** The tenant has been setup with a payment solution */
+   paymentsEnabled: boolean;
+
+   /** The tenant should setup payment immediately because tenant has not setup payments and the subscribing plan carry a cost or the trial has ended */
+   paymentsRequired: boolean;
 
    /** Store app specific meta data for this tenant */
    metadata?: Record<string, string>;
