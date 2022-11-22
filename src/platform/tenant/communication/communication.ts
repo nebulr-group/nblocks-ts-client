@@ -1,5 +1,7 @@
 import { Client } from '../../../abstracts/client';
 import { Tenant } from '../tenant';
+import { ParseEmailRequestDto } from './models/parse-email-request.dto';
+import { ParsedMail } from './models/parse-email-response.dto';
 import { RedirectErrorEventDto } from './models/redirect-error-event.dto';
 import { RedirectRuleDto } from './models/redirect-rule.dto';
 import { SendEmailRequestDto } from './models/send-email-request.dto';
@@ -22,13 +24,13 @@ export class CommunicationClient extends Client {
    * Lists current voice redirect rules stored for this tenant
    * @returns RedirectRuleDto[]
    */
-  async listVoiceRedirectRules(): Promise<RedirectRuleDto[]>{
-    const rules = (await this.getHttpClient().get<RedirectRuleDto[]>(`voice/redirectRule`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
+  async listVoiceRedirectRules(): Promise<RedirectRuleDto[]> {
+    const rules = (await this.getHttpClient().get<RedirectRuleDto[]>(`voice/redirectRule`, { headers: this.getHeaders(), baseURL: this._getBaseUrl() })).data;
     return rules;
   }
 
-  async listVoiceRedirectErrors(id: string, limit = 5): Promise<RedirectErrorEventDto[]>{
-    const rules = (await this.getHttpClient().get<RedirectErrorEventDto[]>(`/voice/redirectRule/errors/${id}/${limit}`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
+  async listVoiceRedirectErrors(id: string, limit = 5): Promise<RedirectErrorEventDto[]> {
+    const rules = (await this.getHttpClient().get<RedirectErrorEventDto[]>(`/voice/redirectRule/errors/${id}/${limit}`, { headers: this.getHeaders(), baseURL: this._getBaseUrl() })).data;
     return rules;
   }
 
@@ -36,8 +38,8 @@ export class CommunicationClient extends Client {
    * Creates a voice redirect rule for this tenant
    * @returns RedirectRuleDto
    */
-  async createVoiceRedirectRule(args: RedirectRuleDto): Promise<RedirectRuleDto>{
-    const rule = (await this.getHttpClient().post<RedirectRuleDto>(`voice/redirectRule`, args, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
+  async createVoiceRedirectRule(args: RedirectRuleDto): Promise<RedirectRuleDto> {
+    const rule = (await this.getHttpClient().post<RedirectRuleDto>(`voice/redirectRule`, args, { headers: this.getHeaders(), baseURL: this._getBaseUrl() })).data;
     return rule;
   }
 
@@ -45,8 +47,8 @@ export class CommunicationClient extends Client {
    * Creates a voice redirect rule for this tenant
    * @returns RedirectRuleDto
    */
-  async updateVoiceRedirectRule(args: RedirectRuleDto): Promise<RedirectRuleDto>{
-    const rule = (await this.getHttpClient().put<RedirectRuleDto>(`voice/redirectRule`, args, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
+  async updateVoiceRedirectRule(args: RedirectRuleDto): Promise<RedirectRuleDto> {
+    const rule = (await this.getHttpClient().put<RedirectRuleDto>(`voice/redirectRule`, args, { headers: this.getHeaders(), baseURL: this._getBaseUrl() })).data;
     return rule;
   }
 
@@ -54,8 +56,17 @@ export class CommunicationClient extends Client {
    * Delete a voice redirect rule
    * @returns RedirectRuleDto
    */
-  async deleteVoiceRedirectRule(id: string): Promise<void>{
-    await this.getHttpClient().delete<RedirectRuleDto>(`voice/redirectRule/${id}`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()});
+  async deleteVoiceRedirectRule(id: string): Promise<void> {
+    await this.getHttpClient().delete<RedirectRuleDto>(`voice/redirectRule/${id}`, { headers: this.getHeaders(), baseURL: this._getBaseUrl() });
+  }
+
+  /**
+   * Parse raw email
+   * @param args 
+   * @returns ParsedMail
+   */
+  async parseEmail(args: ParseEmailRequestDto): Promise<ParsedMail> {
+    return (await this.getHttpClient().post<ParsedMail>(`email/parse`, args, { headers: this.getHeaders() })).data;
   }
 
   // Reenable the below actions as soon as communication-api email/sms controller is ready for app callers
@@ -82,7 +93,7 @@ export class CommunicationClient extends Client {
    * @param args 
    * @returns `SendOtpSmsResponseDto` containing the generated OTP
    */
-    // Don't implement like this, communication controller in account-api is deprecated
+  // Don't implement like this, communication controller in account-api is deprecated
   // async sendOtpSms(args: { to: string, locale: 'en' | 'sv' | string }): Promise<SendOtpSmsResponseDto> {
   //   return (await this.getHttpClient().post<SendOtpSmsResponseDto>(`communication/smsOtp`, args, { headers: this.getHeaders()})).data;
   // }
