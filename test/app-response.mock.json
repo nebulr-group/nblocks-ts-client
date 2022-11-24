@@ -4,6 +4,7 @@
     "domain": "MY_APP",
     "apiUrl": "",
     "uiUrl": "http://localhost:8100",
+    "stripeEnabled": true,
     "defaultRole": "OWNER",
     "roles": {
         "OWNER": [

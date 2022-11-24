@@ -108,7 +108,7 @@ export class PlatformClient extends Client {
    * @param model Your app model
    * @returns Returns AppModel
    */
-  async updateApp(model: Partial<Omit<AppModel, "id" | "domain">>): Promise<AppModel> {
+  async updateApp(model: Partial<Omit<AppModel, "id" | "domain" | "stripeEnabled">>): Promise<AppModel> {
     return (await this.httpClient.put<AppModel>('/app', model, { headers: this.getHeaders() })).data;
   }
 
