@@ -18,6 +18,9 @@ export class AppModel {
   
     /** URL to your frontend app (for onboarding redirects etc). **Must be HTTPS** */
     uiUrl: string;
+
+    /** Boolean value telling the user if Stripe is enabled */
+    stripeEnabled: boolean;
   
     /** All user roles and their granted privileges */
     roles: Record<string, string[]>;
