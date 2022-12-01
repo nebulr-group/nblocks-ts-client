@@ -1,13 +1,4 @@
 // Type definitions for mailparser 3.4 copied from corresponding package
-// Project: https://github.com/nodemailer/mailparser
-// Definitions by: Peter Snider <https://github.com/psnider>
-//                 Andrey Volynkin <https://github.com/Avol-V>
-//                 Pior Błażejewicz <https://github.com/peterblazejewicz>
-// Definitions: https://github.com/DefinitelyTyped/DefinitelyTyped
-/// <reference types="node" />
-
-import StreamModule = require('stream');
-import Stream = StreamModule.Stream;
 
 /**
  * Structured object for headers with arguments.
@@ -22,7 +13,7 @@ import Stream = StreamModule.Stream;
  * }
  * ```
  */
-export interface StructuredHeader {
+interface StructuredHeader {
   /**
    * The main value.
    */
@@ -36,23 +27,23 @@ export interface StructuredHeader {
 /**
  * Possible types of a header value.
  */
-export type HeaderValue = string | string[] | AddressObject | Date | StructuredHeader;
+type HeaderValue = string | string[] | AddressObject | Date | StructuredHeader;
 
 /**
  * A Map object with lowercase header keys.
  */
-export type Headers = Map<string, HeaderValue>;
+type Headers = Map<string, HeaderValue>;
 /**
  * An array of raw header lines
  */
-export type HeaderLines = ReadonlyArray<{
+type HeaderLines = ReadonlyArray<{
   key: string;
   line: string;
 }>;
 /**
  * Address details.
  */
-export interface EmailAddress {
+interface EmailAddress {
   /**
    * The email address.
    */
@@ -70,7 +61,7 @@ export interface EmailAddress {
 /**
  * Address object.
  */
-export interface AddressObject {
+interface AddressObject {
   /**
    * An array with address details.
    */
@@ -86,17 +77,17 @@ export interface AddressObject {
 }
 
 /**
- * COmmon part of the Attachment object.
+ * Attachment object.
  */
-export interface AttachmentCommon {
+interface Attachment {
   /**
    * Message type.
    */
   type: 'attachment';
   /**
-   * Attachment contents.
+   * A Buffer that contains the attachment contents.
    */
-  content: any;
+  content: Buffer;
   /**
    * MIME type of the message.
    */
@@ -138,36 +129,7 @@ export interface AttachmentCommon {
    * If true then this attachment should not be offered for download
    * (at least not in the main attachments list).
    */
-  related?: boolean | undefined;
-}
-
-/**
- * Attachment object.
- */
-export interface Attachment extends AttachmentCommon {
-  /**
-   * A Buffer that contains the attachment contents.
-   */
-  content: Buffer;
-  /**
-   * If true then this attachment should not be offered for download
-   * (at least not in the main attachments list).
-   */
   related: boolean;
-}
-
-/**
- * MailParser Attachment object.
- */
-export interface AttachmentStream extends AttachmentCommon {
-  /**
-   * A Buffer that contains the attachment contents.
-   */
-  content: Stream;
-  /**
-   * Method must be called once you have processed the attachment.
-   */
-  release(): void;
 }
 
 /**
@@ -256,36 +218,3 @@ export interface ParsedMail {
    */
   priority?: 'normal' | 'low' | 'high' | undefined;
 }
-
-/**
- * Text message content.
- */
-export interface MessageText {
-  /**
-   * Message type.
-   */
-  type: 'text';
-  /**
-   * Includes the HTML version of the message.
-   *
-   * Is set if the message has at least one `text/html` node.
-   */
-  html?: string | boolean | undefined;
-  /**
-   * Includes the plaintext version of the message.
-   *
-   * Is set if the message has at least one `text/plain` node.
-   */
-  text?: string | undefined;
-  /**
-   * Includes the plaintext version of the message in HTML format.
-   *
-   * Is set if the message has at least one `text/plain` node.
-   */
-  textAsHtml?: string | undefined;
-}
-
-/**
- * A message source.
- */
-export type Source = Buffer | Stream | string;
