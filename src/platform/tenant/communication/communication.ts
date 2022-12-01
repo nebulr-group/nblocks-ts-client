@@ -66,7 +66,8 @@ export class CommunicationClient extends Client {
    * @returns ParsedMail
    */
   async parseEmail(args: ParseEmailRequestDto): Promise<ParsedMail> {
-    return (await this.getHttpClient().post<ParsedMail>(`email/parse`, args, { headers: this.getHeaders() })).data;
+    const parsedData = (await this.getHttpClient().post<ParsedMail>(`email/parse`, args, { headers: this.getHeaders(), baseURL: this._getBaseUrl() })).data;
+    return parsedData;
   }
 
   // Reenable the below actions as soon as communication-api email/sms controller is ready for app callers
