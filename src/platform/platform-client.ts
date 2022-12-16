@@ -21,6 +21,7 @@ export class PlatformClient extends Client {
   };
   private readonly httpClient: AxiosInstance;
   private readonly apiKey: string;
+  private jwt?: string;
 
   readonly stage: Stage
   readonly version: 1;
@@ -67,7 +68,11 @@ export class PlatformClient extends Client {
 
   /** **Internal functionality. Do not use this function** */
   getHeaders(): Record<string, string> {
-    return { "x-api-key": this.apiKey };
+    if (this.jwt) {
+      return { "Authorization": `Bearer ${this.jwt}` };
+    } else {
+      return { "x-api-key": this.apiKey };
+    }
   }
 
   /**
@@ -120,6 +125,10 @@ export class PlatformClient extends Client {
    */
   async updateAppCredentials(credentials: UpdateCredentials): Promise<void> {
     await this.httpClient.put<void>('/app/credentials', credentials, { headers: this.getHeaders() });
+  }
+
+  setJwt(token: string): void {
+    this.jwt = token;
   }
 
   /** **Internal functionality. Do not use this function** */
