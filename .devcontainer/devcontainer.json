@@ -1,5 +1,5 @@
 {
-  "name": "Node.js",
+  "name": "nblocks-ts-client",
   // https://code.visualstudio.com/docs/remote/containers-tutorial
   "build": {
     "dockerfile": "../Dockerfile",
@@ -11,7 +11,7 @@
   //"features": {},
   "containerEnv": {},
   "runArgs": [
-    //"--network=nblocks-stack_shared-network"
+    "--network=nblocks-stack_shared-network"
   ],
 
   "customizations": {
