@@ -3,7 +3,6 @@ import { Tenant } from '../tenant';
 import { RedirectErrorEventDto } from './models/redirect-error-event.dto';
 import { RedirectRuleDto } from './models/redirect-rule.dto';
 import { SendEmailRequestDto } from './models/send-email-request.dto';
-import { SendEmailResponseDto } from './models/send-email-response.dto';
 
 export class CommunicationClient extends Client {
 
@@ -58,15 +57,14 @@ export class CommunicationClient extends Client {
     await this.getHttpClient().delete<RedirectRuleDto>(`voice/redirectRule/${id}`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()});
   }
 
-  // Reenable the below actions as soon as communication-api email/sms controller is ready for app callers
   /**
    * Send an email to anyone.
    * @param args 
    * @returns SendEmailResponseDto
    */
-  // async sendEmail(args: SendEmailRequestDto): Promise<SendEmailResponseDto> {
-  //   return (await this.getHttpClient().post<SendEmailResponseDto>(`email/send`, args, { headers: this.getHeaders() })).data;
-  // }
+  async sendEmail(args: SendEmailRequestDto): Promise<void> {
+    return (await this.getHttpClient().post<void>(`email/send`, args, { headers: this.getHeaders(), baseURL: this._getBaseUrl() })).data;
+  }
 
   /**
    * Send an SMS to anyone
