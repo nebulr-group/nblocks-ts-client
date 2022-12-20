@@ -71,13 +71,16 @@ describe('Communcation client', () => {
         await comClient.deleteVoiceRedirectRule(redirectRule.id!);
     });
 
-    // test('Send an email to anyone', async () => {
-    //     await client.communicationClient.sendEmail({
-    //         to: testData.USERNAME,
-    //         emailTitle: "Hello from Jest test",
-    //         emailBody: "This email was generated from a test"
-    //     });
-    // })
+    test('Send an email to anyone', async () => {
+        mockApi.onPost(`/email/send`).reply(200);
+        await comClient.sendEmail({
+            to: "john@doe.com",
+            emailTitle: "Hello from Jest test",
+            emailBody: "This email was generated from a test",
+            ctaTitle: "Click here",
+            ctaUrl: "https://google.com"
+        });
+    })
 
     // test('Send an sms to anyone', async () => {
     //     await client.communicationClient.sendSms({
