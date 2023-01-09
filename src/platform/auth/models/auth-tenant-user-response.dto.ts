@@ -6,12 +6,6 @@ import { AuthTenantResponseDto } from "./auth-tenant-response.dto";
 export class AuthTenantUserResponseDto {
   id!: string;
   role!: string;
-  email!: string;
-  username!: string;
-  fullName?: string;
-
-  onboarded!: boolean;
-  consentsToPrivacyPolicy: boolean;
 
   tenant: AuthTenantResponseDto
 }
