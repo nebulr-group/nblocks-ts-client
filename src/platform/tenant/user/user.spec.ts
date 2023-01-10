@@ -2,6 +2,7 @@ import { PlatformClient } from "../../platform-client";
 import * as listTenantUsersData from '../../../../test/list-tenant-users-response.mock.json';
 import * as createUserMock from '../../../../test/create-tenant-user-response.mock.json';
 import * as updateUserMock from '../../../../test/update-teant-user-response.mock.json';
+import * as getUserMock from '../../../../test/get-tenant-user-response.mock.json';
 import MockAdapter from "axios-mock-adapter";
 
 describe('Users client', () => {
@@ -39,6 +40,12 @@ describe('Users client', () => {
 
     // Calls with ID -------------------------------------------------
     
+    test('Get user', async () => {
+        mockApi.onGet(`/tenant/user/${newUserId}`).reply(200, getUserMock);
+        const response = await client.tenant("1234").user(newUserId).get();
+        expect(response.role).toBe("OWNER");
+    })
+
     test('Update a user', async () => {
         mockApi.onPut(`/tenant/user/${newUserId}`).reply(200, updateUserMock);
         const response = await client.tenant("1234").user(newUserId).update(

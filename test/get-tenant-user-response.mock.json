@@ -1,0 +1,24 @@
+{
+    "id": "624c14cc0c01e7003335628e",
+    "role": "OWNER",
+    "email": "john@nebulr.group",
+    "username": "john@nebulr.group",
+    "fullName": "John Doe",
+    "onboarded": true,
+    "consentsToPrivacyPolicy": false,
+    "enabled": true,
+    "teams": [],
+    "createdAt": "2022-04-05T10:07:08.701Z",
+    "tenant": {
+        "id": "624c14cc0c01e70033356285",
+        "plan": "TEAM",
+        "mfa": false,
+        "paymentsEnabled": false,
+        "paymentsRequired": false,
+        "locale": "en",
+        "name": "Nebulr AB",
+        "logo": "https://nebulr-group.github.io/nblocks-docs/img/logo.png",
+        "metadata": {},
+        "createdAt": "2022-04-05T10:07:08.235Z"
+    }
+}

@@ -17,9 +17,12 @@ export class User extends SpecificEntity{
     super(id, parentEntity, debug);
   }
 
-  /** Not implemented yet, see `Users.list()` or `Auth.authorize()` */
+  /**
+   * Gets the user model for this user
+   * @returns 
+   */
   async get(): Promise<TenantUserResponseDto> {
-    throw new Error("Not implemented yet");
+    return (await this.getHttpClient().get<TenantUserResponseDto>(`/tenant/user/${this.id}`, { headers: this.getHeaders() })).data
   }
 
   /**
