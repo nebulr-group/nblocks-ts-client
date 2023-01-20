@@ -1,13 +1,14 @@
 import { BusinessModel } from "./business-model";
+import { OnboardingFlow } from "./onboarding-flow";
 
 export class AppModel {
-    /** Unique ID */
+    /** Unique ID (Read only) */
     id: string;
 
     /** Name of the app */
     name: string;
   
-    /** Unique domain name of the app (Readonly) */
+    /** Unique domain name of the app (Read only) */
     domain: string;
   
     /** URL to your api (to receive webhooks etc). **Must be HTTPS** */
@@ -18,9 +19,6 @@ export class AppModel {
   
     /** URL to your frontend app (for onboarding redirects etc). **Must be HTTPS** */
     uiUrl: string;
-
-    /** Boolean value telling the user if Stripe is enabled */
-    stripeEnabled: boolean;
   
     /** All user roles and their granted privileges */
     roles: Record<string, string[]>;
@@ -45,4 +43,13 @@ export class AppModel {
 
     /** Emails sent from Nblocks will have this sender email. You'll have to verify this email before */
     emailSenderEmail: string;
+
+    /** Boolean value telling the user if Stripe is enabled (Read only) */
+    stripeEnabled: boolean;
+
+    /** Configure how users will be onboarded */
+    onboardingFlow: OnboardingFlow;
+
+    /** Toggle this to true if you want to use a UI provided by NBlocks instead of your own */
+    cloudViews: boolean;
 }
