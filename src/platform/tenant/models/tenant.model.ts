@@ -32,6 +32,9 @@
    /** Store app specific meta data for this tenant */
    metadata?: Record<string, string>;
 
+   /** If this tenant is considered onboarded (Read only) */
+   onboarded: boolean;
+
    /** Timestamp when created */
    createdAt: Date;
  }

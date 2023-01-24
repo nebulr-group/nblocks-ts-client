@@ -5,6 +5,8 @@
     "apiUrl": "",
     "uiUrl": "http://localhost:8100",
     "stripeEnabled": true,
+    "onboardingFlow": "B2B",
+    "cloudViews": true,
     "defaultRole": "OWNER",
     "roles": {
         "OWNER": [
