@@ -9,6 +9,7 @@ import { ForbiddenError } from '../errors/ForbiddenError';
 import { ClientError } from '../errors/ClientError';
 import { NotFoundError } from '../errors/NotFoundError';
 import { UpdateCredentials } from './models/update-credentials-request.dto';
+import { AuthContextHelper } from './auth/auth-context-helper';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
@@ -38,6 +39,12 @@ export class PlatformClient extends Client {
    */
   auth: Auth;
 
+  /**
+   * AuthContext helper.
+   * Use this to resolve user JTWs. All JTWs are checked for integrity and security
+   */
+  authContextHelper: AuthContextHelper;
+
   constructor(apiKey: string, version: 1 = 1, debug = false, stage: Stage = 'PROD') {
     super(null, debug);
     this.apiKey = apiKey;
@@ -51,6 +58,7 @@ export class PlatformClient extends Client {
     this.configureHttpClient(this.httpClient);
 
     this.auth = new Auth(this, this.debug);
+    this.authContextHelper = new AuthContextHelper(stage, this.debug);
     this.tenants = new Tenants(this, this.debug);
 
     this._log(`Initialized PlatformClient in stage ${this.stage} with base url: ${this.getApiBaseUrl(stage)}, apiKey: ${apiKey.substring(0, 5)}...`);
