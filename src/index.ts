@@ -20,6 +20,8 @@ import { NotFoundError } from './errors/NotFoundError';
 import { FileClient } from './platform/file/file';
 import { PdfServiceClient } from './platform/pdf/pdf';
 import { CommunicationClient } from './platform/tenant/communication/communication';
+import { AuthContextHelper } from './platform/auth/auth-context-helper';
+import { AuthContext } from './platform/auth/models/auth-context';
 
 export { 
     AppModel, 
@@ -43,5 +45,7 @@ export {
     ForbiddenError,
     NotFoundError,
     ClientError,
-    FinishUploadArgs
+    FinishUploadArgs,
+    AuthContextHelper,
+    AuthContext,
 }
