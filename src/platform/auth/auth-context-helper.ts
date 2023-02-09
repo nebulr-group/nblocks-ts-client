@@ -37,8 +37,9 @@ export class AuthContextHelper {
         }
       );
 
-      const { plan, role, tid, sub, scope } = payload as AuthJwt;
+      const { aid, plan, role, tid, sub, scope } = payload as AuthJwt;
       return {
+        appId: aid,
         tenantPlan: plan,
         tenantId: tid,
         userRole: role,
@@ -58,8 +59,9 @@ export class AuthContextHelper {
 
     jwtData = jose.decodeJwt(authJwt);
 
-    const { plan, role, tid, sub, scope } = jwtData as AuthJwt;
+    const { aid, plan, role, tid, sub, scope } = jwtData as AuthJwt;
     return {
+      appId: aid,
       tenantPlan: plan,
       tenantId: tid,
       userRole: role,

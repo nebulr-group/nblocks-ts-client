@@ -1,6 +1,7 @@
 import { JWTPayload } from 'jose/dist/types/types';
 
 export class AuthContext {
+    appId: string;
     userId: string;
     tenantId: string;
     tenantPlan: string;

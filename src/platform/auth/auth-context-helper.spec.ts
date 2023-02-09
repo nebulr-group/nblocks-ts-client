@@ -32,6 +32,7 @@ describe('Auth client', () => {
       const context = helper.getAuthContextNonStrict(jwt);
 
       expect(context).toMatchObject({
+        appId: '633402fdf28d8e00252948b1',
         tenantPlan: 'TEAM',
         tenantId: '633402fdf28d8e00252948b6',
         userRole: 'OWNER',
