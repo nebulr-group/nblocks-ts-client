@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { PlatformClient } from "../platform/platform-client";
+import { NblocksClient } from "../platform/nblocks-client";
 
 /**
  * This client is generic and non specific to a certain entity id.   
@@ -7,6 +7,7 @@ import { PlatformClient } from "../platform/platform-client";
  * See the non generic counterpart client for context calls like `update()`, `delete()` if you want to operate on a specific instance.   
  */
 export abstract class Entity {
+    
     /** Reference to the parent entity */
     protected readonly parentEntity: Entity;
 
@@ -22,7 +23,7 @@ export abstract class Entity {
      * Returns a reference to the top most client containing configs that might be useful for child clients
      * @returns 
      */
-    getPlatformClient(): PlatformClient {
+    getPlatformClient(): NblocksClient {
         return this.parentEntity.getPlatformClient();
     }
 

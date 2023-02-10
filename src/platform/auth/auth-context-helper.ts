@@ -5,7 +5,7 @@ import {
   FlattenedJWSInput,
 } from "jose/dist/types/types";
 import { JwtError } from "../../errors/JwtError";
-import { Stage } from "../platform-client";
+import { Stage } from "../nblocks-client";
 import { AuthContext, AuthJwt } from "./models/auth-context";
 
 export class AuthContextHelper {

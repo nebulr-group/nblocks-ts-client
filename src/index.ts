@@ -1,4 +1,4 @@
-import { PlatformClient } from './platform/platform-client';
+import { NblocksClient } from './platform/nblocks-client';
 import { AppModel } from './platform/models/app.model';
 import { EventWebhookDto } from './shared/event-webhook.dto';
 import { UnauthenticatedError } from './errors/UnauthenticatedError';
@@ -22,10 +22,11 @@ import { PdfServiceClient } from './platform/pdf/pdf';
 import { CommunicationClient } from './platform/tenant/communication/communication';
 import { AuthContextHelper } from './platform/auth/auth-context-helper';
 import { AuthContext } from './platform/auth/models/auth-context';
+import { Config } from './platform/config/config';
 
 export { 
     AppModel, 
-    PlatformClient, 
+    NblocksClient, 
     FileClient,
     PdfServiceClient,
     CommunicationClient,
@@ -46,6 +47,7 @@ export {
     NotFoundError,
     ClientError,
     FinishUploadArgs,
+    Config,
     AuthContextHelper,
     AuthContext,
 }

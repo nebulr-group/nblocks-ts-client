@@ -1,8 +1,11 @@
 import { Client } from '../../../abstracts/client';
+import { NblocksClient } from '../../nblocks-client';
 import { Tenant } from '../tenant';
+import { EmailTemplateResponseDto } from './models/get-email-template-response.dto';
 import { RedirectErrorEventDto } from './models/redirect-error-event.dto';
 import { RedirectRuleDto } from './models/redirect-rule.dto';
 import { SendEmailRequestDto } from './models/send-email-request.dto';
+import { TemplateName } from './models/template-name.type';
 
 export class CommunicationClient extends Client {
 
@@ -12,22 +15,17 @@ export class CommunicationClient extends Client {
     'DEV': 'http://communication-api:3000'
   };
 
-  constructor(parentEntity: Tenant, debug = false) {
+  constructor(parentEntity: Tenant | NblocksClient, debug = false) {
     super(parentEntity, debug);
     this._log(`Initialized CommunicationClient with url: ${this._getBaseUrl()}`);
   }
 
   /**
-   * Lists current voice redirect rules stored for this tenant
+   * Lists current voice redirect rules stored for this tenant.
    * @returns RedirectRuleDto[]
    */
   async listVoiceRedirectRules(): Promise<RedirectRuleDto[]>{
     const rules = (await this.getHttpClient().get<RedirectRuleDto[]>(`voice/redirectRule`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
-    return rules;
-  }
-
-  async listVoiceRedirectErrors(id: string, limit = 5): Promise<RedirectErrorEventDto[]>{
-    const rules = (await this.getHttpClient().get<RedirectErrorEventDto[]>(`/voice/redirectRule/errors/${id}/${limit}`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
     return rules;
   }
 
@@ -55,6 +53,15 @@ export class CommunicationClient extends Client {
    */
   async deleteVoiceRedirectRule(id: string): Promise<void>{
     await this.getHttpClient().delete<RedirectRuleDto>(`voice/redirectRule/${id}`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()});
+  }
+  
+  /**
+   * List errors for this voice redirect rule
+   * @returns RedirectRuleDto
+   */
+  async listVoiceRedirectErrors(id: string, limit = 5): Promise<RedirectErrorEventDto[]>{
+    const rules = (await this.getHttpClient().get<RedirectErrorEventDto[]>(`/voice/redirectRule/errors/${id}/${limit}`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
+    return rules;
   }
 
   /**
@@ -91,5 +98,44 @@ export class CommunicationClient extends Client {
    */
   private _getBaseUrl(): string {
     return process.env.NEBULR_COMMUNICATION_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
+  }
+
+  /**
+   * **Internal functionality. Do not use this function**. Use `client.config.getEmailTemplate()` instead.
+   * @param type TemplateName
+   * @returns 
+   */
+  async getTemplate(type: TemplateName): Promise<EmailTemplateResponseDto> {
+    if (!(this.parentEntity instanceof NblocksClient)) {
+      throw new Error("Your trying to set a config on the app level. You're trying call this function in the context of a tenant. You should use client.config.getEmailTemplate() instead.");
+    }
+    const response = await this.getHttpClient().get<EmailTemplateResponseDto>(`/template/${type}`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()});
+    return response.data;
+  }
+
+  /**
+   * **Internal functionality. Do not use this function**. Use `client.config.overrideEmailTemplate()` instead.
+   * @param type TemplateName
+   * @param content The html content
+   * @returns 
+   */
+  async overrideTemplate(type: TemplateName, content: string): Promise<EmailTemplateResponseDto> {
+    if (!(this.parentEntity instanceof NblocksClient)) {
+      throw new Error("Your trying to set a config on the app level. You're trying call this function in the context of a tenant. You should use client.config.overrideEmailTemplate() instead.");
+    }
+    const response = await this.getHttpClient().put<EmailTemplateResponseDto>(`/template/${type}`, {type, content}, { headers: this.getHeaders(), baseURL: this._getBaseUrl()});
+    return response.data;
+  }
+
+  /**
+   * **Internal functionality. Do not use this function**. Use `client.config.resetEmailTemplate()` instead.
+   * @param type TemplateName
+   * @returns 
+   */
+  async resetTemplate(type: TemplateName): Promise<void> {
+    if (!(this.parentEntity instanceof NblocksClient)) {
+      throw new Error("Your trying to set a config on the app level. You're trying call this function in the context of a tenant. You should use client.config.resetEmailTemplate() instead.");
+    }
+    await this.getHttpClient().delete<EmailTemplateResponseDto>(`/template/${type}`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()});
   }
 }

@@ -5,16 +5,16 @@ import * as tenantMock from '../../../test/tenant-response.mock.json';
 import * as translateMock from '../../../test/translate-response.mock.json';
 import * as customerPortalMock from '../../../test/customer-portal-response.mock.json';
 import * as tenantCheckoutMock from '../../../test/tenant-checkout-response.mock.json';
-import { PlatformClient } from '../platform-client';
+import { NblocksClient } from '../nblocks-client';
 
 describe('Tenant client', () => {
 
-    let client: PlatformClient;
+    let client: NblocksClient;
     let newTenantId: string;
 
     let mockApi: MockAdapter;
     beforeAll(() => {
-        client = new PlatformClient("SECRET", 1, false, 'DEV');
+        client = new NblocksClient("SECRET", 1, false, 'DEV');
         mockApi = new MockAdapter(client["httpClient"]);
     });
 

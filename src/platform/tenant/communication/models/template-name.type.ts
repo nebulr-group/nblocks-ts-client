@@ -1,0 +1,1 @@
+export type TemplateName = 'RESET-PASSWORD' | 'SIGNUP' | 'INVITE_NEW' | 'INVITE_EXISTING' | 'PAYMENT_FAILURE';

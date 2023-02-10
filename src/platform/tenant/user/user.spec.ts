@@ -1,4 +1,4 @@
-import { PlatformClient } from "../../platform-client";
+import { NblocksClient } from "../../nblocks-client";
 import * as listTenantUsersData from '../../../../test/list-tenant-users-response.mock.json';
 import * as createUserMock from '../../../../test/create-tenant-user-response.mock.json';
 import * as updateUserMock from '../../../../test/update-teant-user-response.mock.json';
@@ -7,12 +7,12 @@ import MockAdapter from "axios-mock-adapter";
 
 describe('Users client', () => {
 
-    let client: PlatformClient;
+    let client: NblocksClient;
     let newUserId: string;
     
     let mockApi: MockAdapter;
     beforeAll(() => {
-        client = new PlatformClient("SECRET", 1, false, 'DEV');
+        client = new NblocksClient("SECRET", 1, false, 'DEV');
         mockApi = new MockAdapter(client["httpClient"]);
     });
 

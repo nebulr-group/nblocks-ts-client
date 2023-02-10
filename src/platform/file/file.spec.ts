@@ -1,9 +1,9 @@
-import {PlatformClient} from '../platform-client'
 import { readFileSync } from 'fs';
 import { FileClient } from './file';
 import * as startUploadMock from '../../../test/start-upload-session-response.mock.json';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
+import { NblocksClient } from '../nblocks-client';
 
 describe('File client', () => {
 
@@ -16,7 +16,7 @@ describe('File client', () => {
 
     let mockApi: MockAdapter;
     beforeAll(() => {
-        const client = new PlatformClient("SECRET", 1, false, 'DEV');
+        const client = new NblocksClient("SECRET", 1, false, 'DEV');
         mockApi = new MockAdapter(client["httpClient"]);
         fileClient = client.tenant("1234").fileClient;
     });

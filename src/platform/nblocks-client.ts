@@ -1,6 +1,5 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { Auth } from './auth/auth';
-import { AppModel } from './models/app.model';
 import { Tenants } from './tenant/tenants';
 import { Tenant } from './tenant/tenant';
 import { Client } from '../abstracts/client';
@@ -8,20 +7,30 @@ import { UnauthenticatedError } from '../errors/UnauthenticatedError';
 import { ForbiddenError } from '../errors/ForbiddenError';
 import { ClientError } from '../errors/ClientError';
 import { NotFoundError } from '../errors/NotFoundError';
-import { UpdateCredentials } from './models/update-credentials-request.dto';
 import { AuthContextHelper } from './auth/auth-context-helper';
+import { Config } from './config/config';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
-export class PlatformClient extends Client {
+/**
+ * This is the core Nblocks client.
+ * This exposes all Nblocks features using sub clients.
+ */
+export class NblocksClient extends Client {
 
   private readonly BASE_URLS = {
     'PROD': 'https://account-api.nebulr-core.com',
     'STAGE': 'https://account-api-stage.nebulr-core.com',
     'DEV': 'http://account-api:3000'
   };
+
+  /**
+   * The core Axios Http client instance. This instance intercepted for errors and is reused by all sub clients
+   */
   private readonly httpClient: AxiosInstance;
+
   private readonly apiKey: string;
+
   private jwt?: string;
 
   readonly stage: Stage
@@ -34,16 +43,20 @@ export class PlatformClient extends Client {
   tenants: Tenants;
 
   /**
+   * @deprecated Use local JWT and the new Auth client instead
    * A generic Auth client.
    * Use this to query or mutate data for auth related operations
    */
-  auth: Auth;
+  authLegacy: Auth;
+
+  /** A helper to configure your app in Nblocks */
+  config: Config;
 
   /**
    * AuthContext helper.
    * Use this to resolve user JTWs. All JTWs are checked for integrity and security
    */
-  authContextHelper: AuthContextHelper;
+  auth: AuthContextHelper;
 
   constructor(apiKey: string, version: 1 = 1, debug = false, stage: Stage = 'PROD') {
     super(null, debug);
@@ -57,15 +70,19 @@ export class PlatformClient extends Client {
 
     this.configureHttpClient(this.httpClient);
 
-    this.auth = new Auth(this, this.debug);
-    this.authContextHelper = new AuthContextHelper(stage, this.debug);
+    this.authLegacy = new Auth(this, this.debug);
+
     this.tenants = new Tenants(this, this.debug);
+
+    this.config = new Config(this, this.debug);
+
+    this.auth = new AuthContextHelper(stage, this.debug);
 
     this._log(`Initialized PlatformClient in stage ${this.stage} with base url: ${this.getApiBaseUrl(stage)}, apiKey: ${apiKey.substring(0, 5)}...`);
   }
 
   /** **Internal functionality. Do not use this function** */
-  getPlatformClient(): PlatformClient {
+  getPlatformClient(): NblocksClient {
     return this;
   }
 
@@ -91,48 +108,6 @@ export class PlatformClient extends Client {
    */
   tenant(tenantId: string): Tenant {
     return new Tenant(this, tenantId, this.debug);
-  }
-
-  /**
-   * Gets the complete `App` model of your app.
-   * The app is your top most entity and holds all configurations for how your App interacts with the platform in any sub call. 
-   * Use this response data to alter your model and push back
-   * @returns Returns AppModel
-   */
-  async getApp(): Promise<AppModel> {
-    const response = await this.httpClient.get<AppModel>('/app', { headers: this.getHeaders() });
-    return response.data;
-  }
-
-  /**
-   * Shortcut to get the name of all your roles
-   * @returns Returns a list of role names
-   */
-  async getAppRoleNames(): Promise<string[]> {
-    this._log("listRoles");
-    const app = await this.getApp();
-    return Object.keys(app.roles);
-  }
-
-  /**
-   * Updates your `App` model. 
-   * * Setting the emailSenderEmail will trigger a verification email to be sent to the email address provided. Once verified all Nblocks emails will be send through this address.
-   * * Altering your Business model will trigger a synchronization with your Stripe account (if credentials are setup)
-   * @param model Your app model
-   * @returns Returns AppModel
-   */
-  async updateApp(model: Partial<Omit<AppModel, "id" | "domain" | "stripeEnabled">>): Promise<AppModel> {
-    return (await this.httpClient.put<AppModel>('/app', model, { headers: this.getHeaders() })).data;
-  }
-
-  /**
-   * Store sensitive credentials for your app so NBlocks can authorize with 3d party services on your behalf.
-   * These credentials are never outputted back again
-   * 
-   * E.g. Stripe integration, social login providers like Google, Facebook, Github etc.
-   */
-  async updateAppCredentials(credentials: UpdateCredentials): Promise<void> {
-    await this.httpClient.put<void>('/app/credentials', credentials, { headers: this.getHeaders() });
   }
 
   setJwt(token: string): void {

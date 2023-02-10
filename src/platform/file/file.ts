@@ -1,4 +1,3 @@
-import { Client } from '../../abstracts/client';
 import * as FormData from 'form-data'
 import axios from 'axios';
 import { Tenant } from '../tenant/tenant';
@@ -12,10 +11,9 @@ import { DeleteFileRequestDto } from './models/delete-file-request.dto';
 import { CreateZipArgs } from './models/create-zip-args';
 import { CreateZipRequestDto } from './models/create-zip-request.dto';
 import { CreateZipResponseDto } from './models/create-zip-response.dto';
+import { SpecificEntity } from '../../abstracts/specific-entity';
 
-export class FileClient extends Client {
-
-  readonly tenantId: string;
+export class FileClient extends SpecificEntity {
 
   private readonly BASE_URLS = {
     'PROD':'https://file-api.nebulr-core.com',
@@ -24,8 +22,7 @@ export class FileClient extends Client {
   };
 
   constructor (parentEntity: Tenant, debug = false) {
-    super(parentEntity, debug);
-    this.tenantId = parentEntity.id;
+    super(parentEntity.id, parentEntity, debug);
   }
 
   /**
@@ -36,7 +33,7 @@ export class FileClient extends Client {
    * @returns 
    */
   async startUploadSession(args: PrepareUploadArgs): Promise<{key: string, session: CreatePresignedPostResponseDto}> {
-    const reqArgs: PrepareUploadRequestDto = {...args, tenantId: this.tenantId};
+    const reqArgs: PrepareUploadRequestDto = {...args, tenantId: this.id};
     const session = (await this.getHttpClient().post<CreatePresignedPostResponseDto>(`upload/prepare`, reqArgs, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
     return {key: session.fields['key'], session};
   }
@@ -50,7 +47,7 @@ export class FileClient extends Client {
    * @returns Returns a signed URL for temporary access to the object
    */
   async finishUploadSession(args: FinishUploadArgs): Promise<string> {
-    const reqArgs: FinishUploadRequestDto = {...args, tenantId: this.tenantId};
+    const reqArgs: FinishUploadRequestDto = {...args, tenantId: this.id};
     return (await this.getHttpClient().post<string>(`upload/finish`, reqArgs, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
   }
 
@@ -81,7 +78,7 @@ export class FileClient extends Client {
    * @returns Returns a signed URL for temporary access to the object
    */
   async getSignedUrls(keys: string[]): Promise<string []> {
-    return (await this.getHttpClient().post<string []>(`file/signedUrl`, {keys, tenantId: this.tenantId}, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
+    return (await this.getHttpClient().post<string []>(`file/signedUrl`, {keys, tenantId: this.id}, { headers: this.getHeaders(), baseURL: this._getBaseUrl()})).data;
   }
 
   /**
@@ -90,7 +87,7 @@ export class FileClient extends Client {
    * @returns 
    */
   async delete(args: DeleteFileArgs): Promise<void> {
-    const reqArgs: DeleteFileRequestDto = { ...args, tenantId: this.tenantId };
+    const reqArgs: DeleteFileRequestDto = { ...args, tenantId: this.id };
     return (await this.getHttpClient().post(`file/delete`, reqArgs, { headers: this.getHeaders(), baseURL: this._getBaseUrl() })).data;
   }
 
@@ -138,7 +135,7 @@ export class FileClient extends Client {
   * @returns Returns Key and signed url of the zip object
   */
   async createZipFile(args: CreateZipArgs): Promise<CreateZipResponseDto> {
-    const reqArgs: CreateZipRequestDto = { ...args, tenantId: this.tenantId };
+    const reqArgs: CreateZipRequestDto = { ...args, tenantId: this.id };
     const result = await this.getHttpClient().post<CreateZipResponseDto>(
       `file/createZipFile`,
       reqArgs,
