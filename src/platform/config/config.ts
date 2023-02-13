@@ -5,6 +5,7 @@ import { NblocksClient } from "../nblocks-client";
 import { CommunicationClient } from "../tenant/communication/communication";
 import { EmailTemplateResponseDto } from "../tenant/communication/models/get-email-template-response.dto";
 import { TemplateName } from "../tenant/communication/models/template-name.type";
+import { UpdateEmailTemplateRequestDto } from "../tenant/communication/models/update-email-template-request.dto";
 
 /**
  * Here we collect everything you can configure for your app in nblocks. These configurations is on the app level.
@@ -69,24 +70,40 @@ export class Config extends Entity {
   async getEmailTemplate(
     type: TemplateName
   ): Promise<EmailTemplateResponseDto> {
-    const data = await this._communicationClient.getTemplate(type);
+    const data = await this._communicationClient._internalGetTemplate(type);
     return data;
   }
 
   /**
    * Changes the app template configuration for the whole app.
-   * @param type TemplateName
-   * @param content The html content
+   * @param args UpdateEmailTemplateRequestDto
    * @returns 
+   * 
+   * # Content variables
+   * Check TemplateVariables for available variables to use in content.
+
+Overriding one of the pre defined templates can be done easily. When you override a template, Nblocks will use this content for all languages.
+The HTML content supports variables that are injected when rendering the template. Except for the `ctaUrl` variable, which contains a unique link if the mail asks the user to perform an action, these are not required and can be considered just as helpers.
+
+Usage: `<h1>{{variable}}</h1` to inject it in the content html.
+
+| Variable           | Example                                              | Description                                                                       |
+| ------------------ | ---------------------------------------------------- | --------------------------------------------------------------------------------- |
+| appName            | `My app`                                             | Your app name                                                                     |
+| appLogo            | `https://url-to-logo.png`                            | Your app logo url                                                                 |
+| appUrl             | `https://url-to-app.com`                             | A url to your app frontend                                                        |
+| emailTitle         | `Reset your password`                                | The title of the email. Comes from Nblocks standard texts                         |
+| emailBody          | `To reset your password, please click the button...` | The content of the email. Comes from Nblocks standard texts                       |
+| ctaTitle           | `Reset password`                                     | The Call-to-action button title. Comes from Nblocks standard texts                |
+| ctaUrl             | `https://unique-link...`                             | The Call-to-action button link. A unique link relevant to this email              |
+| fallBackButtonText | `Button not working? Click the li...`                | A title to a fallback link displayed under the CTA button for older email clients |
+| currentYear        | `2023`                                               | Current year                                                                      |
+
    */
   async overrideEmailTemplate(
-    type: TemplateName,
-    content: string
+    args: UpdateEmailTemplateRequestDto
   ): Promise<EmailTemplateResponseDto> {
-    const data = await this._communicationClient.overrideTemplate(
-      type,
-      content
-    );
+    const data = await this._communicationClient._internalOverrideTemplate(args);
     return data;
   }
 
@@ -96,6 +113,6 @@ export class Config extends Entity {
    * @returns 
    */
   async resetEmailTemplate(type: TemplateName): Promise<void> {
-    await this._communicationClient.resetTemplate(type);
+    await this._communicationClient._internalResetTemplate(type);
   }
 }

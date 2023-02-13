@@ -6,6 +6,7 @@ import { RedirectErrorEventDto } from './models/redirect-error-event.dto';
 import { RedirectRuleDto } from './models/redirect-rule.dto';
 import { SendEmailRequestDto } from './models/send-email-request.dto';
 import { TemplateName } from './models/template-name.type';
+import { UpdateEmailTemplateRequestDto } from './models/update-email-template-request.dto';
 
 export class CommunicationClient extends Client {
 
@@ -105,7 +106,7 @@ export class CommunicationClient extends Client {
    * @param type TemplateName
    * @returns 
    */
-  async getTemplate(type: TemplateName): Promise<EmailTemplateResponseDto> {
+  async _internalGetTemplate(type: TemplateName): Promise<EmailTemplateResponseDto> {
     if (!(this.parentEntity instanceof NblocksClient)) {
       throw new Error("Your trying to set a config on the app level. You're trying call this function in the context of a tenant. You should use client.config.getEmailTemplate() instead.");
     }
@@ -115,15 +116,14 @@ export class CommunicationClient extends Client {
 
   /**
    * **Internal functionality. Do not use this function**. Use `client.config.overrideEmailTemplate()` instead.
-   * @param type TemplateName
-   * @param content The html content
-   * @returns 
+   * @param args UpdateEmailTemplateRequestDto
+   * @returns EmailTemplateResponseDto
    */
-  async overrideTemplate(type: TemplateName, content: string): Promise<EmailTemplateResponseDto> {
+  async _internalOverrideTemplate(args: UpdateEmailTemplateRequestDto): Promise<EmailTemplateResponseDto> {
     if (!(this.parentEntity instanceof NblocksClient)) {
       throw new Error("Your trying to set a config on the app level. You're trying call this function in the context of a tenant. You should use client.config.overrideEmailTemplate() instead.");
     }
-    const response = await this.getHttpClient().put<EmailTemplateResponseDto>(`/template/${type}`, {type, content}, { headers: this.getHeaders(), baseURL: this._getBaseUrl()});
+    const response = await this.getHttpClient().put<EmailTemplateResponseDto>(`/template/${args.type}`, args, { headers: this.getHeaders(), baseURL: this._getBaseUrl()});
     return response.data;
   }
 
@@ -132,7 +132,7 @@ export class CommunicationClient extends Client {
    * @param type TemplateName
    * @returns 
    */
-  async resetTemplate(type: TemplateName): Promise<void> {
+  async _internalResetTemplate(type: TemplateName): Promise<void> {
     if (!(this.parentEntity instanceof NblocksClient)) {
       throw new Error("Your trying to set a config on the app level. You're trying call this function in the context of a tenant. You should use client.config.resetEmailTemplate() instead.");
     }

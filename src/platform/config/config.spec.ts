@@ -64,7 +64,7 @@ describe('Platform client', () => {
 
     test('Update email template', async () => {
         mockApi.onPut("/template/SIGNUP").reply(200, updateTemplateMock);
-        const template = await config.overrideEmailTemplate('SIGNUP', "<h1>Welcome</h1>");
+        const template = await config.overrideEmailTemplate({type: 'SIGNUP', content: "<h1>Welcome</h1>"});
         expect(template.content).toBe("<h1>Welcome</h1>");
     });
 
