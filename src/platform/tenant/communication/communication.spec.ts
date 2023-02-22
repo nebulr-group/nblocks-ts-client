@@ -15,7 +15,7 @@ describe('Communcation client', () => {
 
     let mockApi: MockAdapter;
     beforeAll(() => {
-        const client = new NblocksClient("SECRET", 1, false, 'DEV');
+        const client = new NblocksClient({apiKey: "SECRET", stage: 'DEV'});
         mockApi = new MockAdapter(client["httpClient"]);
         comClient = client.tenant("1234").communicationClient
     });
@@ -83,7 +83,7 @@ describe('Communcation client', () => {
     })
 
     test('Expect use an internal call to throw error', async () => {
-        const promise = comClient.getTemplate('INVITE_EXISTING');
+        const promise = comClient._internalGetTemplate('INVITE_EXISTING');
         await expect(promise).rejects.toThrowError(Error);
     })
 

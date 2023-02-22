@@ -16,7 +16,7 @@ describe('File client', () => {
 
     let mockApi: MockAdapter;
     beforeAll(() => {
-        const client = new NblocksClient("SECRET", 1, false, 'DEV');
+        const client = new NblocksClient({apiKey: "SECRET", stage: 'DEV'});
         mockApi = new MockAdapter(client["httpClient"]);
         fileClient = client.tenant("1234").fileClient;
     });

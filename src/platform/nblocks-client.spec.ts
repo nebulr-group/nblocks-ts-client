@@ -1,11 +1,11 @@
 import { NblocksClient } from './nblocks-client';
 
-describe('Platform client', () => {
+describe('NblocksClient', () => {
 
     let client: NblocksClient;
 
     beforeAll(() => {
-        client = new NblocksClient("SECRET", 1, false, 'DEV');
+        client = new NblocksClient({apiKey: "SECRET", stage: 'DEV'});
         client.setJwt("JWT");
     });
 

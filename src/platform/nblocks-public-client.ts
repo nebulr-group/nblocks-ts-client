@@ -1,22 +1,18 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
-import { Auth } from './auth/auth';
-import { Tenants } from './tenant/tenants';
-import { Tenant } from './tenant/tenant';
 import { Client } from '../abstracts/client';
 import { UnauthenticatedError } from '../errors/UnauthenticatedError';
 import { ForbiddenError } from '../errors/ForbiddenError';
 import { ClientError } from '../errors/ClientError';
 import { NotFoundError } from '../errors/NotFoundError';
 import { AuthContextHelper } from './auth/auth-context-helper';
-import { Config } from './config/config';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
 /**
- * This is the core Nblocks client.
- * This exposes all Nblocks features using sub clients.
+ * This is the Public Nblocks client.
+ * This exposes all Nblocks features that can be used in a public context. You only idenfy with app id.
  */
-export class NblocksClient extends Client {
+export class NblocksPublicClient extends Client {
 
   private readonly BASE_URLS = {
     'PROD': 'https://account-api.nebulr-core.com',
@@ -29,28 +25,10 @@ export class NblocksClient extends Client {
    */
   private readonly httpClient: AxiosInstance;
 
-  private readonly apiKey: string;
-
-  private jwt?: string;
+  readonly appId: string;
 
   readonly stage: Stage
   readonly version: number;
-
-  /**
-   * A generic Tenants client. 
-   * Use this to create or list tenants
-   */
-  tenants: Tenants;
-
-  /**
-   * @deprecated Use local JWT and the new Auth client instead
-   * A generic Auth client.
-   * Use this to query or mutate data for auth related operations
-   */
-  authLegacy: Auth;
-
-  /** A helper to configure your app in Nblocks */
-  config: Config;
 
   /**
    * AuthContext helper.
@@ -58,10 +36,10 @@ export class NblocksClient extends Client {
    */
   auth: AuthContextHelper;
 
-  constructor(args: {apiKey?: string, version?: number, debug?: boolean, stage?: Stage}) {
+  constructor(appId: string, args: {version?: number, debug?: boolean, stage?: Stage}) {
     super(null, args.debug);
 
-    this.apiKey = args.apiKey || process.env.NB_API_KEY;
+    this.appId = appId
     this.version = args.version || 1;
     this.stage = args.stage || 'PROD';
 
@@ -71,48 +49,19 @@ export class NblocksClient extends Client {
 
     this.configureHttpClient(this.httpClient);
 
-    this.authLegacy = new Auth(this, this.debug);
-
-    this.tenants = new Tenants(this, this.debug);
-
-    this.config = new Config(this, this.debug);
-
     this.auth = new AuthContextHelper(this.stage, this.debug);
 
-    this._log(`Initialized NblocksClient in stage ${this.stage} with base url: ${this.getApiBaseUrl(this.stage)}, apiKey: ${this.apiKey.substring(0, 5)}...`);
+    this._log(`Initialized NblocksPublicClient in stage ${this.stage} with base url: ${this.getApiBaseUrl(this.stage)}, app id: ${this.appId}`);
   }
 
   /** **Internal functionality. Do not use this function** */
-  getPlatformClient(): NblocksClient {
+  getPlatformClient(): NblocksPublicClient {
     return this;
   }
 
   /** **Internal functionality. Do not use this function** */
   getHttpClient(): AxiosInstance {
     return this.httpClient;
-  }
-
-  /** **Internal functionality. Do not use this function** */
-  getHeaders(): Record<string, string> {
-    if (this.jwt) {
-      return { "Authorization": `Bearer ${this.jwt}` };
-    } else {
-      return { "x-api-key": this.apiKey };
-    }
-  }
-
-  /**
-   * Gets a specific `Tenant` client for a particular Tenant id.
-   * Use this client to query or mutate data for a particular tenant
-   * @param tenantId
-   * @returns Returns an instance of a Tenant client
-   */
-  tenant(tenantId: string): Tenant {
-    return new Tenant(this, tenantId, this.debug);
-  }
-
-  setJwt(token: string): void {
-    this.jwt = token;
   }
 
   /** **Internal functionality. Do not use this function** */

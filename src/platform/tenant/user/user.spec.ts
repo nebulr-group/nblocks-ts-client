@@ -12,7 +12,7 @@ describe('Users client', () => {
     
     let mockApi: MockAdapter;
     beforeAll(() => {
-        client = new NblocksClient("SECRET", 1, false, 'DEV');
+        client = new NblocksClient({apiKey: "SECRET", stage: 'DEV'});
         mockApi = new MockAdapter(client["httpClient"]);
     });
 

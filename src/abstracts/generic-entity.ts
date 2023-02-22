@@ -1,5 +1,6 @@
 import { AxiosInstance } from "axios";
 import { NblocksClient } from "../platform/nblocks-client";
+import { NblocksPublicClient } from "../platform/nblocks-public-client";
 
 /**
  * This client is generic and non specific to a certain entity id.   
@@ -23,7 +24,7 @@ export abstract class Entity {
      * Returns a reference to the top most client containing configs that might be useful for child clients
      * @returns 
      */
-    getPlatformClient(): NblocksClient {
+    getPlatformClient(): NblocksClient | NblocksPublicClient {
         return this.parentEntity.getPlatformClient();
     }
 
