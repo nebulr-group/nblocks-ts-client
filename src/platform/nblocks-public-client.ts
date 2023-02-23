@@ -5,6 +5,7 @@ import { ForbiddenError } from '../errors/ForbiddenError';
 import { ClientError } from '../errors/ClientError';
 import { NotFoundError } from '../errors/NotFoundError';
 import { AuthContextHelper } from './auth/auth-context-helper';
+import { OAuth } from './auth/oauth';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
@@ -30,11 +31,7 @@ export class NblocksPublicClient extends Client {
   readonly stage: Stage
   readonly version: number;
 
-  /**
-   * AuthContext helper.
-   * Use this to resolve user JTWs. All JTWs are checked for integrity and security
-   */
-  auth: AuthContextHelper;
+  auth: OAuth;
 
   constructor(appId: string, args: {version?: number, debug?: boolean, stage?: Stage}) {
     super(null, args.debug);
@@ -49,7 +46,7 @@ export class NblocksPublicClient extends Client {
 
     this.configureHttpClient(this.httpClient);
 
-    this.auth = new AuthContextHelper(this.stage, this.debug);
+    this.auth = new OAuth(this, this.debug);
 
     this._log(`Initialized NblocksPublicClient in stage ${this.stage} with base url: ${this.getApiBaseUrl(this.stage)}, app id: ${this.appId}`);
   }
