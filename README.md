@@ -189,7 +189,7 @@ This project can be opened inside a dev container in visual studio. During the c
 *TODO*
 ### Override service urls
 You can override the built in micro service urls to external Nblocks services used for different calls by providing environment variables. These are:
-* `NEBULR_PLATFORM_CORE_API_URL`
+* `NBLOCKS_CORE_API_URL`
 * `NEBULR_COMMUNICATION_API_URL`
 * `NEBULR_FILE_API_URL`
 ## Npm publish

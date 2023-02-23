@@ -66,7 +66,7 @@ export class NblocksPublicClient extends Client {
 
   /** **Internal functionality. Do not use this function** */
   private getApiBaseUrl(stage: Stage): string {
-    return process.env.NEBULR_PLATFORM_CORE_API_URL || this.BASE_URLS[stage];
+    return process.env.NBLOCKS_CORE_API_URL || this.BASE_URLS[stage];
   }
 
   private configureHttpClient(httpClient: AxiosInstance): void {
