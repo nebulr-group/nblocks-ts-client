@@ -23,10 +23,12 @@ import { CommunicationClient } from './platform/tenant/communication/communicati
 import { AuthContextHelper } from './platform/auth/auth-context-helper';
 import { AuthContext } from './platform/auth/models/auth-context';
 import { Config } from './platform/config/config';
+import { NblocksPublicClient } from './platform/nblocks-public-client';
 
 export { 
     AppModel, 
-    NblocksClient, 
+    NblocksClient,
+    NblocksPublicClient,
     FileClient,
     PdfServiceClient,
     CommunicationClient,
