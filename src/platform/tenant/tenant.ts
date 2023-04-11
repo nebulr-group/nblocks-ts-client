@@ -58,8 +58,8 @@ export class Tenant extends SpecificEntity{
    * @returns 
    */
   async getLight(): Promise<AuthTenantResponseDto> {
-    const {id,name,locale} = (await this.getHttpClient().get<TenantResponseDto>(`/tenant/byId/${this.id}`, { headers: this.getHeaders() })).data;
-    return {id,name,locale};
+    const {id, name, locale, onboarded} = (await this.getHttpClient().get<TenantResponseDto>(`/tenant/byId/${this.id}`, { headers: this.getHeaders() })).data;
+    return {id, name, locale, onboarded};
   }
 
   /**

@@ -7,4 +7,5 @@ export class AuthTenantResponseDto {
   plan?: string;
   locale: string;
   logo?: string;
+  onboarded: boolean;
 }
