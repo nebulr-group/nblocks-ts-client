@@ -11,6 +11,12 @@ export class Plan {
   name: string;
 
   /**
+   * The product starts with a trial and then converts into paid.
+   * To disable trials, put 0 | undefined
+   */
+  trialDays?: number;
+  
+  /**
    * All prices for each region
    */
   prices: Price[];

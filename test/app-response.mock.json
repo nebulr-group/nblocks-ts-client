@@ -5,6 +5,7 @@
     "apiUrl": "",
     "uiUrl": "http://localhost:8100",
     "stripeEnabled": true,
+    "azureMarketplaceEnabled": false,
     "onboardingFlow": "B2B",
     "cloudViews": true,
     "defaultRole": "OWNER",
@@ -84,6 +85,7 @@
             },
             {
             "name": "TEAM",
+            "trialDays": 14,
             "prices": [
                 {
                 "region": "SE",
