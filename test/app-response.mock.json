@@ -8,6 +8,8 @@
     "azureMarketplaceEnabled": false,
     "onboardingFlow": "B2B",
     "cloudViews": true,
+    "redirectUris": ["http://localhost:8080/auth/oauth-callback"],
+    "defaultCallbackUri": "http://localhost:8080/auth/oauth-callback",
     "defaultRole": "OWNER",
     "roles": {
         "OWNER": [

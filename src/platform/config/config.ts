@@ -1,5 +1,6 @@
 import { Entity } from "../../abstracts/generic-entity";
 import { AppModel } from "../models/app.model";
+import { UpdateAppRequest } from "../models/update-app-request";
 import { UpdateCredentials } from "../models/update-credentials-request.dto";
 import { NblocksClient } from "../nblocks-client";
 import { CommunicationClient } from "../tenant/communication/communication";
@@ -47,7 +48,7 @@ export class Config extends Entity {
    * @param model Your app model
    * @returns Returns AppModel
    */
-  async updateAppProfile(model: Partial<Omit<AppModel, "id" | "domain" | "stripeEnabled">>): Promise<AppModel> {
+  async updateAppProfile(model: UpdateAppRequest): Promise<AppModel> {
     const response = await this.parentEntity.getHttpClient().put<AppModel>('/app', model, { headers: this.getHeaders() });
     return response.data;
   }
