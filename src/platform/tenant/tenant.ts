@@ -86,15 +86,22 @@ export class Tenant extends SpecificEntity{
     return response.data;
   }
 
+  /**
+   * Creates a Stripe checkout session and returns the id from which you can render using the Stripe SDK.
+   * @deprecated Redirect the user to checkoutView instead
+   * @param args 
+   * @returns 
+   */
   async createStripeCheckoutSession(args: StripeTenantCheckoutIdRequestDto): Promise<CheckoutResponsetDto> {
     const response = await this.getHttpClient().post<CheckoutResponsetDto>(`/tenant/${this.id}/checkoutId`, args, { headers: this.getHeaders() });
     return response.data;
   }
 
   /**
-   * Obtain an short lived session url to redirect or present the user its Stripe subscription panel for updating payment or subscription data.
+   * Obtain a url to redirect or present the user a portal for updating payment or subscription data.
+   * Can be both Stripe or Azure Markeplace
    */
-  async getStripeCustomerPortalUrl(): Promise<CustomerPortalResponseDto> {
+  async getSubscriptionPortalUrl(): Promise<CustomerPortalResponseDto> {
     const response = await this.getHttpClient().get<CustomerPortalResponseDto>(`/tenant/customerPortal`, { headers: this.getHeaders() });
     return response.data;
   }

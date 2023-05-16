@@ -87,7 +87,7 @@ describe('Tenant client', () => {
 
     test('Get Customer Portal Url', async () => {
         mockApi.onGet(`/tenant/customerPortal`).reply(200, customerPortalMock);
-        const response = await client.tenant(newTenantId).getStripeCustomerPortalUrl();
+        const response = await client.tenant(newTenantId).getSubscriptionPortalUrl();
         expect(response.url).toBeDefined();
     });
 })

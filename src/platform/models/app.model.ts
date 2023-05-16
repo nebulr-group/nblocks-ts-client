@@ -47,6 +47,9 @@ export class AppModel {
     /** Boolean value telling the user if Stripe is enabled (Read only) */
     stripeEnabled: boolean;
 
+    /** Boolean value telling the user if Azure AD SSO is enabled (Read only) */
+    azureAdSsoEnabled: boolean;
+
     /** Boolean value telling the user if Azure marketplace is enabled (Read only) */
     azureMarketplaceEnabled: boolean;
 
