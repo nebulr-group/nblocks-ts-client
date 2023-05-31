@@ -5,6 +5,7 @@
     "apiUrl": "",
     "uiUrl": "http://localhost:8100",
     "stripeEnabled": true,
+    "googleSsoEnabled": false,
     "azureAdSsoEnabled": false,
     "azureMarketplaceEnabled": false,
     "onboardingFlow": "B2B",
