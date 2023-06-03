@@ -15,7 +15,7 @@ describe('Communcation client', () => {
 
     let mockApi: MockAdapter;
     beforeAll(() => {
-        const client = new NblocksClient({apiKey: "SECRET", stage: 'DEV'});
+        const client = new NblocksClient({appId: "id", apiKey: "SECRET", stage: 'DEV'});
         mockApi = new MockAdapter(client["httpClient"]);
         comClient = client.tenant("1234").communicationClient
     });

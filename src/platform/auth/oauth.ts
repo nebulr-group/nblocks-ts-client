@@ -18,8 +18,8 @@ export class OAuth extends SpecificEntity{
   context: AuthContextHelper;
 
   constructor (parentEntity: NblocksPublicClient, debug = false) {
-    super(parentEntity.appId, parentEntity, debug);
-    new AuthContextHelper(parentEntity.stage, this.debug);
+    super(parentEntity.id, parentEntity, debug);
+    new AuthContextHelper(parentEntity, parentEntity.stage, this.debug);
   }
 
   /** Get entrypoint to the login flow. Redirect your user to this url */
