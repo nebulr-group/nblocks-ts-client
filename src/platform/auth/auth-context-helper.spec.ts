@@ -1,11 +1,12 @@
 import { JwtError } from "../../errors/JwtError";
+import { NblocksClient } from "../nblocks-client";
 import {AuthContextHelper} from './auth-context-helper'
 
 describe('Auth client', () => {
     let helper: AuthContextHelper;
     
     beforeAll(() => {
-        helper = new AuthContextHelper('DEV', true);
+        helper = new AuthContextHelper(new NblocksClient({appId: "id"}), 'DEV', true);
     });
 
     beforeEach(() => {

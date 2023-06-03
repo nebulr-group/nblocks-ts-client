@@ -6,6 +6,7 @@ import { ClientError } from '../errors/ClientError';
 import { NotFoundError } from '../errors/NotFoundError';
 import { AuthContextHelper } from './auth/auth-context-helper';
 import { OAuth } from './auth/oauth';
+import { SpecificEntity } from '../abstracts/specific-entity';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
@@ -13,7 +14,7 @@ export type Stage = 'DEV' | 'STAGE' | 'PROD';
  * This is the Public Nblocks client.
  * This exposes all Nblocks features that can be used in a public context. You only idenfy with app id.
  */
-export class NblocksPublicClient extends Client {
+export class NblocksPublicClient extends SpecificEntity {
 
   private readonly BASE_URLS = {
     'PROD': 'https://account-api.nebulr-core.com',
@@ -26,17 +27,14 @@ export class NblocksPublicClient extends Client {
    */
   private readonly httpClient: AxiosInstance;
 
-  readonly appId: string;
-
   readonly stage: Stage
   readonly version: number;
 
   auth: OAuth;
 
   constructor(appId: string, args: {version?: number, debug?: boolean, stage?: Stage}) {
-    super(null, args.debug);
+    super(appId, null, args.debug);
 
-    this.appId = appId
     this.version = args.version || 1;
     this.stage = args.stage || 'PROD';
 
@@ -48,7 +46,7 @@ export class NblocksPublicClient extends Client {
 
     this.auth = new OAuth(this, this.debug);
 
-    this._log(`Initialized NblocksPublicClient in stage ${this.stage} with base url: ${this.getApiBaseUrl(this.stage)}, app id: ${this.appId}`);
+    this._log(`Initialized NblocksPublicClient in stage ${this.stage} with base url: ${this.getApiBaseUrl(this.stage)}, app id: ${this.id}`);
   }
 
   /** **Internal functionality. Do not use this function** */

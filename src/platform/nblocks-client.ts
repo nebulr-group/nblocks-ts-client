@@ -2,13 +2,13 @@ import axios, { AxiosError, AxiosInstance } from 'axios';
 import { Auth } from './auth/auth';
 import { Tenants } from './tenant/tenants';
 import { Tenant } from './tenant/tenant';
-import { Client } from '../abstracts/client';
 import { UnauthenticatedError } from '../errors/UnauthenticatedError';
 import { ForbiddenError } from '../errors/ForbiddenError';
 import { ClientError } from '../errors/ClientError';
 import { NotFoundError } from '../errors/NotFoundError';
 import { AuthContextHelper } from './auth/auth-context-helper';
 import { Config } from './config/config';
+import { SpecificEntity } from '../abstracts/specific-entity';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
@@ -16,7 +16,7 @@ export type Stage = 'DEV' | 'STAGE' | 'PROD';
  * This is the core Nblocks client.
  * This exposes all Nblocks features using sub clients.
  */
-export class NblocksClient extends Client {
+export class NblocksClient extends SpecificEntity {
 
   private readonly BASE_URLS = {
     'PROD': 'https://account-api.nebulr-core.com',
@@ -58,10 +58,11 @@ export class NblocksClient extends Client {
    */
   auth: AuthContextHelper;
 
-  constructor(args: {apiKey?: string, version?: number, debug?: boolean, stage?: Stage}) {
-    super(null, args.debug);
+  constructor(args: {appId?: string, apiKey?: string, version?: number, debug?: boolean, stage?: Stage}) {
+    const appId = args. appId || process.env.NB_APP_ID || process.env.NBLOCKS_APP_ID
+    super(appId, null, args.debug);
 
-    this.apiKey = args.apiKey || process.env.NB_API_KEY;
+    this.apiKey = args.apiKey || process.env.NB_API_KEY || process.env.NBLOCKS_API_KEY;
     this.version = args.version || 1;
     this.stage = args.stage || 'PROD';
 
@@ -77,9 +78,9 @@ export class NblocksClient extends Client {
 
     this.config = new Config(this, this.debug);
 
-    this.auth = new AuthContextHelper(this.stage, this.debug);
+    this.auth = new AuthContextHelper(this, this.stage, this.debug);
 
-    this._log(`Initialized NblocksClient in stage ${this.stage} with base url: ${this.getApiBaseUrl(this.stage)}, apiKey: ${this.apiKey.substring(0, 5)}...`);
+    this._log(`Initialized NblocksClient in stage ${this.stage} with base url: ${this.getApiBaseUrl(this.stage)}, apiKey: ${this.apiKey?.substring(0, 5)}...`);
   }
 
   /** **Internal functionality. Do not use this function** */

@@ -7,10 +7,12 @@ import {
 import { JwtError } from "../../errors/JwtError";
 import { Stage } from "../nblocks-client";
 import { AuthContext, AuthJwt } from "./models/auth-context";
+import { SpecificEntity } from "../../abstracts/specific-entity";
 
 export class AuthContextHelper {
   private readonly _debug: boolean;
   private readonly _expectedIssuer: string;
+  private readonly _expectedAudience: string;
   private readonly BASE_URLS = {
     PROD: "https://auth.nblocks.cloud",
     STAGE: "https://auth-stage.nblocks.cloud",
@@ -25,9 +27,10 @@ export class AuthContextHelper {
 
   private _jwksClient: GetKeyFunction<JWSHeaderParameters, FlattenedJWSInput>;
 
-  constructor(stage: Stage, debug?: boolean) {
+  constructor(client: SpecificEntity, stage: Stage, debug?: boolean) {
     this._debug = debug;
     this._expectedIssuer = this._getIssuer(stage);
+    this._expectedAudience = this._getAudience(client);
     this._jwksClient = jose.createRemoteJWKSet(
       new URL(`${this._getBaseUrl(stage)}${this.JWKS_PATH}`),
       {}
@@ -43,6 +46,7 @@ export class AuthContextHelper {
         this._jwksClient,
         {
           issuer: this._expectedIssuer,
+          audience: this._expectedAudience
         }
       );
 
@@ -77,5 +81,9 @@ export class AuthContextHelper {
 
   private _getIssuer(stage: Stage): string {
     return process.env.NBLOCKS_AUTH_ISSUER || this.ISSUERS[stage];
+  }
+
+  private _getAudience(client: SpecificEntity): string {
+    return process.env.NBLOCKS_AUTH_AUDIENCE || client.id;
   }
 }

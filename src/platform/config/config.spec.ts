@@ -13,7 +13,7 @@ describe('Platform client', () => {
     let app: AppModel;
     let mockApi: MockAdapter;
     beforeAll(() => {
-        client = new NblocksClient({apiKey: "SECRET", stage: 'DEV'});
+        client = new NblocksClient({appId: "id", apiKey: "SECRET", stage: 'DEV'});
         config = client.config;
         mockApi = new MockAdapter(client["httpClient"]);
     });

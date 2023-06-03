@@ -16,7 +16,7 @@ describe('Auth client', () => {
     
     let mockApi: MockAdapter;
     beforeAll(() => {
-        client = new NblocksClient({apiKey: "SECRET", stage: 'DEV'});
+        client = new NblocksClient({appId: "id", apiKey: "SECRET", stage: 'DEV'});
         mockApi = new MockAdapter(client["httpClient"]);
     });
 
