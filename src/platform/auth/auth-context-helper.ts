@@ -36,7 +36,13 @@ export class AuthContextHelper {
       {}
     );
 
-    console.log(`${this._getBaseUrl(stage)}${this.JWKS_PATH}`)
+    this._log(`${this._getBaseUrl(stage)}${this.JWKS_PATH}`);
+    this._log(`expectedIssuer: ${this._expectedIssuer}, expectedAudience: ${this._expectedAudience},`);
+  }
+
+  private _log(message: string): void {
+    if (this._debug)
+      console.log(message);
   }
 
   async getAuthContext(authJwt: string): Promise<AuthContext> {
