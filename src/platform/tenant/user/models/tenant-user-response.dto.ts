@@ -17,6 +17,12 @@ export class TenantUserResponseDto {
     username: string;
   
     /** Users full name (first name and last name concatenated) */
+    firstName: string;
+
+    /** Users full name (first name and last name concatenated) */
+    lastName: string;
+
+    /** Users full name (first name and last name concatenated) */
     fullName: string;
   
     /** If user is onboarded or not (should be put through app onboarding) */

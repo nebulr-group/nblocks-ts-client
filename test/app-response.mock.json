@@ -4,6 +4,7 @@
     "domain": "MY_APP",
     "apiUrl": "",
     "uiUrl": "http://localhost:8100",
+    "webhookUrl": "http://api.example.com/webhook",
     "stripeEnabled": true,
     "googleSsoEnabled": false,
     "azureAdSsoEnabled": false,

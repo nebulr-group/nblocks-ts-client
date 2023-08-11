@@ -14,6 +14,9 @@ export class UpdateAppRequest {
   
     /** URL to your frontend app (for onboarding redirects etc). **Must be HTTPS** */
     uiUrl?: string;
+
+    /** Events like tenant and user updates will be sent to this webhook url */
+    webhookUrl?: string;
   
     /** All user roles and their granted privileges */
     roles?: Record<string, string[]>;

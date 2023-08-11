@@ -13,15 +13,18 @@ export class AppModel {
   
     /** URL to your api (to receive webhooks etc). **Must be HTTPS** */
     apiUrl: string;
-
-    /** Default user role */
-    defaultRole: string;
   
     /** URL to your frontend app (for onboarding redirects etc). **Must be HTTPS** */
     uiUrl: string;
+
+    /** Events like tenant and user updates will be sent to this webhook url */
+    webhookUrl?: string;
   
     /** All user roles and their granted privileges */
     roles: Record<string, string[]>;
+
+     /** Default user role */
+     defaultRole: string;
   
     /** The business model defines what plans are available to subscribe to and what taxes applies. */
     businessModel: BusinessModel;
