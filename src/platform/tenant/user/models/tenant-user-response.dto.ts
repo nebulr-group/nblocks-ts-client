@@ -16,10 +16,10 @@ export class TenantUserResponseDto {
     /** Username, same as Email address ATM */
     username: string;
   
-    /** Users full name (first name and last name concatenated) */
+    /** Users first name */
     firstName: string;
 
-    /** Users full name (first name and last name concatenated) */
+    /** Users last name */
     lastName: string;
 
     /** Users full name (first name and last name concatenated) */
