@@ -1,0 +1,10 @@
+{
+    "tenants": 2,
+    "users": 4,
+    "passwords": false,
+    "errors": [
+        "One or more users are missing an username"
+    ],
+    "warnings": [],
+    "approved": false
+}

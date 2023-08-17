@@ -1,6 +1,9 @@
 import { Entity } from '../../abstracts/generic-entity';
 import { CreateTenantRequestDto } from './models/create-tenant-request.dto';
+import { ImportTenantFromFileRequest } from './models/import-tenant-from-file.request';
+import { ImportTenantScheduledResponse } from './models/import-tenant-scheduled.response';
 import { TenantResponseDto } from './models/tenant.model';
+import { ValidateImportTenantResult } from './models/validate-import-tenant.response';
 
 /**
  * A generic Tenants client. 
@@ -28,5 +31,15 @@ export class Tenants extends Entity {
    */
   async list(): Promise<TenantResponseDto[]> {
     return (await this.getHttpClient().get<TenantResponseDto[]>(`/tenant`, { headers: this.getHeaders() })).data;
+  }
+
+  async validateImportFromFile(importData: ImportTenantFromFileRequest): Promise<ImportTenantScheduledResponse> {
+    const response = await this.getHttpClient().post<ImportTenantScheduledResponse>(`/import/validateTenantsFromFile`, importData, { headers: this.getHeaders() });
+    return response.data;
+  }
+
+  async importFromFile(importData: ImportTenantFromFileRequest): Promise<ValidateImportTenantResult> {
+    const response = await this.getHttpClient().post<ValidateImportTenantResult>(`/import/tenantsFromFile`, importData, { headers: this.getHeaders() });
+    return response.data;
   }
 }

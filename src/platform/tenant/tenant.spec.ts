@@ -5,6 +5,8 @@ import * as tenantMock from '../../../test/tenant-response.mock.json';
 import * as translateMock from '../../../test/translate-response.mock.json';
 import * as customerPortalMock from '../../../test/customer-portal-response.mock.json';
 import * as tenantCheckoutMock from '../../../test/tenant-checkout-response.mock.json';
+import * as validateImportMock from '../../../test/validate-import-tenant-from-file-response.mock.json';
+import * as importMock from '../../../test/import-tenant-from-file-response.mock.json';
 import { NblocksClient } from '../nblocks-client';
 
 describe('Tenant client', () => {
@@ -89,5 +91,20 @@ describe('Tenant client', () => {
         mockApi.onGet(`/tenant/customerPortal`).reply(200, customerPortalMock);
         const response = await client.tenant(newTenantId).getSubscriptionPortalUrl();
         expect(response.url).toBeDefined();
+    });
+
+    test('Validate import data', async () => {
+        mockApi.onPost(`/import/validateTenantsFromFile`).reply(200, validateImportMock);
+        const response = await client.tenants.validateImportFromFile({fileUrl: "http://path/to/file.csv"});
+        expect(response).toBeDefined();
+        expect(response.status).toBeDefined();
+        expect(response.import).toBeDefined();
+    });
+
+    test('Import', async () => {
+        mockApi.onPost(`import/tenantsFromFile`).reply(200, importMock);
+        const response = await client.tenants.importFromFile({fileUrl: "http://path/to/file.csv"});
+        expect(response).toBeDefined();
+        expect(response.approved).toBeFalsy();
     });
 })
