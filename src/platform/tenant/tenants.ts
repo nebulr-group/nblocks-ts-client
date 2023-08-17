@@ -33,13 +33,13 @@ export class Tenants extends Entity {
     return (await this.getHttpClient().get<TenantResponseDto[]>(`/tenant`, { headers: this.getHeaders() })).data;
   }
 
-  async validateImportFromFile(importData: ImportTenantFromFileRequest): Promise<ImportTenantScheduledResponse> {
-    const response = await this.getHttpClient().post<ImportTenantScheduledResponse>(`/import/validateTenantsFromFile`, importData, { headers: this.getHeaders() });
+  async validateImportFromFile(importData: ImportTenantFromFileRequest): Promise<ValidateImportTenantResult> {
+    const response = await this.getHttpClient().post<ValidateImportTenantResult>(`/import/validateTenantsFromFile`, importData, { headers: this.getHeaders() });
     return response.data;
   }
 
-  async importFromFile(importData: ImportTenantFromFileRequest): Promise<ValidateImportTenantResult> {
-    const response = await this.getHttpClient().post<ValidateImportTenantResult>(`/import/tenantsFromFile`, importData, { headers: this.getHeaders() });
+  async importFromFile(importData: ImportTenantFromFileRequest): Promise<ImportTenantScheduledResponse> {
+    const response = await this.getHttpClient().post<ImportTenantScheduledResponse>(`/import/tenantsFromFile`, importData, { headers: this.getHeaders() });
     return response.data;
   }
 }
