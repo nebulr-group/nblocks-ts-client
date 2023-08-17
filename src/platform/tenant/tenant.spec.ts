@@ -97,14 +97,14 @@ describe('Tenant client', () => {
         mockApi.onPost(`/import/validateTenantsFromFile`).reply(200, validateImportMock);
         const response = await client.tenants.validateImportFromFile({fileUrl: "http://path/to/file.csv"});
         expect(response).toBeDefined();
-        expect(response.status).toBeDefined();
-        expect(response.import).toBeDefined();
+        expect(response.approved).toBeFalsy();
     });
 
     test('Import', async () => {
         mockApi.onPost(`import/tenantsFromFile`).reply(200, importMock);
         const response = await client.tenants.importFromFile({fileUrl: "http://path/to/file.csv"});
         expect(response).toBeDefined();
-        expect(response.approved).toBeFalsy();
+        expect(response.status).toBeDefined();
+        expect(response.import).toBeDefined();
     });
 })
