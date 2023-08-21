@@ -10,8 +10,9 @@ import { DeleteFileArgs } from './models/delete-file-args';
 import { DeleteFileRequestDto } from './models/delete-file-request.dto';
 import { CreateZipArgs } from './models/create-zip-args';
 import { CreateZipRequestDto } from './models/create-zip-request.dto';
-import { CreateZipResponseDto } from './models/create-zip-response.dto';
+import { CreateFileResponseDto } from './models/create-file-response.dto';
 import { SpecificEntity } from '../../abstracts/specific-entity';
+import { ExistingFileOperationRequest } from './models/existing-file-operation-request';
 
 export class FileClient extends SpecificEntity {
 
@@ -134,10 +135,38 @@ export class FileClient extends SpecificEntity {
   * @param args 
   * @returns Returns Key and signed url of the zip object
   */
-  async createZipFile(args: CreateZipArgs): Promise<CreateZipResponseDto> {
+  async createZipFile(args: CreateZipArgs): Promise<CreateFileResponseDto> {
     const reqArgs: CreateZipRequestDto = { ...args, tenantId: this.id };
-    const result = await this.getHttpClient().post<CreateZipResponseDto>(
+    const result = await this.getHttpClient().post<CreateFileResponseDto>(
       `file/createZipFile`,
+      reqArgs,
+      { headers: this.getHeaders(), baseURL: this._getBaseUrl() }
+    );
+    return result.data;
+  }
+
+  /** Converts CSV or EXCEL into JSON. 
+   * You must have uploaded the file that should be converted prior to this. 
+   * A new file is generated and made available with the key or signedUrl response 
+   * */
+  async convertSheetToJson(args: Omit<ExistingFileOperationRequest, 'tenantId'>): Promise<CreateFileResponseDto> {
+    const reqArgs: ExistingFileOperationRequest = { ...args, tenantId: this.id };
+    const result = await this.getHttpClient().post<CreateFileResponseDto>(
+      `file/convertSheetToJson`,
+      reqArgs,
+      { headers: this.getHeaders(), baseURL: this._getBaseUrl() }
+    );
+    return result.data;
+  }
+
+  /** Converts JSON into EXCEL 
+   * You must have uploaded the file that should be converted prior to this. 
+   * A new file is generated and made available with the key or signedUrl response 
+   * */
+  async convertJsonToExcel(args: Omit<ExistingFileOperationRequest, 'tenantId'>): Promise<CreateFileResponseDto> {
+    const reqArgs: ExistingFileOperationRequest = { ...args, tenantId: this.id };
+    const result = await this.getHttpClient().post<CreateFileResponseDto>(
+      `file/convertJsonToExcel`,
       reqArgs,
       { headers: this.getHeaders(), baseURL: this._getBaseUrl() }
     );

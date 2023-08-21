@@ -1,5 +1,6 @@
 import { Entity } from '../../abstracts/generic-entity';
 import { CreateTenantRequestDto } from './models/create-tenant-request.dto';
+import { ImportStatusResponse } from './models/import-status.response';
 import { ImportTenantFromFileRequest } from './models/import-tenant-from-file.request';
 import { ImportTenantScheduledResponse } from './models/import-tenant-scheduled.response';
 import { TenantResponseDto } from './models/tenant.model';
@@ -40,6 +41,11 @@ export class Tenants extends Entity {
 
   async importFromFile(importData: ImportTenantFromFileRequest): Promise<ImportTenantScheduledResponse> {
     const response = await this.getHttpClient().post<ImportTenantScheduledResponse>(`/import/tenantsFromFile`, importData, { headers: this.getHeaders() });
+    return response.data;
+  }
+
+  async checkImportStatus(reference: string): Promise<ImportStatusResponse> {
+    const response = await this.getHttpClient().get<ImportStatusResponse>(`/import/status/${reference}`, { headers: this.getHeaders() });
     return response.data;
   }
 }

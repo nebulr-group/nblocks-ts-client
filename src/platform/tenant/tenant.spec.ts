@@ -7,6 +7,7 @@ import * as customerPortalMock from '../../../test/customer-portal-response.mock
 import * as tenantCheckoutMock from '../../../test/tenant-checkout-response.mock.json';
 import * as validateImportMock from '../../../test/validate-import-tenant-from-file-response.mock.json';
 import * as importMock from '../../../test/import-tenant-from-file-response.mock.json';
+import * as importStatusMock from '../../../test/import-status-response.mock.json';
 import { NblocksClient } from '../nblocks-client';
 
 describe('Tenant client', () => {
@@ -106,5 +107,13 @@ describe('Tenant client', () => {
         expect(response).toBeDefined();
         expect(response.status).toBeDefined();
         expect(response.import).toBeDefined();
+    });
+
+    test('Check import status', async () => {
+        const reference = "624c14cc0c01e7003335628f";
+        mockApi.onGet(`/import/status/${reference}`).reply(200, importStatusMock);
+        const response = await client.tenants.checkImportStatus(reference);
+        expect(response).toBeDefined();
+        expect(response.status).toBeDefined();
     });
 })
