@@ -47,6 +47,9 @@ export class AppModel {
     /** Emails sent from Nblocks will have this sender email. You'll have to verify this email before */
     emailSenderEmail: string;
 
+    /** Boolean value telling the user if passkeys login is enabled */
+    passkeysEnabled: boolean;
+
     /** Boolean value telling the user if Stripe is enabled (Read only) */
     stripeEnabled: boolean;
 

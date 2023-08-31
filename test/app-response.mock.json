@@ -6,6 +6,7 @@
     "uiUrl": "http://localhost:8100",
     "webhookUrl": "http://api.example.com/webhook",
     "stripeEnabled": true,
+    "passkeysEnabled": true,
     "googleSsoEnabled": false,
     "azureAdSsoEnabled": false,
     "azureMarketplaceEnabled": false,
