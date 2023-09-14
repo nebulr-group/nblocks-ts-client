@@ -23,10 +23,10 @@
    /** Require users to login with MFA/2FA */
    mfa: boolean;
 
-   /** The tenant has been setup with a payment solution */
+  /** Payment method is set up. We can bill this workspace */
    paymentsEnabled: boolean;
 
-   /** The tenant should setup payment immediately because tenant has not setup payments and the subscribing plan carry a cost or the trial has ended */
+  /** The tenant should setup payment immediately because tenant has not setup payments and the subscribing plan carry a cost and the trial has ended */
    paymentsRequired: boolean;
 
    /** Store app specific meta data for this tenant */

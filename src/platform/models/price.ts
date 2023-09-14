@@ -3,9 +3,10 @@
  */
 export class Price {
   /**
-   * two-letter ISO country code. https://www.nationsonline.org/oneworld/country_code_list.htm
+   * Logical key used to synchronize data. Must be unique accross all prices in all plans
+   * E.g. `${planKey}-${currency}-${recurrenceInterval}`
    */
-  region: string;
+  key: string;
 
   /**
    * The amount for each recurring charge

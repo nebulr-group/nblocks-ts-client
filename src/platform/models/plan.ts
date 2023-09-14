@@ -11,6 +11,16 @@ export class Plan {
   name: string;
 
   /**
+   * Description of the plan
+   */
+  description?: string;
+
+  /**
+   * Logical key used to synchronize data. Must be unique
+   */
+  key: string;
+
+  /**
    * The product starts with a trial and then converts into paid.
    * To disable trials, put 0 | undefined
    */

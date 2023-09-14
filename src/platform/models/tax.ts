@@ -2,7 +2,7 @@ export class Tax {
   /**
    * two-letter ISO country code. https://www.nationsonline.org/oneworld/country_code_list.htm
    */
-  region: string;
+  countryCode: string;
 
   /**
    * Name of the tax, visible on checkout form

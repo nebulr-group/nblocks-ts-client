@@ -73,37 +73,39 @@
         ],
         "plans": [
             {
-            "name": "ESSENTIAL",
+            "name": "Basic",
+            "key": "BASIC",
             "prices": [
                 {
-                "region": "SE",
-                "amount": 500,
-                "currency": "SEK",
-                "recurrenceInterval": "month"
+                    "key": "BASIC_EUR_MONTH",
+                    "amount": 50,
+                    "currency": "EUR",
+                    "recurrenceInterval": "month"
                 },
                 {
-                "region": "DE",
-                "amount": 50,
-                "currency": "EUR",
-                "recurrenceInterval": "month"
+                    "key": "BASIC_EUR_YEAR",
+                    "amount": 500,
+                    "currency": "EUR",
+                    "recurrenceInterval": "year"
                 }
             ]
             },
             {
-            "name": "TEAM",
+            "name": "Premium",
+            "key": "PREMIUM",
             "trialDays": 14,
             "prices": [
                 {
-                "region": "SE",
-                "amount": 1000,
-                "currency": "SEK",
-                "recurrenceInterval": "month"
+                    "key": "PREMIUM_EUR_MONTH",
+                    "amount": 100,
+                    "currency": "SEK",
+                    "recurrenceInterval": "month"
                 },
                 {
-                "region": "DE",
-                "amount": 100,
-                "currency": "EUR",
-                "recurrenceInterval": "month"
+                    "key": "PREMIUM_EUR_YEAR",
+                    "amount": 1000,
+                    "currency": "EUR",
+                    "recurrenceInterval": "year"
                 }
             ]
             }
