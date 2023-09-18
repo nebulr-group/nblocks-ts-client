@@ -1,4 +1,4 @@
 export class UpdatePasswordRequestDto {
-    token!: string;
-    password!: string;
+    token: string;
+    password: string;
   }

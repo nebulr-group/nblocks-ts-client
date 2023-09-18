@@ -5,16 +5,19 @@ import * as tenantMock from '../../../test/tenant-response.mock.json';
 import * as translateMock from '../../../test/translate-response.mock.json';
 import * as customerPortalMock from '../../../test/customer-portal-response.mock.json';
 import * as tenantCheckoutMock from '../../../test/tenant-checkout-response.mock.json';
-import { PlatformClient } from '../platform-client';
+import * as validateImportMock from '../../../test/validate-import-tenant-from-file-response.mock.json';
+import * as importMock from '../../../test/import-tenant-from-file-response.mock.json';
+import * as importStatusMock from '../../../test/import-status-response.mock.json';
+import { NblocksClient } from '../nblocks-client';
 
 describe('Tenant client', () => {
 
-    let client: PlatformClient;
+    let client: NblocksClient;
     let newTenantId: string;
 
     let mockApi: MockAdapter;
     beforeAll(() => {
-        client = new PlatformClient("SECRET", 1, false, 'DEV');
+        client = new NblocksClient({appId: "id", apiKey: "SECRET", stage: 'DEV'});
         mockApi = new MockAdapter(client["httpClient"]);
     });
 
@@ -87,7 +90,30 @@ describe('Tenant client', () => {
 
     test('Get Customer Portal Url', async () => {
         mockApi.onGet(`/tenant/customerPortal`).reply(200, customerPortalMock);
-        const response = await client.tenant(newTenantId).getStripeCustomerPortalUrl();
+        const response = await client.tenant(newTenantId).getSubscriptionPortalUrl();
         expect(response.url).toBeDefined();
+    });
+
+    test('Validate import data', async () => {
+        mockApi.onPost(`/import/validateTenantsFromFile`).reply(200, validateImportMock);
+        const response = await client.tenants.validateImportFromFile({fileUrl: "http://path/to/file.csv"});
+        expect(response).toBeDefined();
+        expect(response.approved).toBeFalsy();
+    });
+
+    test('Import', async () => {
+        mockApi.onPost(`import/tenantsFromFile`).reply(200, importMock);
+        const response = await client.tenants.importFromFile({fileUrl: "http://path/to/file.csv"});
+        expect(response).toBeDefined();
+        expect(response.status).toBeDefined();
+        expect(response.import).toBeDefined();
+    });
+
+    test('Check import status', async () => {
+        const reference = "624c14cc0c01e7003335628f";
+        mockApi.onGet(`/import/status/${reference}`).reply(200, importStatusMock);
+        const response = await client.tenants.checkImportStatus(reference);
+        expect(response).toBeDefined();
+        expect(response.status).toBeDefined();
     });
 })

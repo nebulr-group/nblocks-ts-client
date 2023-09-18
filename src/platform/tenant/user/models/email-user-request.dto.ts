@@ -1,6 +1,6 @@
 export class EmailUserRequestDto {
-    emailBody!: string;
-    subject!: string;
+    emailBody: string;
+    subject: string;
     ctaUrl?: string;
     ctaTitle?: string;
   }

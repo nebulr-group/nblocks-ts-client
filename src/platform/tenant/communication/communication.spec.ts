@@ -1,4 +1,3 @@
-import { PlatformClient } from "../../platform-client";
 import * as createRuleMock from '../../../../test/create-redirect-rule-response.mock.json';
 import * as listRulesMock from '../../../../test/list-redirect-rules-response.mock.json';
 import * as updateRuleMock from '../../../../test/update-redirect-rule-response.mock.json';
@@ -6,6 +5,7 @@ import * as listRuleErrorsMock from '../../../../test/list-redirect-rule-errors-
 import { CommunicationClient } from "./communication";
 import { RedirectRuleDto } from "./models/redirect-rule.dto";
 import MockAdapter from "axios-mock-adapter";
+import { NblocksClient } from "../../nblocks-client";
 
 describe('Communcation client', () => {
 
@@ -15,7 +15,7 @@ describe('Communcation client', () => {
 
     let mockApi: MockAdapter;
     beforeAll(() => {
-        const client = new PlatformClient("SECRET", 1, false, 'DEV');
+        const client = new NblocksClient({appId: "id", apiKey: "SECRET", stage: 'DEV'});
         mockApi = new MockAdapter(client["httpClient"]);
         comClient = client.tenant("1234").communicationClient
     });
@@ -80,6 +80,11 @@ describe('Communcation client', () => {
             ctaTitle: "Click here",
             ctaUrl: "https://google.com"
         });
+    })
+
+    test('Expect use an internal call to throw error', async () => {
+        const promise = comClient._internalGetTemplate('INVITE_EXISTING');
+        await expect(promise).rejects.toThrowError(Error);
     })
 
     // test('Send an sms to anyone', async () => {

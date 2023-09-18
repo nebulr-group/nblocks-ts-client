@@ -4,9 +4,16 @@
     "domain": "MY_APP",
     "apiUrl": "",
     "uiUrl": "http://localhost:8100",
+    "webhookUrl": "http://api.example.com/webhook",
     "stripeEnabled": true,
+    "passkeysEnabled": true,
+    "googleSsoEnabled": false,
+    "azureAdSsoEnabled": false,
+    "azureMarketplaceEnabled": false,
     "onboardingFlow": "B2B",
     "cloudViews": true,
+    "redirectUris": ["http://localhost:8080/auth/oauth-callback"],
+    "defaultCallbackUri": "http://localhost:8080/auth/oauth-callback",
     "defaultRole": "OWNER",
     "roles": {
         "OWNER": [
@@ -84,6 +91,7 @@
             },
             {
             "name": "TEAM",
+            "trialDays": 14,
             "prices": [
                 {
                 "region": "SE",

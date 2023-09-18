@@ -1,4 +1,4 @@
 export class ResetUserMfaSetupRequestDto {
-  authToken!: string;
-  backupCode!: string
+  authToken: string;
+  backupCode: string
 }

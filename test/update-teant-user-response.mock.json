@@ -3,6 +3,8 @@
     "role": "MANAGER",
     "email": "john@nebulr.group",
     "username": "john@nebulr.group",
+    "firstName": "John",
+    "lastName": "Doe",
     "fullName": "John Doe",
     "onboarded": true,
     "consentsToPrivacyPolicy": false,
