@@ -18,6 +18,7 @@
     "build": "tsc",
     "npm-publish": "npm run build && npm publish --access public",
     "npm-publish-beta": "npm run build && npm publish --access public --tag beta",
+    "npm-publish-local": "npm run build && npm publish --registry http://verdaccio:4873 --tag alpha",
     "test": "jest"
   },
   "author": "Oscar Söderlund",
