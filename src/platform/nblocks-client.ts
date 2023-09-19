@@ -80,6 +80,8 @@ export class NblocksClient extends SpecificEntity {
 
     this.tenants = new Tenants(this, this.debug);
 
+    this.access = new Access(this, this.debug);
+
     this.config = new Config(this, this.debug);
 
     this.auth = new AuthContextHelper(this, this.stage, this.debug);
