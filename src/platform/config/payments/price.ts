@@ -1,12 +1,11 @@
 /**
  * A price defines a certain amount in a certain currency for a specific region.
  */
+
+export type RecurrenceInterval = 'day' | 'month' | 'week' | 'year';
+export type Currency = 'EUR' | 'USD' | 'SEK' | string;
+
 export class Price {
-  /**
-   * Logical key used to synchronize data. Must be unique accross all prices in all plans
-   * E.g. `${planKey}-${currency}-${recurrenceInterval}`
-   */
-  key: string;
 
   /**
    * The amount for each recurring charge
@@ -16,10 +15,10 @@ export class Price {
   /**
    * Three-letter ISO currency code, in lowercase. Must be a supported currency. https://www.iso.org/iso-4217-currency-codes.html
    */
-  currency: string;
+  currency: Currency;
 
   /**
    * An interval for how often the customer will be charged for the subscription / plan.
    */
-  recurrenceInterval: 'day' | 'month' | 'week' | 'year';
+  recurrenceInterval: RecurrenceInterval;
 }

@@ -1,4 +1,3 @@
-import { BusinessModel } from "./business-model";
 import { OnboardingFlow } from "./onboarding-flow";
 
 export class UpdateAppRequest {
@@ -20,9 +19,6 @@ export class UpdateAppRequest {
   
     /** All user roles and their granted privileges */
     roles?: Record<string, string[]>;
-  
-    /** The business model defines what plans are available to subscribe to and what taxes applies. */
-    businessModel?: BusinessModel;
   
     /** URL to your logo */
     logo?: string;

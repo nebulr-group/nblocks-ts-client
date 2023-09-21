@@ -63,54 +63,6 @@
             "SETTINGS_READ"
         ]
     },
-    "businessModel": {
-        "taxes": [
-            {
-            "region": "SE",
-            "name": "VAT",
-            "percentage": 25
-            }
-        ],
-        "plans": [
-            {
-            "name": "Basic",
-            "key": "BASIC",
-            "prices": [
-                {
-                    "key": "BASIC_EUR_MONTH",
-                    "amount": 50,
-                    "currency": "EUR",
-                    "recurrenceInterval": "month"
-                },
-                {
-                    "key": "BASIC_EUR_YEAR",
-                    "amount": 500,
-                    "currency": "EUR",
-                    "recurrenceInterval": "year"
-                }
-            ]
-            },
-            {
-            "name": "Premium",
-            "key": "PREMIUM",
-            "trialDays": 14,
-            "prices": [
-                {
-                    "key": "PREMIUM_EUR_MONTH",
-                    "amount": 100,
-                    "currency": "SEK",
-                    "recurrenceInterval": "month"
-                },
-                {
-                    "key": "PREMIUM_EUR_YEAR",
-                    "amount": 1000,
-                    "currency": "EUR",
-                    "recurrenceInterval": "year"
-                }
-            ]
-            }
-        ]
-    },
     "logo": "https://public.nblocks.dev/assets/logos/nblocks-logo-purple.png",
     "websiteUrl": "http://localhost",
     "privacyPolicyUrl": "",
