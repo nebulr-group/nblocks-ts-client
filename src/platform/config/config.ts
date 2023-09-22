@@ -32,16 +32,6 @@ export class Config extends Entity {
   }
 
   /**
-   * Shortcut to get the name of all your roles
-   * @returns Returns a list of role names
-   */
-  async getAppRoleNames(): Promise<string[]> {
-    this._log("listRoles");
-    const app = await this.getAppProfile();
-    return Object.keys(app.roles);
-  }
-
-  /**
    * Updates your `App` model. 
    * * Setting the emailSenderEmail will trigger a verification email to be sent to the email address provided. Once verified all Nblocks emails will be send through this address.
    * * Altering your Business model will trigger a synchronization with your Stripe account (if credentials are setup)

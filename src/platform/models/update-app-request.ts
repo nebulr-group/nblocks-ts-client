@@ -18,9 +18,6 @@ export class UpdateAppRequest {
     /** Events like tenant and user updates will be sent to this webhook url */
     webhookUrl?: string;
   
-    /** All user roles and their granted privileges */
-    roles?: Record<string, string[]>;
-  
     /** The business model defines what plans are available to subscribe to and what taxes applies. */
     businessModel?: BusinessModel;
   
