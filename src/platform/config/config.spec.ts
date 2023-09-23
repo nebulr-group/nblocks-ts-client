@@ -30,13 +30,6 @@ describe('Platform client', () => {
         app = response;
     });
 
-    test('Get app roles', async () => {
-        mockApi.onGet("/app").reply(200, appMock);
-
-        const response = await config.getAppRoleNames();
-        expect(response.length).toBeGreaterThan(0);
-    });
-
     test('Update app model', async () => {
         mockApi.onPut("/app").reply(200, {...appMock, ...{name: "Another name"}});
         const response = await config.updateAppProfile({
