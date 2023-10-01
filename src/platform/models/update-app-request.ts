@@ -8,9 +8,6 @@ export class UpdateAppRequest {
   
     /** URL to your api (to receive webhooks etc). **Must be HTTPS** */
     apiUrl?: string;
-
-    /** Default user role */
-    defaultRole?: string;
   
     /** URL to your frontend app (for onboarding redirects etc). **Must be HTTPS** */
     uiUrl?: string;
