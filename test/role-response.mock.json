@@ -1,0 +1,18 @@
+{
+    "id": "6516a9bd492d28b55cca8d6f",
+    "name": "Admin",
+    "key": "ADMIN",
+    "description": "Updated description for the admin role",
+    "privileges": [
+        {
+            "id": "650cd8510ccba777cc9623d4",
+            "key": "AUTHENTICATED",
+            "description": "Privilege for all authenticated users"
+        },
+        {
+            "id": "650cd8510ccba777cc9623d5",
+            "key": "USER_READ"
+        }
+    ],
+    "isDefault": false
+}

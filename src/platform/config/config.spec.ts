@@ -6,7 +6,7 @@ import { Config } from './config';
 import { NblocksClient } from '../nblocks-client';
 import { AppModel } from '../models/app.model';
 
-describe('Platform client', () => {
+describe('Platform config client', () => {
 
     let client: NblocksClient;
     let config: Config;
