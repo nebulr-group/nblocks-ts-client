@@ -1,0 +1,11 @@
+{
+    "status": "SCHEDULED",
+    "import": {
+        "tenants": 2,
+        "users": 4,
+        "passwords": false,
+        "errors": [],
+        "warnings": [],
+        "approved": true
+    }
+}

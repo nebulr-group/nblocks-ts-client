@@ -1,5 +1,5 @@
 export class FinishUserMfaSetupRequestDto {
-  authToken!: string;
+  authToken: string;
   mfaCode: string;
 }
   

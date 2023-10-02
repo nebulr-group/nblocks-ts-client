@@ -1,3 +1,3 @@
 export class CustomerPortalResponseDto {
-    url!: string;
+    url: string;
 }

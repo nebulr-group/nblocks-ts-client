@@ -1,4 +1,4 @@
 export class SendOtpSmsResponseDto {
-    id!: string;
-    code!: string;
+    id: string;
+    code: string;
 }

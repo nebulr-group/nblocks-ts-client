@@ -1,4 +1,4 @@
 export class CommitMfaCodeRequestDto {
-    authToken!: string;
-    mfaCode!: string;
+    authToken: string;
+    mfaCode: string;
 }

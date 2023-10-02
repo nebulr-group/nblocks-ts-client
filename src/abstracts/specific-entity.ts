@@ -11,7 +11,10 @@ export abstract class SpecificEntity extends Entity {
     readonly id: string;
 
     constructor(id:string, parentEntity: Entity, debug = false) {
-        super(parentEntity, debug)
+        super(parentEntity, debug);
         this.id = id;
+        if (!this.id) {
+            throw new Error("SpecificEntity expects an id");
+        }
     }
 }
