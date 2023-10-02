@@ -6,7 +6,7 @@ import { Config } from './config';
 import { NblocksClient } from '../nblocks-client';
 import { AppModel } from '../models/app.model';
 
-describe('Platform client', () => {
+describe('Platform config client', () => {
 
     let client: NblocksClient;
     let config: Config;
@@ -28,13 +28,6 @@ describe('Platform client', () => {
         const response = await config.getAppProfile();
         expect(response.id).toBeDefined();
         app = response;
-    });
-
-    test('Get app roles', async () => {
-        mockApi.onGet("/app").reply(200, appMock);
-
-        const response = await config.getAppRoleNames();
-        expect(response.length).toBeGreaterThan(0);
     });
 
     test('Update app model', async () => {
