@@ -36,7 +36,7 @@ npm run npm-publish-beta
 ```
 
 ## Publish alpha version (local Verdaccio)
-Versions are tagged as alpha and should be suffixed with `-beta.X`, e.g. `3.0.0-beta.4`
+Versions are tagged as alpha and should be suffixed with `-alpha.X`, e.g. `3.0.0-alpha.4`
 
 ```
 npm run npm-publish-local
