@@ -1,4 +1,4 @@
-import { Entity } from '../../../abstracts/generic-entity';
+import { Entity } from '../../../../abstracts/generic-entity';
 import { CreatePrivilegeRequestDto } from './models/create-privilege-request.dto';
 import { PrivilegeResponseDto } from './models/privilege-response.dto';
 

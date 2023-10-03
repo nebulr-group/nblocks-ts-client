@@ -1,5 +1,5 @@
-import { Entity } from '../../../abstracts/generic-entity';
-import { SpecificEntity } from '../../../abstracts/specific-entity';
+import { Entity } from '../../../../abstracts/generic-entity';
+import { SpecificEntity } from '../../../../abstracts/specific-entity';
 import { RoleResponseDto } from './models/role-response.dto';
 import { UpdateRoleRequestDto } from './models/update-role-request.dto';
 

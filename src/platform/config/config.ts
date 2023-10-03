@@ -7,12 +7,8 @@ import { CommunicationClient } from "../tenant/communication/communication";
 import { EmailTemplateResponseDto } from "../tenant/communication/models/get-email-template-response.dto";
 import { TemplateName } from "../tenant/communication/models/template-name.type";
 import { UpdateEmailTemplateRequestDto } from "../tenant/communication/models/update-email-template-request.dto";
-import { CreatePlanRequest } from "./payments/create-plan.request";
-import { CreateTaxRequest } from "./payments/create-tax.request";
-import { PlanResponse } from "./payments/plan-response";
-import { TaxResponse } from "./payments/tax-response";
-import { UpdatePlanRequestDto } from "./payments/update-plan.request";
-import { UpdateTaxRequest } from "./payments/update-tax.request";
+import { Access } from "./access/access";
+import { Payments } from "./payments/payments";
 
 /**
  * Here we collect everything you can configure for your app in nblocks. These configurations is on the app level.
@@ -21,9 +17,17 @@ export class Config extends Entity {
 
   private readonly _communicationClient: CommunicationClient;
 
+  /** A helper to configure plans, prices and taxes in Nblocks */
+  readonly payments: Payments;
+
+  /** A helper to configure roles and privileges in Nblocks */
+  readonly access: Access;
+
   constructor(client: NblocksClient, debug?: boolean) {
     super(client, debug)
     this._communicationClient = new CommunicationClient(client, debug);
+    this.payments = new Payments(client, debug);
+    this.access = new Access(client, this.debug);
   }
 
    /**
@@ -49,55 +53,7 @@ export class Config extends Entity {
     return response.data;
   }
 
-  /** Payment plans */
-  async listPlans(): Promise<PlanResponse[]> {
-    const response = await this.parentEntity.getHttpClient().get<PlanResponse[]>('/payments/plan', { headers: this.getHeaders() });
-    return response.data;
-  }
-
-  async getPlan(id: string): Promise<PlanResponse> {
-    const response = await this.parentEntity.getHttpClient().get<PlanResponse>(`/payments/plan/${id}`, { headers: this.getHeaders() });
-    return response.data;
-  }
-
-  async createPlan(args: CreatePlanRequest): Promise<PlanResponse> {
-    const response = await this.parentEntity.getHttpClient().post<PlanResponse>(`/payments/plan`, args, { headers: this.getHeaders() });
-    return response.data;
-  }
-
-  async updatePlan(id: string, args: UpdatePlanRequestDto): Promise<PlanResponse> {
-    const response = await this.parentEntity.getHttpClient().put<PlanResponse>(`/payments/plan/${id}`, args, { headers: this.getHeaders() });
-    return response.data;
-  }
-
-  async deletePlan(id: string): Promise<void> {
-    await this.parentEntity.getHttpClient().delete<void>(`/payments/plan/${id}`, { headers: this.getHeaders() });
-  }
-
-  /** Payment Taxes */
-  async listTaxes(): Promise<TaxResponse[]> {
-    const response = await this.parentEntity.getHttpClient().get<TaxResponse[]>('/payments/tax', { headers: this.getHeaders() });
-    return response.data;
-  }
-
-  async getTax(id: string): Promise<TaxResponse> {
-    const response = await this.parentEntity.getHttpClient().get<TaxResponse>(`/payments/tax/${id}`, { headers: this.getHeaders() });
-    return response.data;
-  }
-
-  async createTax(args: CreateTaxRequest): Promise<TaxResponse> {
-    const response = await this.parentEntity.getHttpClient().post<TaxResponse>(`/payments/tax`, args, { headers: this.getHeaders() });
-    return response.data;
-  }
-
-  async updateTax(id: string, args: UpdateTaxRequest): Promise<TaxResponse> {
-    const response = await this.parentEntity.getHttpClient().put<TaxResponse>(`/payments/tax/${id}`, args, { headers: this.getHeaders() });
-    return response.data;
-  }
-
-  async deleteTax(id: string): Promise<void> {
-    await this.parentEntity.getHttpClient().delete<void>(`/payments/tax/${id}`, { headers: this.getHeaders() });
-  }
+  
 
   /**
    * Store sensitive credentials for your app so NBlocks can authorize with 3d party services on your behalf.

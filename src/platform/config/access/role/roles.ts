@@ -1,4 +1,4 @@
-import { Entity } from '../../../abstracts/generic-entity';
+import { Entity } from '../../../../abstracts/generic-entity';
 import { CreateRoleRequestDto } from './models/create-role-request.dto';
 import { RoleResponseDto } from './models/role-response.dto';
 
