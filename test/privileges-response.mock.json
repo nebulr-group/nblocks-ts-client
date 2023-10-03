@@ -1,0 +1,23 @@
+[
+    {
+        "id": "650cd8510ccba777cc9623d4",
+        "key": "AUTHENTICATED",
+        "description": "Privilege for all authenticated users"
+    },
+    {
+        "id": "650cd8510ccba777cc9623d5",
+        "key": "USER_READ"
+    },
+    {
+        "id": "650cd8510ccba777cc9623d6",
+        "key": "USER_WRITE"
+    },
+    {
+        "id": "650cd8510ccba777cc9623d7",
+        "key": "TENANT_READ"
+    },
+    {
+        "id": "650cd8510ccba777cc9623d8",
+        "key": "TENANT_WRITE"
+    }
+]

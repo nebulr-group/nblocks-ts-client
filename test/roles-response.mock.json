@@ -1,0 +1,53 @@
+[
+    {
+        "id": "650cd8510ccba777cc9623de",
+        "name": "OWNER",
+        "key": "OWNER",
+        "privileges": [
+            {
+                "id": "650cd8510ccba777cc9623d4",
+                "key": "AUTHENTICATED",
+                "description": "Privilege for all authenticated users"
+            },
+            {
+                "id": "650cd8510ccba777cc9623d5",
+                "key": "USER_READ"
+            },
+            {
+                "id": "650cd8510ccba777cc9623d6",
+                "key": "USER_WRITE"
+            },
+            {
+                "id": "650cd8510ccba777cc9623d7",
+                "key": "TENANT_READ"
+            },
+            {
+                "id": "650cd8510ccba777cc9623d8",
+                "key": "TENANT_WRITE"
+            }
+        ],
+        "isDefault": false
+    },
+    {
+        "id": "650ce65de49d5da5d31fa1c9",
+        "name": "Super admin",
+        "key": "SUPER_ADMIN",
+        "description": "Super admin with user management privileges",
+        "privileges": [
+            {
+                "id": "650cd8510ccba777cc9623d4",
+                "key": "AUTHENTICATED",
+                "description": "Privilege for all authenticated users"
+            },
+            {
+                "id": "650cd8510ccba777cc9623d5",
+                "key": "USER_READ"
+            },
+            {
+                "id": "650cd8510ccba777cc9623d6",
+                "key": "USER_WRITE"
+            }
+        ],
+        "isDefault": true
+    }
+]

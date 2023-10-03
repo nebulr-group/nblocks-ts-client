@@ -19,12 +19,6 @@ export class AppModel {
     /** Events like tenant and user updates will be sent to this webhook url */
     webhookUrl?: string;
   
-    /** All user roles and their granted privileges */
-    roles: Record<string, string[]>;
-
-     /** Default user role */
-     defaultRole: string;
-  
     /** URL to your logo */
     logo: string;
   
