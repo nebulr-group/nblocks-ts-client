@@ -88,7 +88,6 @@ export class Tenant extends SpecificEntity{
 
   /**
    * Creates a Stripe checkout session and returns the id from which you can render using the Stripe SDK.
-   * @deprecated Redirect the user to checkoutView instead
    * @param args 
    * @returns 
    */
