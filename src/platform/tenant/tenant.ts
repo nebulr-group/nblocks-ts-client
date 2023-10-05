@@ -14,6 +14,7 @@ import { CommunicationClient } from './communication/communication';
 import { CheckoutResponsetDto } from './models/checkout-response.dto';
 import { StripeTenantCheckoutIdRequestDto } from './models/stripe-tenant-checkout-id-request.dto';
 import { TenantPaymentDetails } from './models/tenant-payment-details';
+import { SetTenantPlanDetails } from './models/set-tenant-plan-details';
 
 /**
  * A specific `Tenant` client for a particular Tenant id. 
@@ -94,6 +95,16 @@ export class Tenant extends SpecificEntity{
    */
   async getPaymentDetails(): Promise<TenantPaymentDetails> {
     const response = await this.getHttpClient().get<TenantPaymentDetails>(`/tenant/${this.id}/paymentDetails`, { headers: this.getHeaders() });
+    return response.data;
+  }
+
+  /**
+   * Sets or changes the current plan the tenant is subscribing to. Might affect changed billing.
+   * @param args 
+   * @returns 
+   */
+  async setPaymentDetails(args: SetTenantPlanDetails): Promise<TenantPaymentDetails> {
+    const response = await this.getHttpClient().post<TenantPaymentDetails>(`/tenant/${this.id}/paymentDetails`, args, { headers: this.getHeaders() });
     return response.data;
   }
 

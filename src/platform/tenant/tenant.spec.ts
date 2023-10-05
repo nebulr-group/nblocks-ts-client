@@ -82,6 +82,23 @@ describe('Tenant client', () => {
         expect(response.details.trialDaysLeft).toBeDefined();
     });
 
+    test('Set tenant payment details', async () => {
+        mockApi.onPost(`/tenant/${newTenantId}/paymentDetails`).reply(200, tenantPaymentDetailsMock);
+        const response = await client.tenant(newTenantId).setPaymentDetails({
+            "planKey": "premium",
+            "price": {
+                "currency": "EUR",
+                "recurrenceInterval": "month"
+            }
+        });
+        expect(response.status.shouldSelectPlan).toBeDefined();
+        expect(response.status.shouldSetupPayments).toBeDefined();
+        expect(response.details.plan).toBeDefined();
+        expect(response.details.price).toBeDefined();
+        expect(response.details.trial).toBeDefined();
+        expect(response.details.trialDaysLeft).toBeDefined();
+    });
+
     test('Generate stripe checkout session', async () => {
         mockApi.onPost(`/tenant/${newTenantId}/checkoutId`).reply(200, tenantCheckoutMock);
         const response = await client.tenant(newTenantId).createStripeCheckoutSession({
