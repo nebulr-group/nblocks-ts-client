@@ -2,6 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import * as listTenantsMock from '../../../test/list-tenants-response.mock.json';
 import * as createTenantsMock from '../../../test/create-tenant-response.mock.json';
 import * as tenantMock from '../../../test/tenant-response.mock.json';
+import * as tenantPaymentDetailsMock from '../../../test/get-tenant-payment-details.mock.json';
 import * as translateMock from '../../../test/translate-response.mock.json';
 import * as customerPortalMock from '../../../test/customer-portal-response.mock.json';
 import * as tenantCheckoutMock from '../../../test/tenant-checkout-response.mock.json';
@@ -70,10 +71,21 @@ describe('Tenant client', () => {
         expect(response.id).toBeDefined();
     });
 
-    test('Setup tenant payment', async () => {
+    test('Get tenant payment details', async () => {
+        mockApi.onGet(`/tenant/${newTenantId}/paymentDetails`).reply(200, tenantPaymentDetailsMock);
+        const response = await client.tenant(newTenantId).getPaymentDetails();
+        expect(response.status.shouldSelectPlan).toBeDefined();
+        expect(response.status.shouldSetupPayments).toBeDefined();
+        expect(response.details.plan).toBeDefined();
+        expect(response.details.price).toBeDefined();
+        expect(response.details.trial).toBeDefined();
+        expect(response.details.trialDaysLeft).toBeDefined();
+    });
+
+    test('Generate stripe checkout session', async () => {
         mockApi.onPost(`/tenant/${newTenantId}/checkoutId`).reply(200, tenantCheckoutMock);
         const response = await client.tenant(newTenantId).createStripeCheckoutSession({
-            plan: "TEAM"
+            plan: "TEAM", priceOffer: {currency: "USD", recurrenceInterval: "month"}
         });
         expect(response.id).toBeDefined();
         expect(response.publicKey).toBeDefined();

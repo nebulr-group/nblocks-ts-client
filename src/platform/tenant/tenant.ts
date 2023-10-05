@@ -13,6 +13,7 @@ import { AuthTenantResponseDto } from '../auth/models/auth-tenant-response.dto';
 import { CommunicationClient } from './communication/communication';
 import { CheckoutResponsetDto } from './models/checkout-response.dto';
 import { StripeTenantCheckoutIdRequestDto } from './models/stripe-tenant-checkout-id-request.dto';
+import { TenantPaymentDetails } from './models/tenant-payment-details';
 
 /**
  * A specific `Tenant` client for a particular Tenant id. 
@@ -83,6 +84,16 @@ export class Tenant extends SpecificEntity{
    */
   async translateText(args: TranslateTextRequest): Promise<TranslateTextResponse> {
     const response = await this.getHttpClient().post<TranslateTextResponse>(`/tenant/translate/text`, args, { headers: this.getHeaders() });
+    return response.data;
+  }
+
+  /**
+   * Creates a Stripe checkout session and returns the id from which you can render using the Stripe SDK.
+   * @param args 
+   * @returns 
+   */
+  async getPaymentDetails(): Promise<TenantPaymentDetails> {
+    const response = await this.getHttpClient().get<TenantPaymentDetails>(`/tenant/${this.id}/paymentDetails`, { headers: this.getHeaders() });
     return response.data;
   }
 
