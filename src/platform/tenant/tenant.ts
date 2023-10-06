@@ -114,7 +114,7 @@ export class Tenant extends SpecificEntity{
    * @returns 
    */
   async createStripeCheckoutSession(): Promise<CheckoutResponsetDto> {
-    const response = await this.getHttpClient().post<CheckoutResponsetDto>(`/tenant/${this.id}/checkoutId`, { headers: this.getHeaders() });
+    const response = await this.getHttpClient().post<CheckoutResponsetDto>(`/tenant/${this.id}/checkoutId`,{}, { headers: this.getHeaders() });
     return response.data;
   }
 
