@@ -103,18 +103,18 @@ export class Tenant extends SpecificEntity{
    * @param args 
    * @returns 
    */
-  async setPaymentDetails(args: SetTenantPlanDetails): Promise<TenantPaymentDetails> {
-    const response = await this.getHttpClient().post<TenantPaymentDetails>(`/tenant/${this.id}/paymentDetails`, args, { headers: this.getHeaders() });
+  async setPlanDetails(args: SetTenantPlanDetails): Promise<TenantPaymentDetails> {
+    const response = await this.getHttpClient().post<TenantPaymentDetails>(`/tenant/${this.id}/planDetails`, args, { headers: this.getHeaders() });
     return response.data;
   }
 
   /**
-   * Creates a Stripe checkout session and returns the id from which you can render using the Stripe SDK.
+   * Creates a Stripe checkout session for an existing tenant and returns the id from which you can render using the Stripe SDK.
    * @param args 
    * @returns 
    */
-  async createStripeCheckoutSession(args: StripeTenantCheckoutIdRequestDto): Promise<CheckoutResponsetDto> {
-    const response = await this.getHttpClient().post<CheckoutResponsetDto>(`/tenant/${this.id}/checkoutId`, args, { headers: this.getHeaders() });
+  async createStripeCheckoutSession(): Promise<CheckoutResponsetDto> {
+    const response = await this.getHttpClient().post<CheckoutResponsetDto>(`/tenant/${this.id}/checkoutId`, { headers: this.getHeaders() });
     return response.data;
   }
 
@@ -123,7 +123,7 @@ export class Tenant extends SpecificEntity{
    * Can be both Stripe or Azure Markeplace
    */
   async getSubscriptionPortalUrl(): Promise<CustomerPortalResponseDto> {
-    const response = await this.getHttpClient().get<CustomerPortalResponseDto>(`/tenant/customerPortal`, { headers: this.getHeaders() });
+    const response = await this.getHttpClient().get<CustomerPortalResponseDto>(`/tenant/${this.id}/customerPortal`, { headers: this.getHeaders() });
     return response.data;
   }
 }

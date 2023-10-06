@@ -5,7 +5,7 @@ import * as tenantMock from '../../../test/tenant-response.mock.json';
 import * as tenantPaymentDetailsMock from '../../../test/get-tenant-payment-details.mock.json';
 import * as translateMock from '../../../test/translate-response.mock.json';
 import * as customerPortalMock from '../../../test/customer-portal-response.mock.json';
-import * as tenantCheckoutMock from '../../../test/tenant-checkout-response.mock.json';
+import * as CheckoutSessionMock from '../../../test/checkout-session-response.mock.json';
 import * as validateImportMock from '../../../test/validate-import-tenant-from-file-response.mock.json';
 import * as importMock from '../../../test/import-tenant-from-file-response.mock.json';
 import * as importStatusMock from '../../../test/import-status-response.mock.json';
@@ -82,9 +82,9 @@ describe('Tenant client', () => {
         expect(response.details.trialDaysLeft).toBeDefined();
     });
 
-    test('Set tenant payment details', async () => {
-        mockApi.onPost(`/tenant/${newTenantId}/paymentDetails`).reply(200, tenantPaymentDetailsMock);
-        const response = await client.tenant(newTenantId).setPaymentDetails({
+    test('Set tenant plan details', async () => {
+        mockApi.onPost(`/tenant/${newTenantId}/planDetails`).reply(200, tenantPaymentDetailsMock);
+        const response = await client.tenant(newTenantId).setPlanDetails({
             "planKey": "premium",
             "price": {
                 "currency": "EUR",
@@ -100,14 +100,27 @@ describe('Tenant client', () => {
     });
 
     test('Generate stripe checkout session', async () => {
-        mockApi.onPost(`/tenant/${newTenantId}/checkoutId`).reply(200, tenantCheckoutMock);
-        const response = await client.tenant(newTenantId).createStripeCheckoutSession({
-            plan: "TEAM", priceOffer: {currency: "USD", recurrenceInterval: "month"}
+        mockApi.onPost(`/app/checkoutId`).reply(200, CheckoutSessionMock);
+        const response = await client.tenants.createStripeCheckoutSession({
+            planKey: "TEAM", priceOffer: {currency: "USD", recurrenceInterval: "month"}
         });
         expect(response.id).toBeDefined();
         expect(response.publicKey).toBeDefined();
     });
 
+    test('Generate stripe checkout session for a specific tenant', async () => {
+        mockApi.onPost(`/tenant/${newTenantId}/checkoutId`).reply(200, CheckoutSessionMock);
+        const response = await client.tenant(newTenantId).createStripeCheckoutSession();
+        expect(response.id).toBeDefined();
+        expect(response.publicKey).toBeDefined();
+    });
+
+    test('Get Customer Portal Url', async () => {
+        mockApi.onGet(`/tenant/${newTenantId}/customerPortal`).reply(200, customerPortalMock);
+        const response = await client.tenant(newTenantId).getSubscriptionPortalUrl();
+        expect(response.url).toBeDefined();
+    });
+    
     test('Translate text to Tenant language', async () => {
         mockApi.onPost(`/tenant/translate/text`).reply(200, translateMock);
         const response = await client.tenant(newTenantId).translateText({
@@ -115,12 +128,6 @@ describe('Tenant client', () => {
             text: "How old are you?"
         });
         expect(response.translatedText).toBe("Hur gammal är du?");
-    });
-
-    test('Get Customer Portal Url', async () => {
-        mockApi.onGet(`/tenant/customerPortal`).reply(200, customerPortalMock);
-        const response = await client.tenant(newTenantId).getSubscriptionPortalUrl();
-        expect(response.url).toBeDefined();
     });
 
     test('Validate import data', async () => {
