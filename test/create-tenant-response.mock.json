@@ -2,13 +2,16 @@
     "id": "631742f51c2304003a73f967",
     "plan": "TEAM",
     "mfa": false,
-    "paymentsEnabled": false,
-    "paymentsRequired": false,
     "locale": "en",
     "name": "New Company Ltd",
     "logo": "",
     "metadata": {
         "VIP": true
+    },
+    "paymentStatus": {
+        "shouldSelectPlan": true,
+        "shouldSetupPayments": false,
+        "paymentsEnabled": true
     },
     "createdAt": "2022-09-06T12:54:13.892Z"
 }

@@ -1,7 +1,8 @@
 {
     "status": {
         "shouldSelectPlan": false,
-        "shouldSetupPayments": true
+        "shouldSetupPayments": true,
+        "paymentsEnabled": true
     },
     "details": {
         "plan": {
