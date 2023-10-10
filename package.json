@@ -1,6 +1,6 @@
 {
   "name": "@nebulr-group/nblocks-ts-client",
-  "version": "3.0.0-payment-alpha.9",
+  "version": "3.0.0-payment-alpha.10",
   "description": "This library contains the low level NBlocks client that is shipped with all of our NBlocks plug-n-play experiences for different technologies.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

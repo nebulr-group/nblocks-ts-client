@@ -1,6 +1,11 @@
+import { PriceOffer } from "../../config/payments/price-offer";
+
 export class CreateTenantRequestDto {
     /** The plan must be present in the configured App business model */
     plan?: string;
+
+    /** If a specific pricing offer should be used. Use this if you offer the same plan in multiple periods or currencies. Otherwise the first price will be used */
+    priceOffer?: PriceOffer;
 
     /** A user will need to be assigned as an owner to this tenant. Either reused if the user already exist or a new user will be created. The user will be onboarded automatically */
     owner: TenantOwnerRequestDto
