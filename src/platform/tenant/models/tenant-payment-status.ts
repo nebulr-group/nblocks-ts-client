@@ -1,3 +1,5 @@
+import { BillingProvider } from "../../config/payments/billing-provider.enum";
+
 export interface TenantPaymentStatus {
     /** Payment method is set up. We can bill this tenant */
     paymentsEnabled: boolean;
@@ -6,5 +8,8 @@ export interface TenantPaymentStatus {
     shouldSetupPayments: boolean;
 
     /** The tenant should immediately select a plan */
-    shouldSelectPlan: boolean
+    shouldSelectPlan: boolean;
+
+    /** The provider used for this tenant */
+    provider: BillingProvider;
 }

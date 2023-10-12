@@ -76,6 +76,8 @@ describe('Tenant client', () => {
         const response = await client.tenant(newTenantId).getPaymentDetails();
         expect(response.status.shouldSelectPlan).toBeDefined();
         expect(response.status.shouldSetupPayments).toBeDefined();
+        expect(response.status.paymentsEnabled).toBeDefined();
+        expect(response.status.provider).toBeDefined();
         expect(response.details.plan).toBeDefined();
         expect(response.details.price).toBeDefined();
         expect(response.details.trial).toBeDefined();
@@ -85,8 +87,8 @@ describe('Tenant client', () => {
     test('Set tenant plan details', async () => {
         mockApi.onPost(`/tenant/${newTenantId}/planDetails`).reply(200, tenantPaymentDetailsMock);
         const response = await client.tenant(newTenantId).setPlanDetails({
-            "planKey": "premium",
-            "price": {
+            planKey: "premium",
+            priceOffer: {
                 "currency": "EUR",
                 "recurrenceInterval": "month"
             }

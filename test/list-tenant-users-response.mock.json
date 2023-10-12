@@ -21,6 +21,7 @@
             "paymentStatus": {
                 "shouldSelectPlan": true,
                 "shouldSetupPayments": false,
+                "provider": "STRIPE",
                 "paymentsEnabled": true
             },
             "createdAt": "2022-09-06T12:54:13.892Z"
@@ -48,6 +49,7 @@
             "paymentStatus": {
                 "shouldSelectPlan": true,
                 "shouldSetupPayments": false,
+                "provider": "STRIPE",
                 "paymentsEnabled": true
             },
             "createdAt": "2022-09-06T12:54:13.892Z"

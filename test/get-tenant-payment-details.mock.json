@@ -2,7 +2,8 @@
     "status": {
         "shouldSelectPlan": false,
         "shouldSetupPayments": true,
-        "paymentsEnabled": true
+        "paymentsEnabled": true,
+        "provider": "STRIPE"
     },
     "details": {
         "plan": {
