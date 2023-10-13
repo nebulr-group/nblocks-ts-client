@@ -24,6 +24,8 @@
                 "provider": "STRIPE",
                 "paymentsEnabled": true
             },
+            "trial": false,
+            "onboarded": true,
             "createdAt": "2022-09-06T12:54:13.892Z"
         }
     },
@@ -52,6 +54,8 @@
                 "provider": "STRIPE",
                 "paymentsEnabled": true
             },
+            "trial": false,
+            "onboarded": true,
             "createdAt": "2022-09-06T12:54:13.892Z"
         }
     }

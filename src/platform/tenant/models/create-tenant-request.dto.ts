@@ -8,7 +8,7 @@ export class CreateTenantRequestDto {
     priceOffer?: PriceOffer;
 
     /** A user will need to be assigned as an owner to this tenant. Either reused if the user already exist or a new user will be created. The user will be onboarded automatically */
-    owner: TenantOwnerRequestDto
+    owner: TenantOwnerRequestDto;
 
     /** Name of the tenant. Can also be set by tenant owner during onboarding */
     name?: string;
