@@ -9,7 +9,6 @@ import { NotFoundError } from '../errors/NotFoundError';
 import { AuthContextHelper } from './auth/auth-context-helper';
 import { Config } from './config/config';
 import { SpecificEntity } from '../abstracts/specific-entity';
-import { Access } from './access/access';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
@@ -42,9 +41,6 @@ export class NblocksClient extends SpecificEntity {
    * Use this to create or list tenants
    */
   tenants: Tenants;
-
-  /** A helper to configure roles and privileges in Nblocks */
-  access: Access;
 
   /**
    * @deprecated Use local JWT and the new Auth client instead
@@ -79,8 +75,6 @@ export class NblocksClient extends SpecificEntity {
     this.authLegacy = new Auth(this, this.debug);
 
     this.tenants = new Tenants(this, this.debug);
-
-    this.access = new Access(this, this.debug);
 
     this.config = new Config(this, this.debug);
 

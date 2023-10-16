@@ -1,0 +1,33 @@
+{
+    "status": {
+        "shouldSelectPlan": false,
+        "shouldSetupPayments": true,
+        "paymentsEnabled": true,
+        "provider": "STRIPE"
+    },
+    "details": {
+        "plan": {
+            "id": "6516f55b900518015dc98f3e",
+            "key": "premium",
+            "name": "Premium",
+            "description": "This is a premium plan",
+            "trial": true,
+            "trialDays": 15,
+            "prices": [
+                {
+                    "amount": 100,
+                    "currency": "EUR",
+                    "recurrenceInterval": "month"
+                }
+            ],
+            "createdAt": "2023-09-29T16:03:39.447Z"
+        },
+        "price": {
+            "amount": 100,
+            "currency": "EUR",
+            "recurrenceInterval": "month"
+        },
+        "trial": false,
+        "trialDaysLeft": 0
+    }
+}

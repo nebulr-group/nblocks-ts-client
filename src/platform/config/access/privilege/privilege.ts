@@ -1,5 +1,5 @@
-import { Entity } from '../../../abstracts/generic-entity';
-import { SpecificEntity } from '../../../abstracts/specific-entity';
+import { Entity } from '../../../../abstracts/generic-entity';
+import { SpecificEntity } from '../../../../abstracts/specific-entity';
 import { PrivilegeResponseDto } from './models/privilege-response.dto';
 import { UpdatePrivilegeRequestDto } from './models/update-privilege-request.dto';
 

@@ -7,6 +7,8 @@ import { CommunicationClient } from "../tenant/communication/communication";
 import { EmailTemplateResponseDto } from "../tenant/communication/models/get-email-template-response.dto";
 import { TemplateName } from "../tenant/communication/models/template-name.type";
 import { UpdateEmailTemplateRequestDto } from "../tenant/communication/models/update-email-template-request.dto";
+import { Access } from "./access/access";
+import { Payments } from "./payments/payments";
 
 /**
  * Here we collect everything you can configure for your app in nblocks. These configurations is on the app level.
@@ -15,9 +17,17 @@ export class Config extends Entity {
 
   private readonly _communicationClient: CommunicationClient;
 
+  /** A helper to configure plans, prices and taxes in Nblocks */
+  readonly payments: Payments;
+
+  /** A helper to configure roles and privileges in Nblocks */
+  readonly access: Access;
+
   constructor(client: NblocksClient, debug?: boolean) {
     super(client, debug)
     this._communicationClient = new CommunicationClient(client, debug);
+    this.payments = new Payments(client, debug);
+    this.access = new Access(client, this.debug);
   }
 
    /**
@@ -42,6 +52,8 @@ export class Config extends Entity {
     const response = await this.parentEntity.getHttpClient().put<AppModel>('/app', model, { headers: this.getHeaders() });
     return response.data;
   }
+
+  
 
   /**
    * Store sensitive credentials for your app so NBlocks can authorize with 3d party services on your behalf.

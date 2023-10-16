@@ -1,4 +1,3 @@
-import { BusinessModel } from "./business-model";
 import { OnboardingFlow } from "./onboarding-flow";
 
 export class UpdateAppRequest {
@@ -14,9 +13,6 @@ export class UpdateAppRequest {
 
     /** Events like tenant and user updates will be sent to this webhook url */
     webhookUrl?: string;
-  
-    /** The business model defines what plans are available to subscribe to and what taxes applies. */
-    businessModel?: BusinessModel;
   
     /** URL to your logo */
     logo?: string;

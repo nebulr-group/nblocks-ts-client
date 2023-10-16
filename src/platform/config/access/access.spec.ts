@@ -1,22 +1,20 @@
-import * as rolesMock from '../../../test/roles-response.mock.json';
-import * as roleMock from '../../../test/role-response.mock.json';
-import * as privilegesMock from '../../../test/privileges-response.mock.json';
-import * as privilegeMock from '../../../test/privilege-response.mock.json';
+import * as rolesMock from '../../../../test/roles-response.mock.json';
+import * as roleMock from '../../../../test/role-response.mock.json';
+import * as privilegesMock from '../../../../test/privileges-response.mock.json';
+import * as privilegeMock from '../../../../test/privilege-response.mock.json';
 import MockAdapter from 'axios-mock-adapter';
-import { NblocksClient } from '../nblocks-client';
-import { AppModel } from '../models/app.model';
+import { NblocksClient } from '../../nblocks-client';
 import { Access } from './access';
 
 describe('Platform access client', () => {
 
   let client: NblocksClient;
   let access: Access;
-  let app: AppModel;
   let mockApi: MockAdapter;
 
   beforeAll(() => {
     client = new NblocksClient({ appId: "id", apiKey: "SECRET", stage: 'DEV' });
-    access = client.access;
+    access = client.config.access;
     mockApi = new MockAdapter(client["httpClient"]);
   });
 

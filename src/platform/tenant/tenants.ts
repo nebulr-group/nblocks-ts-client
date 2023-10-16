@@ -1,8 +1,10 @@
 import { Entity } from '../../abstracts/generic-entity';
+import { CheckoutResponsetDto } from './models/checkout-response.dto';
 import { CreateTenantRequestDto } from './models/create-tenant-request.dto';
 import { ImportStatusResponse } from './models/import-status.response';
 import { ImportTenantFromFileRequest } from './models/import-tenant-from-file.request';
 import { ImportTenantScheduledResponse } from './models/import-tenant-scheduled.response';
+import { StripeTenantCheckoutIdRequestDto } from './models/stripe-tenant-checkout-id-request.dto';
 import { TenantResponseDto } from './models/tenant.model';
 import { ValidateImportTenantResult } from './models/validate-import-tenant.response';
 
@@ -32,6 +34,16 @@ export class Tenants extends Entity {
    */
   async list(): Promise<TenantResponseDto[]> {
     return (await this.getHttpClient().get<TenantResponseDto[]>(`/tenant`, { headers: this.getHeaders() })).data;
+  }
+
+  /**
+   * Creates a Stripe checkout session (for a non existing tenant) and returns the id from which you can render using the Stripe SDK.
+   * @param args 
+   * @returns 
+   */
+  async createStripeCheckoutSession(args: StripeTenantCheckoutIdRequestDto): Promise<CheckoutResponsetDto> {
+    const response = await this.getHttpClient().post<CheckoutResponsetDto>(`/app/checkoutId`, args, { headers: this.getHeaders() });
+    return response.data;
   }
 
   async validateImportFromFile(importData: ImportTenantFromFileRequest): Promise<ValidateImportTenantResult> {
