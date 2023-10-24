@@ -61,8 +61,9 @@ export class Config extends Entity {
    * 
    * E.g. Stripe integration, social login providers like Google, Facebook, Github etc.
    */
-  async updateCredentials(credentials: UpdateCredentials): Promise<void> {
-    await this.parentEntity.getHttpClient().put<void>('/app/credentials', credentials, { headers: this.getHeaders() });
+  async updateCredentials(credentials: UpdateCredentials): Promise<AppModel> {
+    const response = await this.parentEntity.getHttpClient().put<AppModel>('/app/credentials', credentials, { headers: this.getHeaders() });
+    return response.data;
   }
 
   /**
