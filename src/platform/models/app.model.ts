@@ -46,26 +46,14 @@ export class AppModel {
     /** Boolean value telling the user if Stripe is enabled */
     stripeEnabled: boolean;
 
-    /** Boolean value telling the user if Stripe credentials has been added (Read only) */
-    stripeCredentialsAdded: boolean;
-
     /** Boolean value telling the user if Google Social login / SSO is enable */
     googleSsoEnabled: boolean;
-
-    /** Boolean value telling the user if Google SSO credentials has been added (Read only) */
-    googleSsoCredentialsAdded: boolean;
 
     /** Boolean value telling the user if Azure AD SSO is enabled */
     azureAdSsoEnabled: boolean;
 
-    /** Boolean value telling the user if Azure AD SSO credentials has been added (Read only) */
-    azureAdSsoCredentialsAdded: boolean;
-
     /** Boolean value telling the user if Azure marketplace is enabled */
     azureMarketplaceEnabled: boolean;
-
-    /** Boolean value telling the user if Azure marketplace credentials has been added (Read only) */
-    azureMarketplaceCredentialsAdded: boolean;
 
     /** Configure how users will be onboarded */
     onboardingFlow: OnboardingFlow;
