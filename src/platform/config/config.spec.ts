@@ -1,10 +1,12 @@
 import * as appMock from '../../../test/app-response.mock.json'
 import * as getTemplateMock from '../../../test/get-email-template-response.mock.json';
 import * as updateTemplateMock from '../../../test/update-email-template-response.mock.json';
+import * as credentialsStateMock from '../../../test/credentials-state-response.mock.json';
 import MockAdapter from 'axios-mock-adapter';
 import { Config } from './config';
 import { NblocksClient } from '../nblocks-client';
 import { AppModel } from '../models/app.model';
+import { CredentialsStateModel } from '../models/credentials-state.model';
 
 describe('Platform config client', () => {
 
@@ -12,6 +14,7 @@ describe('Platform config client', () => {
     let config: Config;
     let app: AppModel;
     let mockApi: MockAdapter;
+    let credentialsState: CredentialsStateModel;
     beforeAll(() => {
         client = new NblocksClient({appId: "id", apiKey: "SECRET", stage: 'DEV'});
         config = client.config;
@@ -44,9 +47,17 @@ describe('Platform config client', () => {
         expect(response2.name).toBe(app.name);
     });
 
+    test("Get credentials added state", async () => {
+        mockApi.onGet("/app/credentialsState").reply(200, credentialsStateMock);
+
+        const response = await config.getCredentialsState();
+        expect(response.stripeCredentialsAdded).toBeTruthy();
+        credentialsState = response;
+    });
+
     test('Update app credentials', async () => {
-        mockApi.onPut("/app/credentials").reply(200);
-        await config.updateCredentials({facebookAppId: "1", facebookAppSecret: "2"});
+        mockApi.onPut("/app/credentials").reply(200, {...credentialsStateMock});
+        await config.updateCredentials({stripePublicKey: "public", stripeSecretKey: "secret"});
     });
 
     test('Get email template', async () => {
