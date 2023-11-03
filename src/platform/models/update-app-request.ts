@@ -31,6 +31,9 @@ export class UpdateAppRequest {
   /** Emails sent from Nblocks will have this sender email. You'll have to verify this email before */
   emailSenderEmail?: string;
 
+  // Tenant owners are automatically redirected to payments view whenever Nblocks handles the user in some way
+  paymentsAutoRedirect?: boolean;
+
   /** Configure how users will be onboarded */
   onboardingFlow?: OnboardingFlow;
 

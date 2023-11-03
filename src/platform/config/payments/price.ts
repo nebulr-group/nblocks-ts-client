@@ -13,7 +13,7 @@ export class Price {
   amount: number;
 
   /**
-   * Three-letter ISO currency code, in lowercase. Must be a supported currency. https://www.iso.org/iso-4217-currency-codes.html
+   * Three-letter ISO currency code. Must be a supported currency. https://www.iso.org/iso-4217-currency-codes.html
    */
   currency: Currency;
 

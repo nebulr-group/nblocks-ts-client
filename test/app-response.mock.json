@@ -5,6 +5,7 @@
     "apiUrl": "",
     "uiUrl": "http://localhost:8100",
     "webhookUrl": "http://api.example.com/webhook",
+    "paymentsAutoRedirect": "true",
     "stripeEnabled": true,
     "passkeysEnabled": true,
     "googleSsoEnabled": false,
