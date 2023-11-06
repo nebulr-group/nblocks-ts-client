@@ -37,6 +37,9 @@ export class AppModel {
     /** Emails sent from Nblocks will have this sender email. You'll have to verify this email before */
     emailSenderEmail: string;
 
+    // Tenant owners are automatically redirected to payments view whenever Nblocks handles the user in some way
+    paymentsAutoRedirect: boolean;
+
     /** Boolean value telling the user if passkeys login is enabled */
     passkeysEnabled: boolean;
 

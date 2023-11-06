@@ -44,6 +44,9 @@ export class TenantUserResponseDto {
   
     /** Date when the user was created */
     createdAt: Date;
+
+    /** When the user was last seen, like login, token refresh etc. Set to undefined if never seen yet */
+    lastSeen: Date;
   
     /** Users tenant */
     tenant: TenantResponseDto

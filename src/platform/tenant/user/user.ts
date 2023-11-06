@@ -42,6 +42,14 @@ export class User extends SpecificEntity{
   }
 
   /**
+   * Lists this users all associated users for other tenants
+   */
+  async listAssociations(): Promise<TenantUserResponseDto[]> {
+    const result = await this.getHttpClient().get<TenantUserResponseDto[]>(`/tenant/user/${this.id}/associations`, { headers: this.getHeaders() });
+    return result.data;
+  }
+
+  /**
    * Send the user an email
    * @param args `EmailUserRequestDto`
    */

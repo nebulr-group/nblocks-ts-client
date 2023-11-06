@@ -9,6 +9,7 @@
         "consentsToPrivacyPolicy": false,
         "enabled": true,
         "teams": [],
+        "lastSeen": "2022-04-05T10:07:08.701Z",
         "createdAt": "2022-04-05T10:07:08.701Z",
         "tenant": {
             "id": "631742f51c2304003a73f967",
@@ -39,6 +40,7 @@
         "consentsToPrivacyPolicy": false,
         "enabled": true,
         "teams": [],
+        "lastSeen": "2022-04-05T10:07:08.701Z",
         "createdAt": "2022-06-27T14:21:08.565Z",
         "tenant": {
             "id": "631742f51c2304003a73f967",

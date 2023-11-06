@@ -1,7 +1,7 @@
 import { PriceOffer } from "../../config/payments/price-offer";
 
 export class CreateTenantRequestDto {
-    /** The plan must be present in the configured App business model */
+    /** The plan key. The plan must be present in the configured App business model */
     plan?: string;
 
     /** If a specific pricing offer should be used. Use this if you offer the same plan in multiple periods or currencies. Otherwise the first price will be used */
