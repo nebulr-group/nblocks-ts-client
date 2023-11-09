@@ -178,6 +178,6 @@ export class FileClient extends SpecificEntity {
    * @returns 
    */
   private _getBaseUrl(): string {
-    return process.env.NEBULR_FILE_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
+    return process.env.NBLOCKS_FILE_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
   }
 }

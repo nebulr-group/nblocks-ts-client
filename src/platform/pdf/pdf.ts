@@ -58,6 +58,6 @@ export class PdfServiceClient extends Client {
   * @returns 
   */
   private _getBaseUrl(): string {
-    return process.env.NEBULR_PDF_SERVICE_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
+    return process.env.NBLOCKS_PDF_SERVICE_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
   }
 }
