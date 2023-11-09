@@ -82,7 +82,7 @@ export class AuthContextHelper {
    * @returns
    */
   private _getBaseUrl(stage: Stage): string {
-    return process.env.NBLOCKS_AUTH_URL || this.BASE_URLS[stage];
+    return process.env.NBLOCKS_AUTH_API_URL || this.BASE_URLS[stage];
   }
 
   private _getIssuer(stage: Stage): string {
