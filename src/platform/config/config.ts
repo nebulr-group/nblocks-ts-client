@@ -9,6 +9,7 @@ import { EmailTemplateResponseDto } from "../tenant/communication/models/get-ema
 import { TemplateName } from "../tenant/communication/models/template-name.type";
 import { UpdateEmailTemplateRequestDto } from "../tenant/communication/models/update-email-template-request.dto";
 import { Access } from "./access/access";
+import { Federation } from "./federation-connection/federation";
 import { Payments } from "./payments/payments";
 
 /**
@@ -20,6 +21,9 @@ export class Config extends Entity {
   /** A helper to configure plans, prices and taxes in Nblocks */
   readonly payments: Payments;
 
+  /** A helper to configure federation connections, like SAML and OIDC */
+  readonly federation: Federation;
+
   /** A helper to configure roles and privileges in Nblocks */
   readonly access: Access;
 
@@ -27,6 +31,7 @@ export class Config extends Entity {
     super(client, debug);
     this._communicationClient = new CommunicationClient(client, debug);
     this.payments = new Payments(client, debug);
+    this.federation = new Federation(client, debug);
     this.access = new Access(client, this.debug);
   }
 
