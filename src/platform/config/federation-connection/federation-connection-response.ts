@@ -2,7 +2,7 @@ export class FederationConnectionResponse {
   id: string;
   type: FederationConnectionType;
   name: string;
-  clientId: string;
+  clientId?: string;
   loginUrl: string;
   certificate: string;
   requestMethod: RequestMethod;
