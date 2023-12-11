@@ -10,7 +10,7 @@ export class CreateFederationConnectionRequest
     name: string;
 
 
-    clientId: string;
+    clientId?: string;
 
     
     loginUrl: string;
