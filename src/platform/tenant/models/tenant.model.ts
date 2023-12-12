@@ -39,6 +39,9 @@ export class TenantResponseDto {
   /** If this tenant is considered onboarded (Read only) */
   onboarded: boolean;
 
+  /** Logins are made with this enterprise login connection id */
+  federationConnection?: string;
+
   /** Timestamp when created */
   createdAt: Date;
 }
