@@ -2,7 +2,7 @@ export class CreateUserRequestDto {
     /** Email address to the new user */
     username: string;
   
-    /** The role must be present in App.roles */
+    /** The role key. Must exists as a Role */
     role?: string;
   
     /** User's first name */

@@ -5,6 +5,7 @@
     "apiUrl": "",
     "uiUrl": "http://localhost:8100",
     "webhookUrl": "http://api.example.com/webhook",
+    "paymentsAutoRedirect": "true",
     "stripeEnabled": true,
     "passkeysEnabled": true,
     "googleSsoEnabled": false,
@@ -14,101 +15,6 @@
     "cloudViews": true,
     "redirectUris": ["http://localhost:8080/auth/oauth-callback"],
     "defaultCallbackUri": "http://localhost:8080/auth/oauth-callback",
-    "defaultRole": "OWNER",
-    "roles": {
-        "OWNER": [
-            "TENANT_READ",
-            "TENANT_WRITE",
-            "CASE_READ",
-            "CASE_WRITE",
-            "TAG_READ",
-            "TAG_WRITE",
-            "USER_READ",
-            "USER_WRITE",
-            "GROUP_WRITE",
-            "GROUP_READ",
-            "ASSIGNEES_WRITE",
-            "SETTINGS_READ",
-            "SETTINGS_WRITE"
-        ],
-        "ADMIN": [
-            "TENANT_READ",
-            "CASE_READ",
-            "CASE_WRITE",
-            "TAG_READ",
-            "TAG_WRITE",
-            "USER_READ",
-            "USER_WRITE",
-            "GROUP_WRITE",
-            "GROUP_READ",
-            "ASSIGNEES_WRITE",
-            "SETTINGS_READ",
-            "SETTINGS_WRITE"
-        ],
-        "MANAGER": [
-            "TENANT_READ",
-            "CASE_READ",
-            "CASE_WRITE",
-            "TAG_READ",
-            "USER_READ",
-            "GROUP_READ",
-            "SETTINGS_READ"
-        ],
-        "VIEWER": [
-            "TENANT_READ",
-            "CASE_READ",
-            "TAG_READ",
-            "USER_READ",
-            "GROUP_READ",
-            "SETTINGS_READ"
-        ]
-    },
-    "businessModel": {
-        "taxes": [
-            {
-            "region": "SE",
-            "name": "VAT",
-            "percentage": 25
-            }
-        ],
-        "plans": [
-            {
-            "name": "ESSENTIAL",
-            "prices": [
-                {
-                "region": "SE",
-                "amount": 500,
-                "currency": "SEK",
-                "recurrenceInterval": "month"
-                },
-                {
-                "region": "DE",
-                "amount": 50,
-                "currency": "EUR",
-                "recurrenceInterval": "month"
-                }
-            ]
-            },
-            {
-            "name": "TEAM",
-            "trialDays": 14,
-            "prices": [
-                {
-                "region": "SE",
-                "amount": 1000,
-                "currency": "SEK",
-                "recurrenceInterval": "month"
-                },
-                {
-                "region": "DE",
-                "amount": 100,
-                "currency": "EUR",
-                "recurrenceInterval": "month"
-                }
-            ]
-            }
-        ]
-    },
     "logo": "https://public.nblocks.dev/assets/logos/nblocks-logo-purple.png",
     "websiteUrl": "http://localhost",
     "privacyPolicyUrl": "",

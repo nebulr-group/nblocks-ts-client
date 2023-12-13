@@ -1,4 +1,3 @@
-import { BusinessModel } from "./business-model";
 import { OnboardingFlow } from "./onboarding-flow";
 
 export class AppModel {
@@ -20,15 +19,6 @@ export class AppModel {
     /** Events like tenant and user updates will be sent to this webhook url */
     webhookUrl?: string;
   
-    /** All user roles and their granted privileges */
-    roles: Record<string, string[]>;
-
-     /** Default user role */
-     defaultRole: string;
-  
-    /** The business model defines what plans are available to subscribe to and what taxes applies. */
-    businessModel: BusinessModel;
-  
     /** URL to your logo */
     logo: string;
   
@@ -47,19 +37,25 @@ export class AppModel {
     /** Emails sent from Nblocks will have this sender email. You'll have to verify this email before */
     emailSenderEmail: string;
 
+    // Tenant owners are automatically redirected to payments view whenever Nblocks handles the user in some way
+    paymentsAutoRedirect: boolean;
+
     /** Boolean value telling the user if passkeys login is enabled */
     passkeysEnabled: boolean;
 
-    /** Boolean value telling the user if Stripe is enabled (Read only) */
+    /** Boolean value telling the user if MFA is enabled */
+    mfaEnabled: boolean;
+
+    /** Boolean value telling the user if Stripe is enabled */
     stripeEnabled: boolean;
 
-    /** Boolean value telling the user if Google Social login / SSO is enabled (Read only) */
+    /** Boolean value telling the user if Google Social login / SSO is enable */
     googleSsoEnabled: boolean;
 
-    /** Boolean value telling the user if Azure AD SSO is enabled (Read only) */
+    /** Boolean value telling the user if Azure AD SSO is enabled */
     azureAdSsoEnabled: boolean;
 
-    /** Boolean value telling the user if Azure marketplace is enabled (Read only) */
+    /** Boolean value telling the user if Azure marketplace is enabled */
     azureMarketplaceEnabled: boolean;
 
     /** Configure how users will be onboarded */
@@ -74,4 +70,9 @@ export class AppModel {
     /** Default handover/callback uri used by Nblocks */
     defaultCallbackUri: string;
 
+    /** TTL for access token, default 1 hour*/
+    accessTokenTTL: number;
+
+    /** TTL for refresh token, default 1 week*/
+    refreshTokenTTL: number;
 }

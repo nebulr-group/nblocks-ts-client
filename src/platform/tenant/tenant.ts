@@ -13,6 +13,8 @@ import { AuthTenantResponseDto } from '../auth/models/auth-tenant-response.dto';
 import { CommunicationClient } from './communication/communication';
 import { CheckoutResponsetDto } from './models/checkout-response.dto';
 import { StripeTenantCheckoutIdRequestDto } from './models/stripe-tenant-checkout-id-request.dto';
+import { TenantPaymentDetails } from './models/tenant-payment-details';
+import { SetTenantPlanDetails } from './models/set-tenant-plan-details';
 
 /**
  * A specific `Tenant` client for a particular Tenant id. 
@@ -88,12 +90,31 @@ export class Tenant extends SpecificEntity{
 
   /**
    * Creates a Stripe checkout session and returns the id from which you can render using the Stripe SDK.
-   * @deprecated Redirect the user to checkoutView instead
    * @param args 
    * @returns 
    */
-  async createStripeCheckoutSession(args: StripeTenantCheckoutIdRequestDto): Promise<CheckoutResponsetDto> {
-    const response = await this.getHttpClient().post<CheckoutResponsetDto>(`/tenant/${this.id}/checkoutId`, args, { headers: this.getHeaders() });
+  async getPaymentDetails(): Promise<TenantPaymentDetails> {
+    const response = await this.getHttpClient().get<TenantPaymentDetails>(`/tenant/${this.id}/paymentDetails`, { headers: this.getHeaders() });
+    return response.data;
+  }
+
+  /**
+   * Sets or changes the current plan the tenant is subscribing to. Might affect changed billing.
+   * @param args 
+   * @returns 
+   */
+  async setPlanDetails(args: SetTenantPlanDetails): Promise<TenantPaymentDetails> {
+    const response = await this.getHttpClient().post<TenantPaymentDetails>(`/tenant/${this.id}/planDetails`, args, { headers: this.getHeaders() });
+    return response.data;
+  }
+
+  /**
+   * Creates a Stripe checkout session for an existing tenant and returns the id from which you can render using the Stripe SDK.
+   * @param args 
+   * @returns 
+   */
+  async createStripeCheckoutSession(): Promise<CheckoutResponsetDto> {
+    const response = await this.getHttpClient().post<CheckoutResponsetDto>(`/tenant/${this.id}/checkoutId`,{}, { headers: this.getHeaders() });
     return response.data;
   }
 
@@ -102,7 +123,7 @@ export class Tenant extends SpecificEntity{
    * Can be both Stripe or Azure Markeplace
    */
   async getSubscriptionPortalUrl(): Promise<CustomerPortalResponseDto> {
-    const response = await this.getHttpClient().get<CustomerPortalResponseDto>(`/tenant/customerPortal`, { headers: this.getHeaders() });
+    const response = await this.getHttpClient().get<CustomerPortalResponseDto>(`/tenant/${this.id}/customerPortal`, { headers: this.getHeaders() });
     return response.data;
   }
 }

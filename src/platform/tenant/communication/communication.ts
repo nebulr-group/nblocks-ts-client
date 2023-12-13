@@ -98,7 +98,7 @@ export class CommunicationClient extends Client {
    * @returns 
    */
   private _getBaseUrl(): string {
-    return process.env.NEBULR_COMMUNICATION_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
+    return process.env.NBLOCKS_COMMUNICATION_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
   }
 
   /**

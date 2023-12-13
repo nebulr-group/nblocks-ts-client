@@ -57,6 +57,12 @@ describe('Users client', () => {
         expect(response.role).toBe("MANAGER");
     })
 
+    test('List user associations', async () => {
+        mockApi.onGet(`/tenant/user/${newUserId}/associations`).reply(200, listTenantUsersData);
+        const result = await client.tenant("1234").user(newUserId).listAssociations();
+        expect(result.length).toBeGreaterThan(0);
+    })
+
     test('Send an email to a user', async () => {
         mockApi.onPost(`/tenant/user/${newUserId}/email`).reply(200);
         await client.tenant("1234").user(newUserId).sendEmail({

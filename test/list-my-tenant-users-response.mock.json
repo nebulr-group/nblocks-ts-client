@@ -10,11 +10,22 @@
         "onboarded": true,
         "consentsToPrivacyPolicy": true,
         "tenant": {
-            "id": "624c14cc0c01e70033356285",
-            "name": "Nebulr AB",
+            "id": "631742f51c2304003a73f967",
             "plan": "TEAM",
+            "mfa": false,
             "locale": "en",
-            "logo": "https://nebulr-group.github.io/nblocks-docs/img/logo.png"
+            "name": "New Company Ltd",
+            "logo": "https://nebulr-group.github.io/nblocks-docs/img/logo.png",
+            "metadata": {},
+            "paymentStatus": {
+                "shouldSelectPlan": true,
+                "shouldSetupPayments": false,
+                "provider": "STRIPE",
+                "paymentsEnabled": true
+            },
+            "trial": false,
+            "onboarded": true,
+            "createdAt": "2022-09-06T12:54:13.892Z"
         }
     },
     {
@@ -28,11 +39,22 @@
         "onboarded": true,
         "consentsToPrivacyPolicy": true,
         "tenant": {
-            "id": "624c14cc0c01e70033356290",
-            "name": "Cheeta AB",
+            "id": "631742f51c2304003a73f967",
             "plan": "TEAM",
+            "mfa": false,
             "locale": "en",
-            "logo": ""
+            "name": "New Company Ltd",
+            "logo": "https://nebulr-group.github.io/nblocks-docs/img/logo.png",
+            "metadata": {},
+            "paymentStatus": {
+                "shouldSelectPlan": true,
+                "shouldSetupPayments": false,
+                "provider": "STRIPE",
+                "paymentsEnabled": true
+            },
+            "trial": false,
+            "onboarded": true,
+            "createdAt": "2022-09-06T12:54:13.892Z"
         }
     }
 ]

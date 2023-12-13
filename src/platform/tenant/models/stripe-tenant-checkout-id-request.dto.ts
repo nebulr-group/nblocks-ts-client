@@ -1,7 +1,9 @@
-export class StripeTenantCheckoutIdRequestDto {
-    /** The plan the customer which to checkout */
-    plan: string;
+import { PriceOffer } from "../../config/payments/price-offer";
 
-    /** If there's multi region plans you need to provide the region to fetch the correct currencies and taxes */
-    region?: string;
+export class StripeTenantCheckoutIdRequestDto {
+    /** The plan key the customer which to checkout */
+    planKey: string;
+
+    /** Which offering (price) to chosse */
+    priceOffer: PriceOffer;
 }

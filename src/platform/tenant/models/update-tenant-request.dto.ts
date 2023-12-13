@@ -7,11 +7,11 @@ export class UpdateTenantRequestDto {
     /** A url to a logo */
     logo?: string;
 
-    /** The plan. Updates might have side effects to billing */
-    plan?: string;  
-
     /** Require users to login with MFA/2FA */
     mfa?: boolean;
+
+    /** Logins are made with this enterprise login connection id */
+    federationConnection?: string;
   
     /** Store metadata for your own business logic that will be returned in every Tenant response. This data will never be outputted to the end user */
     metadata?: Record<string, string>;

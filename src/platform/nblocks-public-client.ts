@@ -61,7 +61,7 @@ export class NblocksPublicClient extends SpecificEntity {
 
   /** **Internal functionality. Do not use this function** */
   private getApiBaseUrl(stage: Stage): string {
-    return process.env.NBLOCKS_CORE_API_URL || this.BASE_URLS[stage];
+    return process.env.NBLOCKS_ACCOUNT_API_URL || this.BASE_URLS[stage];
   }
 
   private configureHttpClient(httpClient: AxiosInstance): void {

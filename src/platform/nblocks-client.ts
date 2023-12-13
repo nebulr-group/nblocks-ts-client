@@ -58,11 +58,11 @@ export class NblocksClient extends SpecificEntity {
    */
   auth: AuthContextHelper;
 
-  constructor(args: {appId?: string, apiKey?: string, version?: number, debug?: boolean, stage?: Stage}) {
-    const appId = args. appId || process.env.NB_APP_ID || process.env.NBLOCKS_APP_ID
+  constructor(args: {appId: string, apiKey?: string, version?: number, debug?: boolean, stage?: Stage}) {
+    const appId = args.appId;
     super(appId, null, args.debug);
 
-    this.apiKey = args.apiKey || process.env.NB_API_KEY || process.env.NBLOCKS_API_KEY;
+    this.apiKey = args.apiKey || process.env.NBLOCKS_API_KEY;
     this.version = args.version || 1;
     this.stage = args.stage || 'PROD';
 
@@ -118,7 +118,7 @@ export class NblocksClient extends SpecificEntity {
 
   /** **Internal functionality. Do not use this function** */
   private getApiBaseUrl(stage: Stage): string {
-    return process.env.NBLOCKS_CORE_API_URL || this.BASE_URLS[stage];
+    return process.env.NBLOCKS_ACCOUNT_API_URL || this.BASE_URLS[stage];
   }
 
   private configureHttpClient(httpClient: AxiosInstance): void {
