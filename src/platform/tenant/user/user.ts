@@ -67,6 +67,16 @@ export class User extends SpecificEntity{
   }
 
   /**
+   * Get the reset password link, constructed using {appUrl}/auth/set-password/XXXX, *without* sending the an email.
+   * 
+   * @returns `string` a password rest link
+   */
+  async getResetPasswordLink(): Promise<string> {
+    const result = await this.getHttpClient().get(`/tenant/user/${this.id}/passwordLink`, { headers: this.getHeaders() });
+    return result.data;
+  }
+
+  /**
    * Send the user a SMS
    * @param args `SmsUserRequestDto`
    */
