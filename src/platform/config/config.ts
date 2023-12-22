@@ -148,4 +148,15 @@ Usage: `<h1>{{variable}}</h1` to inject it in the content html.
   async resetEmailTemplate(type: TemplateName): Promise<void> {
     await this._communicationClient._internalResetTemplate(type);
   }
+
+  /**
+   * Deletes the whole app with its tenants and all its users. It also deletes all related data like credentials, connections, configs, files etc.
+   */
+  async deleteApp(): Promise<void> {
+    await this.parentEntity
+      .getHttpClient()
+      .delete<CredentialsStateModel>("/app", {
+        headers: this.getHeaders(),
+      });
+  }
 }
