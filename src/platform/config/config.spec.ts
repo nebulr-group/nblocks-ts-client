@@ -16,7 +16,7 @@ describe('Platform config client', () => {
     let mockApi: MockAdapter;
     let credentialsState: CredentialsStateModel;
     beforeAll(() => {
-        client = new NblocksClient({appId: "id", apiKey: "SECRET", stage: 'DEV'});
+        client = new NblocksClient({appId: "app_123", apiKey: "SECRET", stage: 'DEV'});
         config = client.config;
         mockApi = new MockAdapter(client["httpClient"]);
     });
@@ -75,5 +75,10 @@ describe('Platform config client', () => {
     test('Reset email template', async () => {
         mockApi.onDelete("/template/SIGNUP").reply(200);
         await config.resetEmailTemplate('SIGNUP');
+    });
+
+    test('Delete the whole app', async () => {
+        mockApi.onDelete("/app").reply(200);
+        await config.deleteApp();
     });
 })

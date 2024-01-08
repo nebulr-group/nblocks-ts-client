@@ -154,4 +154,9 @@ describe('Tenant client', () => {
         expect(response).toBeDefined();
         expect(response.status).toBeDefined();
     });
+
+    test('Delete the whole tenant', async () => {
+        mockApi.onDelete(`/tenant/${newTenantId}`).reply(200);
+        await client.tenant(newTenantId).delete();
+    });
 })

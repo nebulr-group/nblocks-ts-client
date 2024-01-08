@@ -74,8 +74,11 @@ export class Tenant extends SpecificEntity{
     return response.data;
   }
 
+  /**
+   * Deletes a tenant, and all its users. It also deletes all related data like files etc.
+   */
   async delete(): Promise<void> {
-    throw new Error("Not implemented yet");
+    await this.getHttpClient().delete<void>(`/tenant/${this.id}`, { headers: this.getHeaders() });
   }
 
   /**
