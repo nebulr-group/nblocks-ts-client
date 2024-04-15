@@ -6,6 +6,7 @@ import { NotFoundError } from '../errors/NotFoundError';
 import { OAuth } from './auth/oauth';
 import { SpecificEntity } from '../abstracts/specific-entity';
 import { Portal } from './portal/portal';
+import { Flag } from './flag/flag';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
@@ -27,6 +28,8 @@ export class NblocksPublicClient extends SpecificEntity {
 
   portal: Portal;
 
+  flag: Flag;
+
   constructor(args: {appId: string, version?: number, debug?: boolean, stage?: Stage}) {
     super(args.appId, null, args.debug);
 
@@ -40,6 +43,8 @@ export class NblocksPublicClient extends SpecificEntity {
     this.auth = new OAuth(this, this.debug);
 
     this.portal = new Portal(this, this.debug);
+
+    this.flag = new Flag(this, this.debug);
 
     this._log(`Initialized NblocksPublicClient in stage ${this.stage}, app id: ${this.id}`);
   }

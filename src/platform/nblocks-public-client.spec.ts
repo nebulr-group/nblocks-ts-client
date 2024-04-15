@@ -18,6 +18,7 @@ describe('NblocksPublicClient', () => {
         expect(client.auth).toBeDefined();
         expect(client.auth.contextHelper).toBeDefined();
         expect(client.portal).toBeDefined();
+        expect(client.flag).toBeDefined();
     });
     
 })

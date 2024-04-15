@@ -26,5 +26,6 @@ describe('NblocksClient', () => {
         expect(client.config.federation).toBeDefined();
         expect(client.tenant).toBeDefined();
         expect(client.tenants).toBeDefined();
+        expect(client.flag).toBeDefined();
     });
 })

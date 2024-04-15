@@ -39,7 +39,7 @@ export class KeyContext {
 }
 
 
-export class Context {
+export class FlagContext {
 
     /** Match on user */
     user?: UserContext;
@@ -55,6 +55,6 @@ export class Context {
 
 
 export class BodyWithCtxAndToken {
-    context?: Context;
+    context?: FlagContext;
     accessToken?: string;
 }
