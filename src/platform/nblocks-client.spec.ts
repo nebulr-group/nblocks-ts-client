@@ -19,7 +19,11 @@ describe('NblocksClient', () => {
     test('Expect sub clients to be instantiated', async () => {
         expect(client.authLegacy).toBeDefined();
         expect(client.auth).toBeDefined();
+        expect(client.auth.contextHelper).toBeDefined();
         expect(client.config).toBeDefined();
+        expect(client.config.access).toBeDefined();
+        expect(client.config.payments).toBeDefined();
+        expect(client.config.federation).toBeDefined();
         expect(client.tenant).toBeDefined();
         expect(client.tenants).toBeDefined();
     });

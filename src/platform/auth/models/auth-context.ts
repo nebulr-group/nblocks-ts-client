@@ -9,7 +9,7 @@ export class AuthContext {
     privileges: string[];
 }
 
-export interface AuthJwt extends JWTPayload {
+export interface AccessJwt extends JWTPayload {
     tid: string;
     aid: string;
     scope: string;

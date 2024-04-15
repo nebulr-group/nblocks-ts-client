@@ -5,19 +5,28 @@ import {
   FlattenedJWSInput,
 } from "jose/dist/types/types";
 import { JwtError } from "../../errors/JwtError";
-import { Stage } from "../nblocks-client";
-import { AuthContext, AuthJwt } from "./models/auth-context";
+import { AuthContext, AccessJwt } from "./models/auth-context";
 import { SpecificEntity } from "../../abstracts/specific-entity";
+import { Entity } from "../../abstracts/generic-entity";
+import { NblocksPublicClient } from "../nblocks-public-client";
 
-export class AuthContextHelper {
+export class AuthContextHelper extends Entity {
   private readonly _debug: boolean;
   private readonly _expectedIssuer: string;
   private readonly _expectedAudience: string;
+  
   private readonly BASE_URLS = {
     PROD: "https://auth.nblocks.cloud",
     STAGE: "https://auth-stage.nblocks.cloud",
     DEV: "http://auth-api:3000",
   };
+
+  private readonly PUBLIC_BASE_URLS = {
+    PROD: "https://auth.nblocks.cloud",
+    STAGE: "https://auth-stage.nblocks.cloud",
+    DEV: "http://localhost:3070",
+  };
+
   private readonly ISSUERS = {
     PROD: "https://auth.nblocks.cloud",
     STAGE: "https://auth-stage.nblocks.cloud",
@@ -27,28 +36,24 @@ export class AuthContextHelper {
 
   private _jwksClient: GetKeyFunction<JWSHeaderParameters, FlattenedJWSInput>;
 
-  constructor(client: SpecificEntity, stage: Stage, debug?: boolean) {
+  constructor(parentEntity: SpecificEntity, debug?: boolean) {
+    super(parentEntity, debug)
     this._debug = debug;
-    this._expectedIssuer = this._getIssuer(stage);
-    this._expectedAudience = this._getAudience(client);
+    this._expectedIssuer = this._getIssuer();
+    this._expectedAudience = this._getAudience();
     this._jwksClient = jose.createRemoteJWKSet(
-      new URL(`${this._getBaseUrl(stage)}${this.JWKS_PATH}`),
+      new URL(`${this._getBaseUrl()}${this.JWKS_PATH}`),
       {}
     );
 
-    this._log(`${this._getBaseUrl(stage)}${this.JWKS_PATH}`);
+    this._log(`${this._getBaseUrl()}${this.JWKS_PATH}`);
     this._log(`expectedIssuer: ${this._expectedIssuer}, expectedAudience: ${this._expectedAudience},`);
   }
 
-  private _log(message: string): void {
-    if (this._debug)
-      console.log(message);
-  }
-
-  async getAuthContext(authJwt: string): Promise<AuthContext> {
+  async getAuthContextVerified(accessToken: string): Promise<AuthContext> {
     try {
       const { payload, key, protectedHeader } = await jose.jwtVerify(
-        authJwt,
+        accessToken,
         this._jwksClient,
         {
           issuer: this._expectedIssuer,
@@ -56,7 +61,7 @@ export class AuthContextHelper {
         }
       );
 
-      const { aid, plan, role, tid, sub, scope } = payload as AuthJwt;
+      const { aid, plan, role, tid, sub, scope } = payload as AccessJwt;
       return {
         appId: aid,
         tenantPlan: plan,
@@ -73,6 +78,11 @@ export class AuthContextHelper {
     }
   }
 
+  async hasRolesOrPrivileges(authContext: AuthContext, args: {roles?: string[], privileges?: string[]}) {
+    const {roles, privileges} = args;
+    return roles ? roles.includes(authContext.userRole) : false || privileges ? privileges.some(scope => authContext.privileges.includes(scope)) : false;
+  }
+
   async getProfile(openIdJwt: string): Promise<void> {
     //TODO implement me
   }
@@ -81,15 +91,18 @@ export class AuthContextHelper {
    * Gets the base url by fetching current stage from Platform
    * @returns
    */
-  private _getBaseUrl(stage: Stage): string {
-    return process.env.NBLOCKS_AUTH_API_URL || this.BASE_URLS[stage];
+  private _getBaseUrl(): string {
+    if (this.parentEntity instanceof NblocksPublicClient)
+      return process.env.NBLOCKS_AUTH_API_URL || this.PUBLIC_BASE_URLS[this.getPlatformClient().stage];
+    else 
+      return process.env.NBLOCKS_AUTH_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
   }
 
-  private _getIssuer(stage: Stage): string {
-    return process.env.NBLOCKS_AUTH_ISSUER || this.ISSUERS[stage];
+  private _getIssuer(): string {
+    return process.env.NBLOCKS_AUTH_ISSUER || this.ISSUERS[this.getPlatformClient().stage];
   }
 
-  private _getAudience(client: SpecificEntity): string {
-    return process.env.NBLOCKS_AUTH_AUDIENCE || client.id;
+  private _getAudience(): string {
+    return process.env.NBLOCKS_AUTH_AUDIENCE || this.getPlatformClient().id;
   }
 }
