@@ -52,6 +52,9 @@ export class AppModel {
     /** Boolean value telling the user if Google Social login / SSO is enable */
     googleSsoEnabled: boolean;
 
+    /** Boolean value telling the user if LinkedIn Social login / SSO is enabled */
+    linkedinSsoEnabled: boolean;
+
     /** Boolean value telling the user if Azure AD SSO is enabled */
     azureAdSsoEnabled: boolean;
 
