@@ -20,6 +20,12 @@ export class UpdateCredentials {
     /** Google social login */
     googleClientSecret?: string;
 
+    /** LinkedIn social login */
+    linkedinClientId?: string;
+
+    /** linkedin social login */
+    linkedinClientSecret?: string;
+
     /** Gitlab social login */
     githubClientId?: string;
 

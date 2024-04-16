@@ -58,6 +58,9 @@ export class UpdateAppRequest {
   /** Boolean value telling the user if Google Social login / SSO is enabled (Read only) */
   googleSsoEnabled?: boolean;
 
+  /** Boolean value telling the user if Linkedin Social login / SSO is enabled (Read only) */
+  linkedinSsoEnabled?: boolean;
+
   /** Boolean value telling the user if Azure AD SSO is enabled (Read only) */
   azureAdSsoEnabled?: boolean;
 
