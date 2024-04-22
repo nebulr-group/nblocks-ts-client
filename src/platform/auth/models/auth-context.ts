@@ -7,6 +7,7 @@ export class AuthContext {
     tenantPlan: string;
     userRole: string;
     privileges: string[];
+    email?: string;
 }
 
 export interface AuthJwt extends JWTPayload {
@@ -15,4 +16,5 @@ export interface AuthJwt extends JWTPayload {
     scope: string;
     role: string;
     plan: string;
+    email?: string;
 }
