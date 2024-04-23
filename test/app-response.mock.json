@@ -9,6 +9,7 @@
     "stripeEnabled": true,
     "passkeysEnabled": true,
     "googleSsoEnabled": false,
+    "linkedinSsoEnabled": false,
     "azureAdSsoEnabled": false,
     "azureMarketplaceEnabled": false,
     "onboardingFlow": "B2B",

@@ -67,7 +67,8 @@ export class AuthContextHelper extends Entity {
         }
       );
 
-      const { aid, plan, role, tid, sub, scope, trial, shouldSelectPlan, shouldSetupPayments } = payload as AccessToken;
+      const { aid, plan, role, tid, sub, scope, trial, shouldSelectPlan, shouldSetupPayments, email } = payload as AccessToken;
+
       return {
         appId: aid,
         tenantPlan: plan,
@@ -77,7 +78,8 @@ export class AuthContextHelper extends Entity {
         privileges: scope.split(" "),
         trial,
         shouldSelectPlan,
-        shouldSetupPayments
+        shouldSetupPayments,
+        email,
       };
     } catch (error) {
       if (this._debug) {

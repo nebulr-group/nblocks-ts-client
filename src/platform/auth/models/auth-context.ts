@@ -10,6 +10,7 @@ export class AuthContext {
     trial: boolean;
     shouldSelectPlan: boolean;
     shouldSetupPayments: boolean;
+    email?: string;
 }
 
 export interface AccessToken extends JWTPayload {
@@ -21,4 +22,5 @@ export interface AccessToken extends JWTPayload {
     trial: boolean;
     shouldSelectPlan: boolean;
     shouldSetupPayments: boolean;
+    email?: string;
 }

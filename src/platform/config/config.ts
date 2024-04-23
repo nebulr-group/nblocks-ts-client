@@ -155,7 +155,7 @@ Usage: `<h1>{{variable}}</h1` to inject it in the content html.
   async deleteApp(): Promise<void> {
     await this.parentEntity
       .getHttpClient()
-      .delete<CredentialsStateModel>("/app", {
+      .delete<void>("/app", {
         headers: this.getHeaders(),
       });
   }
