@@ -56,7 +56,7 @@ export class AuthContextHelper {
         }
       );
 
-      const { aid, plan, role, tid, sub, scope } = payload as AuthJwt;
+      const { aid, plan, role, tid, sub, scope, email } = payload as AuthJwt;
       return {
         appId: aid,
         tenantPlan: plan,
@@ -64,6 +64,7 @@ export class AuthContextHelper {
         userRole: role,
         userId: sub,
         privileges: scope.split(" "),
+        email,
       };
     } catch (error) {
       if (this._debug) {
