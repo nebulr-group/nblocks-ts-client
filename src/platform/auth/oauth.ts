@@ -1,6 +1,7 @@
 import { SpecificEntity } from '../../abstracts/specific-entity';
 import { AuthContextHelper } from './auth-context-helper';
 import { AuthContext } from './models/auth-context';
+import { Profile } from './models/id-profile-context';
 import { TokensResponse } from './models/tokens.response.dto';
 
 export class OAuth extends SpecificEntity{
@@ -41,10 +42,13 @@ export class OAuth extends SpecificEntity{
     return response.data;
   }
 
-  async getTokensAndVerify(code: string, options?: {redirectUri?: string}): Promise<{tokens: TokensResponse, authContext: AuthContext}> {
+  async getTokensAndVerify(code: string, options?: {redirectUri?: string}): Promise<{tokens: TokensResponse, authContext: AuthContext, profile?: Profile}> {
     const tokens = await this._getTokens(code, options);
-    const authContext = await this.contextHelper.getAuthContextVerified(tokens.access_token);
-    return {tokens, authContext};
+    const [authContext, profile] = await Promise.all([
+      this.contextHelper.getAuthContextVerified(tokens.access_token),
+      tokens.id_token ? this.contextHelper.getProfileVerified(tokens.id_token) : Promise.resolve(undefined),
+    ]);
+    return {tokens, authContext, profile};
   }
 
   private async _getTokens(code: string, options?: {redirectUri?: string}): Promise<TokensResponse> {
