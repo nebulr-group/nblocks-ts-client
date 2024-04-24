@@ -100,9 +100,32 @@ export class AuthContextHelper extends Entity {
         }
       );
 
-      const { sub, preferred_username, name, given_name, family_name, email, email_verified, locale, onboarded, tenant_id, tenant_locale, tenant_logo, tenant_name } = payload as IDToken;
+      const { 
+        sub, 
+        preferred_username, 
+        name, 
+        given_name, 
+        family_name, 
+        email, 
+        email_verified, 
+        locale, 
+        onboarded, 
+        tenant_id, 
+        tenant_locale, 
+        tenant_logo, 
+        tenant_name,
+        tenant_onboarded,
+        multi_tenant
+      } = payload as IDToken;
       
-      const tenant = tenant_id ? {id: tenant_id, name: tenant_name, logo: tenant_logo, locale: tenant_locale} : undefined
+      const tenant = tenant_id ? {
+        id: tenant_id, 
+        name: tenant_name, 
+        logo: tenant_logo, 
+        locale: tenant_locale,
+        onboarded: tenant_onboarded
+      } : undefined
+      
       return {
         id: sub,
         username: preferred_username,
@@ -113,7 +136,8 @@ export class AuthContextHelper extends Entity {
         givenName: given_name,
         locale, 
         onboarded, 
-        tenant
+        tenant,
+        multiTenantAccess: multi_tenant
       };
     } catch (error) {
       if (this._debug) {

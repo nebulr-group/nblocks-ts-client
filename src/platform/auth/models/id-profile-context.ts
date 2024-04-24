@@ -10,11 +10,13 @@ export interface Profile {
     fullName?: string;
     locale?: string;
     onboarded?: boolean;
+    multiTenantAccess?: boolean;
     tenant?: {
       id?: string;
       name?: string;
       locale?: string;
       logo?: string;
+      onboarded?: boolean;
     }
   }
   
@@ -32,4 +34,6 @@ export interface IDToken extends JWTPayload {
     tenant_name?: string;
     tenant_locale?: string;
     tenant_logo?: string;
+    tenant_onboarded?: boolean;
+    multi_tenant?: boolean;
   }
