@@ -12,7 +12,10 @@ export class UpdateTenantRequestDto {
 
     /** Logins are made with this enterprise login connection id */
     federationConnection?: string;
-  
+    
+    /** Is this tenant considered onboarded or not */
+    onboarded?: boolean;
+
     /** Store metadata for your own business logic that will be returned in every Tenant response. This data will never be outputted to the end user */
     metadata?: Record<string, string>;
 }

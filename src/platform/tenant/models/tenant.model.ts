@@ -36,7 +36,7 @@ export class TenantResponseDto {
   /** Store app specific meta data for this tenant */
   metadata: Record<string, string>;
 
-  /** If this tenant is considered onboarded (Read only) */
+  /** If this tenant is considered onboarded */
   onboarded: boolean;
 
   /** Logins are made with this enterprise login connection id */
