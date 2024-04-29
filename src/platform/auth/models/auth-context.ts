@@ -7,12 +7,20 @@ export class AuthContext {
     tenantPlan: string;
     userRole: string;
     privileges: string[];
+    trial: boolean;
+    shouldSelectPlan: boolean;
+    shouldSetupPayments: boolean;
+    email?: string;
 }
 
-export interface AuthJwt extends JWTPayload {
+export interface AccessToken extends JWTPayload {
     tid: string;
     aid: string;
     scope: string;
     role: string;
     plan: string;
+    trial: boolean;
+    shouldSelectPlan: boolean;
+    shouldSetupPayments: boolean;
+    email?: string;
 }

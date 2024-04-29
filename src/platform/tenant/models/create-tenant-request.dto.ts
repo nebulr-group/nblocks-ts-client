@@ -13,6 +13,9 @@ export class CreateTenantRequestDto {
     /** Name of the tenant. Can also be set by tenant owner during onboarding */
     name?: string;
 
+    /** Is this tenant considered onboarded or not */
+    onboarded?: boolean;
+
     /** A url to a logo. Can also be set by tenant owner during onboarding */
     logo?: string;
 

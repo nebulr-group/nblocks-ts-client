@@ -1,4 +1,5 @@
 import { Entity } from '../../abstracts/generic-entity';
+import { NblocksClient } from '../nblocks-client';
 import { CheckoutResponsetDto } from './models/checkout-response.dto';
 import { CreateTenantRequestDto } from './models/create-tenant-request.dto';
 import { ImportStatusResponse } from './models/import-status.response';
@@ -14,7 +15,7 @@ import { ValidateImportTenantResult } from './models/validate-import-tenant.resp
  */
 export class Tenants extends Entity {
   
-  constructor (parentEntity: Entity, debug:boolean) {
+  constructor (parentEntity: NblocksClient, debug:boolean) {
     super(parentEntity, debug);
   }
 
