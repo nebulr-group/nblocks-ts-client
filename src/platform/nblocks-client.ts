@@ -9,6 +9,8 @@ import { NotFoundError } from '../errors/NotFoundError';
 import { AuthContextHelper } from './auth/auth-context-helper';
 import { Config } from './config/config';
 import { SpecificEntity } from '../abstracts/specific-entity';
+import { OAuth } from './auth/oauth';
+import { Flag } from './flag/flag';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
@@ -53,10 +55,12 @@ export class NblocksClient extends SpecificEntity {
   config: Config;
 
   /**
-   * AuthContext helper.
+   * Auth, contains utils and AuthContextHelper etc.
    * Use this to resolve user JTWs. All JTWs are checked for integrity and security
    */
-  auth: AuthContextHelper;
+  auth: OAuth;
+
+  flag: Flag;
 
   constructor(args: {appId: string, apiKey?: string, version?: number, debug?: boolean, stage?: Stage}) {
     const appId = args.appId;
@@ -78,7 +82,9 @@ export class NblocksClient extends SpecificEntity {
 
     this.config = new Config(this, this.debug);
 
-    this.auth = new AuthContextHelper(this, this.stage, this.debug);
+    this.auth = new OAuth(this, this.debug);
+
+    this.flag = new Flag(this, this.debug);
 
     this._log(`Initialized NblocksClient in stage ${this.stage} with base url: ${this.getApiBaseUrl(this.stage)}, apiKey: ${this.apiKey?.substring(0, 5)}...`);
   }

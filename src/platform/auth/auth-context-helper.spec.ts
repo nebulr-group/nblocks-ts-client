@@ -1,12 +1,13 @@
 import { JwtError } from "../../errors/JwtError";
 import { NblocksClient } from "../nblocks-client";
+import { NblocksPublicClient } from "../nblocks-public-client";
 import {AuthContextHelper} from './auth-context-helper'
 
 describe('Auth client', () => {
     let helper: AuthContextHelper;
     
     beforeAll(() => {
-        helper = new AuthContextHelper(new NblocksClient({appId: "id"}), 'DEV', true);
+        helper = new AuthContextHelper(new NblocksClient({appId: "id"}));
     });
 
     beforeEach(() => {
@@ -17,12 +18,20 @@ describe('Auth client', () => {
         expect(helper).toBeDefined();
     });
 
+    test('Expect a baseUrl for normal client', async () => {
+      expect(new AuthContextHelper(new NblocksClient({appId: "id", stage: 'DEV'}))['_getBaseUrl']()).toBe("http://auth-api:3000");
+    });
+
+    test('Expect a public available baseUrl for public client', async () => {
+      expect(new AuthContextHelper(new NblocksPublicClient({appId: "id", stage: 'DEV'}))['_getBaseUrl']()).toBe("http://localhost:3070");
+    });
+
     test('Should deny expired token', async () => {
       /**
        * 1. Token is expired
        */
       const jwt = 'eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ilc2VVkwNzd5b2FPZGFDWUVOZ0M0MFlaUzZLQ2psNXpBLS1sQW1JYzBFaU0ifQ.eyJhaWQiOiI2MzM0MDJmZGYyOGQ4ZTAwMjUyOTQ4YjEiLCJ0aWQiOiI2MzM0MDJmZGYyOGQ4ZTAwMjUyOTQ4YjYiLCJzY29wZSI6IkFVVEhFTlRJQ0FURUQgVVNFUl9SRUFEIFVTRVJfV1JJVEUgVEVOQU5UX1JFQUQgVEVOQU5UX1dSSVRFIiwicm9sZSI6Ik9XTkVSIiwicGxhbiI6IlRFQU0iLCJpYXQiOjE2ODU3MDY4NjgsImV4cCI6MTY4NTcwNjg3OCwiYXVkIjpbIjYzMzQwMmZkZjI4ZDhlMDAyNTI5NDhiMSIsImJhY2tlbmRsZXNzLm5ibG9ja3MuY2xvdWQiLCJhcHAubmJsb2Nrcy5jbG91ZCJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjMwNzAiLCJzdWIiOiI2MzM0MDJmZWYyOGQ4ZTAwMjUyOTQ4YmYifQ.SLud4M7KpWiUI8H-NLF_l5A8hakx6_9w1woyXJKysJDIyv7BT15OTkmrnHdt_DVKKA7D98ZZT_q7Rcqj_XbgpIkpcOSkjYOZ02Pc3ttGkWa9-t2OYviY1eLAM6sPtTSdN6IPlxg87HEyvqERhz7pUVB_qWB7P1aZv1aSVDzmBYjoxKQnem0l8crU3dsUICPYpXoMbopyawa6Q_QcHoPtL-nYlb0AhUCZIpBPUmP3qxsdkRwTa5HyXoslDmVhrLeh4QkQp8t6gMQJMrAnjxA9wQ5eRwPkbQgJ-Newb6apkXTyLs1OpjpYKOJQqWTIWiZ-sCR5JtpcMtxEZrFPXsbr6Q';
-      const promise = helper.getAuthContext(jwt);
+      const promise = helper.getAuthContextVerified(jwt);
 
       await expect(promise).rejects.toThrowError(JwtError);
     });
@@ -32,7 +41,7 @@ describe('Auth client', () => {
        * 1. Token corrupt
        */
       const jwt = 'eyJhbGciOiJQUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ilc2VVkwNzd5b2FPZGFDWUVOZ0M0MFlaUzZLQ2psNXpBLS1sQW1JYzBFaU0ifQ.eyJhaWQiOiI2MzM0MDJmZGYyOGQ4ZTAwMjUyOTQ4YjEiLCJ0aWQiOiI2MzM0MDJmZGYyOGQ4ZTAwMjUyOTQ4YjYiLCJzY29wZSI6IkFVVEhFTlRJQ0FURUQgVVNFUl9SRUFEIFVTRVJfV1JJVEUgVEVOQU5UX1JFQUQgVEVOQU5UX1dSSVRFIiwicm9sZSI6Ik9XTkVSIiwicGxhbiI6IlRFQU0iLCJpYXQiOjE2ODU3MDY4NjgsImV4cCI6MTY4NTcwNjg3OCwiYXVkIjpbIjYzMzQwMmZkZjI4ZDhlMDAyNTI5NDhiMSIsImJhY2tlbmRsZXNzLm5ibG9ja3MuY2xvdWQiLCJhcHAubmJsb2Nrcy5jbG91ZCJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjMwNzAiLCJzdWIiOiI2MzM0MDJmZWYyOGQ4ZTAwMjUyOTQ4YmYifQ.SLud4M7KpWiUI8H-NLF_l5A8hakx6_9w1woyXJKysJDIyv7BT15OTkmrnHdt_DVKKA7D98ZZT_q7Rcqj_XbgpIkpcOSkjYOZ02Pc3ttGkWa9-t2OYviY1eLAM6sPtTSdN6IPlxg87HEyvqERhz7pUVB_qWB7P1aZv1aSVDzmBYjoxKQnem0l8crU3dsUICPYpXoMbopyawa6Q_QcHoPtL-nYlb0AhUCZIpBPUmP3qxsdkRwTa5HyXoslDmVhrLeh4QkQp8t6gMQJMrAnjxA9wQ5eRwPkbQgJ-Newb6apkXTyLs1OpjpYKOJQqWTIWiZ-sCR5JtpcMtxEZr';
-      const promise = helper.getAuthContext(jwt);
+      const promise = helper.getAuthContextVerified(jwt);
 
       await expect(promise).rejects.toThrowError(JwtError);
     });

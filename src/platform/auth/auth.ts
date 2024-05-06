@@ -1,4 +1,5 @@
 import { Entity } from '../../abstracts/generic-entity';
+import { NblocksClient } from '../nblocks-client';
 import { AuthTenantUserResponseDto } from './models/auth-tenant-user-response.dto';
 import { AuthenticateRequestDto } from './models/authenticate-request.dto';
 import { AuthenticateResponseDto } from './models/authenticate-response.dto';
@@ -20,7 +21,7 @@ import { UpdateUserInfoRequestDto } from './models/update-user-info-request.dto'
  */
 export class Auth extends Entity{
 
-  constructor (parentEntity: Entity, debug = false) {
+  constructor (parentEntity: NblocksClient, debug = false) {
     super(parentEntity, debug);
   }
 
@@ -32,7 +33,8 @@ export class Auth extends Entity{
    * @returns `AuthenticateResponseDto` including the session token and MFA state should the user be required to provide MFA
    */
   async authenticate(credentials: AuthenticateRequestDto, userAgent: string): Promise<AuthenticateResponseDto> {
-    return (await this.parentEntity.getHttpClient().post<AuthenticateResponseDto>('/auth/authenticate', credentials, {headers: {...this.getHeaders(), 'User-Agent': userAgent}})).data;
+    const response = await this.parentEntity.getHttpClient().post<AuthenticateResponseDto>('/auth/authenticate', credentials, {headers: {...this.getHeaders(), 'User-Agent': userAgent}});
+    return response.data;
   }
 
   /**
@@ -41,7 +43,8 @@ export class Auth extends Entity{
    * @returns `CommitMfaCodeResponseDto` including MFA token to be used in future calls
    */
   async commitMfaCode(args: CommitMfaCodeRequestDto): Promise<CommitMfaCodeResponseDto> {
-    return (await this.parentEntity.getHttpClient().post<CommitMfaCodeResponseDto>('/auth/commitMfaCode', args, {headers: {...this.getHeaders()}})).data;
+    const response = await this.parentEntity.getHttpClient().post<CommitMfaCodeResponseDto>('/auth/commitMfaCode', args, {headers: {...this.getHeaders()}});
+    return response.data;
   }
 
   /**

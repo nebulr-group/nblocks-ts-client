@@ -24,19 +24,25 @@ import { AuthContextHelper } from './platform/auth/auth-context-helper';
 import { AuthContext } from './platform/auth/models/auth-context';
 import { Config } from './platform/config/config';
 import { NblocksPublicClient } from './platform/nblocks-public-client';
+import { FlagContext } from './platform/flag/models/context';
+import { BulkEvaluationResponse } from './platform/flag/models/bulk-evaluation-response';
+import { User } from './platform/tenant/user/user';
+import { Users } from './platform/tenant/user/users';
 
-export { 
-    AppModel, 
+export {
+    AppModel,
     NblocksClient,
     NblocksPublicClient,
     FileClient,
     PdfServiceClient,
+    User,
+    Users,
     CommunicationClient,
-    EventWebhookDto, 
-    AuthorizeResponseDto, 
-    TenantUserResponseDto, 
+    EventWebhookDto,
+    AuthorizeResponseDto,
+    TenantUserResponseDto,
     AuthTenantUserResponseDto,
-    TenantResponseDto, 
+    TenantResponseDto,
     AuthTenantResponseDto,
     AuthenticateRequestDto,
     AuthenticateResponseDto,
@@ -52,4 +58,6 @@ export {
     Config,
     AuthContextHelper,
     AuthContext,
+    FlagContext,
+    BulkEvaluationResponse
 }
