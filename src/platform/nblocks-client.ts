@@ -11,6 +11,7 @@ import { Config } from './config/config';
 import { SpecificEntity } from '../abstracts/specific-entity';
 import { OAuth } from './auth/oauth';
 import { Flag } from './flag/flag';
+import { ConfigHelper, EnvVariable } from '../shared/config';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
@@ -66,7 +67,7 @@ export class NblocksClient extends SpecificEntity {
     const appId = args.appId;
     super(appId, null, args.debug);
 
-    this.apiKey = args.apiKey || process.env.NBLOCKS_API_KEY;
+    this.apiKey = args.apiKey || ConfigHelper.getEnvVariable('NBLOCKS_API_KEY');
     this.version = args.version || 1;
     this.stage = args.stage || 'PROD';
 
@@ -124,7 +125,7 @@ export class NblocksClient extends SpecificEntity {
 
   /** **Internal functionality. Do not use this function** */
   private getApiBaseUrl(stage: Stage): string {
-    return process.env.NBLOCKS_ACCOUNT_API_URL || this.BASE_URLS[stage];
+    return ConfigHelper.getEnvVariable('NBLOCKS_ACCOUNT_API_URL') || this.BASE_URLS[stage];
   }
 
   private configureHttpClient(httpClient: AxiosInstance): void {

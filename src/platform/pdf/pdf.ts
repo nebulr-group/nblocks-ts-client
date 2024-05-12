@@ -1,4 +1,5 @@
 import { Client } from '../../abstracts/client';
+import { ConfigHelper } from '../../shared/config';
 import { Tenant } from '../tenant/tenant';
 import { CreateArgsDto } from './models/create-args.dto';
 import { CreateRequestDto } from './models/create-request.dto';
@@ -58,6 +59,6 @@ export class PdfServiceClient extends Client {
   * @returns 
   */
   private _getBaseUrl(): string {
-    return process.env.NBLOCKS_PDF_SERVICE_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
+    return ConfigHelper.getEnvVariable("NBLOCKS_PDF_SERVICE_API_URL") || this.BASE_URLS[this.getPlatformClient().stage];
   }
 }

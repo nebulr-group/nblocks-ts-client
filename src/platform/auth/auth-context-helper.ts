@@ -10,6 +10,7 @@ import { SpecificEntity } from "../../abstracts/specific-entity";
 import { Entity } from "../../abstracts/generic-entity";
 import { NblocksPublicClient } from "../nblocks-public-client";
 import { IDToken, Profile } from "./models/id-profile-context";
+import { ConfigHelper } from "../../shared/config";
 
 export class AuthContextHelper extends Entity {
   private readonly _debug: boolean;
@@ -47,8 +48,9 @@ export class AuthContextHelper extends Entity {
       {}
     );
 
-    this._log(`${this._getBaseUrl()}${this.JWKS_PATH}`);
-    this._log(`expectedIssuer: ${this._expectedIssuer}, expectedAudience: ${this._expectedAudience},`);
+    this._log("Initialized AuthContextHelper with:")
+    this._log(`JWKS URL: ${this._getBaseUrl()}${this.JWKS_PATH}`);
+    this._log(`Expected Issuer: ${this._expectedIssuer}, Expected Audience: ${this._expectedAudience}`);
   }
 
   /**
@@ -168,16 +170,16 @@ export class AuthContextHelper extends Entity {
    */
   private _getBaseUrl(): string {
     if (this.parentEntity instanceof NblocksPublicClient)
-      return process.env.NBLOCKS_AUTH_API_URL || this.PUBLIC_BASE_URLS[this.getPlatformClient().stage];
+      return ConfigHelper.getEnvVariable("NBLOCKS_AUTH_API_URL") || this.PUBLIC_BASE_URLS[this.getPlatformClient().stage];
     else
-      return process.env.NBLOCKS_AUTH_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
+      return ConfigHelper.getEnvVariable("NBLOCKS_AUTH_API_URL") || this.BASE_URLS[this.getPlatformClient().stage];
   }
 
   private _getIssuer(): string {
-    return process.env.NBLOCKS_AUTH_ISSUER || this.ISSUERS[this.getPlatformClient().stage];
+    return ConfigHelper.getEnvVariable("NBLOCKS_AUTH_ISSUER") || this.ISSUERS[this.getPlatformClient().stage];
   }
 
   private _getAudience(): string {
-    return process.env.NBLOCKS_AUTH_AUDIENCE || this.getPlatformClient().id;
+    return ConfigHelper.getEnvVariable("NBLOCKS_AUTH_AUDIENCE") || this.getPlatformClient().id;
   }
 }

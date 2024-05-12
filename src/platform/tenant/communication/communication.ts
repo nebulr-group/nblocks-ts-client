@@ -1,4 +1,5 @@
 import { Client } from '../../../abstracts/client';
+import { ConfigHelper } from '../../../shared/config';
 import { NblocksClient } from '../../nblocks-client';
 import { Tenant } from '../tenant';
 import { EmailTemplateResponseDto } from './models/get-email-template-response.dto';
@@ -98,7 +99,7 @@ export class CommunicationClient extends Client {
    * @returns 
    */
   private _getBaseUrl(): string {
-    return process.env.NBLOCKS_COMMUNICATION_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
+    return ConfigHelper.getEnvVariable("NBLOCKS_COMMUNICATION_API_URL") || this.BASE_URLS[this.getPlatformClient().stage];
   }
 
   /**

@@ -1,5 +1,6 @@
 import { Entity } from '../../abstracts/generic-entity';
 import { SpecificEntity } from '../../abstracts/specific-entity';
+import { ConfigHelper } from '../../shared/config';
 
 export class Portal extends Entity{
 
@@ -26,6 +27,6 @@ export class Portal extends Entity{
    * @returns 
    */
   private _getBaseUrl(): string {
-    return process.env.NBLOCKS_BACKENDLESS_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
+    return ConfigHelper.getEnvVariable("NBLOCKS_BACKENDLESS_API_URL") || this.BASE_URLS[this.getPlatformClient().stage];
   }
 }
