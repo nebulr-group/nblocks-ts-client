@@ -13,6 +13,7 @@ import { CreateZipRequestDto } from './models/create-zip-request.dto';
 import { CreateFileResponseDto } from './models/create-file-response.dto';
 import { SpecificEntity } from '../../abstracts/specific-entity';
 import { ExistingFileOperationRequest } from './models/existing-file-operation-request';
+import { ConfigHelper } from '../../shared/config';
 
 export class FileClient extends SpecificEntity {
 
@@ -178,6 +179,6 @@ export class FileClient extends SpecificEntity {
    * @returns 
    */
   private _getBaseUrl(): string {
-    return process.env.NBLOCKS_FILE_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
+    return ConfigHelper.getEnvVariable("NBLOCKS_FILE_API_URL") || this.BASE_URLS[this.getPlatformClient().stage];
   }
 }
