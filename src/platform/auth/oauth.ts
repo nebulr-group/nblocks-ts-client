@@ -1,4 +1,5 @@
 import { SpecificEntity } from '../../abstracts/specific-entity';
+import { ConfigHelper } from '../../shared/config';
 import { AuthContextHelper } from './auth-context-helper';
 import { AuthContext } from './models/auth-context';
 import { Profile } from './models/id-profile-context';
@@ -73,6 +74,6 @@ export class OAuth extends SpecificEntity{
    * @returns 
    */
   private _getBaseUrl(): string {
-    return process.env.NBLOCKS_AUTH_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
+    return ConfigHelper.getEnvVariable("NBLOCKS_AUTH_API_URL") || this.BASE_URLS[this.getPlatformClient().stage];
   }
 }

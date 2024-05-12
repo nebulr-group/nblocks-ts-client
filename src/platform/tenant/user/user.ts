@@ -30,7 +30,7 @@ export class User extends SpecificEntity{
    * @param args `UpdateUserRequestDto`
    * @returns `TenantUserResponseDto`
    */
-  async update(args: Partial<UpdateUserRequestDto>): Promise<TenantUserResponseDto> {
+  async update(args: UpdateUserRequestDto): Promise<TenantUserResponseDto> {
     return (await this.getHttpClient().put<TenantUserResponseDto>(`/tenant/user/${this.id}`, args, { headers: this.getHeaders() })).data
   }
 

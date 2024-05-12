@@ -1,4 +1,5 @@
 import { SpecificEntity } from '../../abstracts/specific-entity';
+import { ConfigHelper } from '../../shared/config';
 import { BulkEvaluationResponse } from './models/bulk-evaluation-response';
 import { BodyWithCtxAndToken } from './models/context';
 import { EvaluationResponse } from './models/evaluation-response';
@@ -30,6 +31,6 @@ export class Flag extends SpecificEntity{
    * @returns 
    */
   private _getBaseUrl(): string {
-    return process.env.NBLOCKS_BACKENDLESS_API_URL || this.BASE_URLS[this.getPlatformClient().stage];
+    return ConfigHelper.getEnvVariable("NBLOCKS_BACKENDLESS_API_URL") || this.BASE_URLS[this.getPlatformClient().stage];
   }
 }
