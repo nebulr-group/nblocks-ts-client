@@ -43,6 +43,9 @@ export class AppModel {
     /** Boolean value telling the user if passkeys login is enabled */
     passkeysEnabled: boolean;
 
+    /** Boolean value telling the user if Login with Magic Link is enabled */
+    magicLinkEnabled: boolean;
+
     /** Boolean value telling the user if MFA is enabled */
     mfaEnabled: boolean;
 
@@ -55,6 +58,15 @@ export class AppModel {
     /** Boolean value telling the user if LinkedIn Social login / SSO is enabled */
     linkedinSsoEnabled: boolean;
 
+    /** Boolean value telling the user if Apple Social login / SSO is enable */
+    appleSsoEnabled: boolean;
+
+    /** Boolean value telling the user if Github Social login / SSO is enable */
+    githubSsoEnabled: boolean;
+
+    /** Boolean value telling the user if Facebook Social login / SSO is enable */
+    facebookSsoEnabled: boolean;
+
     /** Boolean value telling the user if Azure AD SSO is enabled */
     azureAdSsoEnabled: boolean;
 
@@ -63,6 +75,9 @@ export class AppModel {
 
     /** Configure how users will be onboarded */
     onboardingFlow: OnboardingFlow;
+
+    /** Allow self signup (relates to cloud views, payment providers etc) */
+    tenantSignup: boolean;
 
     /** Toggle this to true if you want to use a UI provided by NBlocks instead of your own */
     cloudViews: boolean;

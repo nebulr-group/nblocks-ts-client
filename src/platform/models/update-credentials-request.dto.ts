@@ -38,6 +38,18 @@ export class UpdateCredentials {
     /** Facebook social login */
     facebookAppSecret?: string;
 
+    /** Apple social login */
+    appleClientId?: string;
+
+    /** Apple social login */
+    appleTeamId?: string;
+
+    /** Apple social login */
+    appleKeyId?: string;
+
+    /** Apple social login */
+    applePrivateKey?: string;
+
     /** MS Azure AD SSO */
     microsoftAzureADClientId?: string;
 
