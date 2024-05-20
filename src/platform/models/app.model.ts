@@ -77,7 +77,7 @@ export class AppModel {
     onboardingFlow: OnboardingFlow;
 
     /** Allow self signup (relates to cloud views, payment providers etc) */
-    tenantSignup: boolean;
+    tenantSelfSignup: boolean;
 
     /** Toggle this to true if you want to use a UI provided by NBlocks instead of your own */
     cloudViews: boolean;

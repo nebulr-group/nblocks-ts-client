@@ -33,10 +33,10 @@ export class UpdateCredentials {
     githubClientSecret?: string;
 
     /** Facebook social login */
-    facebookAppId?: string;
+    facebookClientId?: string;
 
     /** Facebook social login */
-    facebookAppSecret?: string;
+    facebookClientSecret?: string;
 
     /** Apple social login */
     appleClientId?: string;

@@ -5,6 +5,6 @@ export class CredentialsStateModel {
   linkedinSsoCredentialsAdded: boolean;
   googleSsoCredentialsAdded: boolean;
   appleSsoCredentialsAdded: boolean;
-  githubeSsoCredentialsAdded: boolean;
+  githubSsoCredentialsAdded: boolean;
   facebookSsoCredentialsAdded: boolean;
 }

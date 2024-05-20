@@ -41,7 +41,7 @@ export class UpdateAppRequest {
   cloudViews?: boolean;
 
   /** Allow self signup (relates to cloud views, payment providers etc) */
-  tenantSignup?: boolean;
+  tenantSelfSignup?: boolean;
 
   /** Allowed redirect uris */
   redirectUris?: string[];
