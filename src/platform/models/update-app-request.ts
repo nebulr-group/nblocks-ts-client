@@ -40,6 +40,9 @@ export class UpdateAppRequest {
   /** Toggle this to true if you want to use a UI provided by NBlocks instead of your own */
   cloudViews?: boolean;
 
+  /** Allow self signup (relates to cloud views, payment providers etc) */
+  tenantSelfSignup?: boolean;
+
   /** Allowed redirect uris */
   redirectUris?: string[];
 
@@ -48,6 +51,9 @@ export class UpdateAppRequest {
 
   /** Boolean value telling the user if passkeys login is enabled */
   passkeysEnabled?: boolean;
+
+  /** Boolean value telling the user if Login with Magic Link is enabled */
+  magicLinkEnabled?: boolean;
 
   /** Boolean value telling the user if MFA is enabled */
   mfaEnabled?: boolean;
@@ -60,6 +66,15 @@ export class UpdateAppRequest {
 
   /** Boolean value telling the user if Linkedin Social login / SSO is enabled (Read only) */
   linkedinSsoEnabled?: boolean;
+
+  /** Boolean value telling the user if Apple Social login / SSO is enable */
+  appleSsoEnabled?: boolean;
+
+  /** Boolean value telling the user if Github Social login / SSO is enable */
+  githubSsoEnabled?: boolean;
+
+  /** Boolean value telling the user if Facebook Social login / SSO is enable */
+  facebookSsoEnabled?: boolean;
 
   /** Boolean value telling the user if Azure AD SSO is enabled (Read only) */
   azureAdSsoEnabled?: boolean;

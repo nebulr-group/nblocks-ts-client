@@ -6,12 +6,11 @@ import { UnauthenticatedError } from '../errors/UnauthenticatedError';
 import { ForbiddenError } from '../errors/ForbiddenError';
 import { ClientError } from '../errors/ClientError';
 import { NotFoundError } from '../errors/NotFoundError';
-import { AuthContextHelper } from './auth/auth-context-helper';
 import { Config } from './config/config';
 import { SpecificEntity } from '../abstracts/specific-entity';
 import { OAuth } from './auth/oauth';
 import { Flag } from './flag/flag';
-import { ConfigHelper, EnvVariable } from '../shared/config';
+import { ConfigHelper } from '../shared/config';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
