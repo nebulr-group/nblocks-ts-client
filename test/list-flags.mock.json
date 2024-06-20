@@ -1,0 +1,101 @@
+[
+    {
+        "id": "6672daa3fa612c00213b6d19",
+        "key": "premium-features",
+        "description": "Show premium features",
+        "defaultValue": false,
+        "segments": [
+            {
+                "id": "6672daa3fa612c00213b6d0d",
+                "key": "premium-customers",
+                "description": "All workspaces with Premium plan",
+                "targets": [
+                    {
+                        "org": {
+                            "plan": {
+                                "operator": "eq",
+                                "value": "premium"
+                            }
+                        }
+                    }
+                ]
+            }
+        ],
+        "targetValue": true,
+        "enabled": true
+    },
+    {
+        "id": "6672daa3fa612c00213b6d1b",
+        "key": "owner-features",
+        "description": "Show features for owners only",
+        "defaultValue": false,
+        "segments": [
+            {
+                "id": "6672daa3fa612c00213b6d09",
+                "key": "all-owners",
+                "description": "All users with Owner role",
+                "targets": [
+                    {
+                        "user": {
+                            "role": {
+                                "operator": "eq",
+                                "value": "OWNER"
+                            }
+                        }
+                    }
+                ]
+            }
+        ],
+        "targetValue": true,
+        "enabled": true
+    },
+    {
+        "id": "6672daa3fa612c00213b6d26",
+        "key": "admin-features",
+        "description": "Show features for owners and admins",
+        "defaultValue": false,
+        "segments": [
+            {
+                "id": "6672daa3fa612c00213b6d09",
+                "key": "all-owners",
+                "description": "All users with Owner role",
+                "targets": [
+                    {
+                        "user": {
+                            "role": {
+                                "operator": "eq",
+                                "value": "OWNER"
+                            }
+                        }
+                    }
+                ]
+            },
+            {
+                "id": "6672daa3fa612c00213b6d0b",
+                "key": "all-admins",
+                "description": "All users with Admin role",
+                "targets": [
+                    {
+                        "user": {
+                            "role": {
+                                "operator": "eq",
+                                "value": "ADMIN"
+                            }
+                        }
+                    }
+                ]
+            }
+        ],
+        "targetValue": true,
+        "enabled": true
+    },
+    {
+        "id": "6672daa3fa612c00213b6d28",
+        "key": "release-announcement",
+        "description": "Show in-app release announcement",
+        "defaultValue": false,
+        "segments": [],
+        "targetValue": false,
+        "enabled": true
+    }
+]

@@ -11,9 +11,12 @@ export class UserContext {
 
     /** This is a placeholder for User name. Use this anyway you like to match future calls */
     name?: string;
+
+    /** This is aplaceholder for User email. Use this anyway you like to match future calls */
+    email?: string;
 }
 
-export class OrgContext {
+export class TenantContext {
 
     /** This is reserved for Nblocks tenants */
     id?: string;
@@ -44,10 +47,14 @@ export class FlagContext {
     /** Match on user */
     user?: UserContext;
 
+    /**
+   * Match on tenants
+   * @deprecated use tenant instead
+   */
+    org?: TenantContext;
 
-    /** Match on organizations */
-    org?: OrgContext;
-
+    /** Match on tenants */
+    tenant?: TenantContext;
 
     /** Match on devices */
     device?: KeyContext;

@@ -1,0 +1,15 @@
+{
+    "id": "6672daa3fa612c00213b6d09",
+    "key": "all-owners",
+    "description": "All users with Owner role",
+    "targets": [
+        {
+            "user": {
+                "role": {
+                    "operator": "eq",
+                    "value": "OWNER"
+                }
+            }
+        }
+    ]
+}

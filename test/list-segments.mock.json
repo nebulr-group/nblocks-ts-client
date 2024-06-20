@@ -1,0 +1,47 @@
+[
+    {
+        "id": "6672daa3fa612c00213b6d09",
+        "key": "all-owners",
+        "description": "All users with Owner role",
+        "targets": [
+            {
+                "user": {
+                    "role": {
+                        "operator": "eq",
+                        "value": "OWNER"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": "6672daa3fa612c00213b6d0b",
+        "key": "all-admins",
+        "description": "All users with Admin role",
+        "targets": [
+            {
+                "user": {
+                    "role": {
+                        "operator": "eq",
+                        "value": "ADMIN"
+                    }
+                }
+            }
+        ]
+    },
+    {
+        "id": "6672daa3fa612c00213b6d0d",
+        "key": "premium-customers",
+        "description": "All workspaces with Premium plan",
+        "targets": [
+            {
+                "org": {
+                    "plan": {
+                        "operator": "eq",
+                        "value": "premium"
+                    }
+                }
+            }
+        ]
+    }
+]
