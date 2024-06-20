@@ -11,6 +11,7 @@ import { SpecificEntity } from '../abstracts/specific-entity';
 import { OAuth } from './auth/oauth';
 import { Flag } from './flag/flag';
 import { ConfigHelper } from '../shared/config';
+import { FlagAdmin } from './flag/flag-admin';
 
 export type Stage = 'DEV' | 'STAGE' | 'PROD';
 
@@ -61,6 +62,7 @@ export class NblocksClient extends SpecificEntity {
   auth: OAuth;
 
   flag: Flag;
+  flagAdmin: FlagAdmin;
 
   constructor(args: {appId: string, apiKey?: string, version?: number, debug?: boolean, stage?: Stage}) {
     const appId = args.appId;
@@ -85,6 +87,8 @@ export class NblocksClient extends SpecificEntity {
     this.auth = new OAuth(this, this.debug);
 
     this.flag = new Flag(this, this.debug);
+
+    this.flagAdmin = new FlagAdmin(this, this.debug);
 
     this._log(`Initialized NblocksClient in stage ${this.stage} with base url: ${this.getApiBaseUrl(this.stage)}, apiKey: ${this.apiKey?.substring(0, 5)}...`);
   }
