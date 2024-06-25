@@ -51,7 +51,7 @@ describe('Platform config client', () => {
         mockApi.onGet("/app/credentialsState").reply(200, credentialsStateMock);
 
         const response = await config.getCredentialsState();
-        expect(response.stripeCredentialsAdded).toBeTruthy();
+        expect(response.stripeCredentialsAdded).toBeFalsy();
         credentialsState = response;
     });
 

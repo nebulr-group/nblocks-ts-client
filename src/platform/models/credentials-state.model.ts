@@ -4,4 +4,7 @@ export class CredentialsStateModel {
   azureAdSsoCredentialsAdded: boolean;
   linkedinSsoCredentialsAdded: boolean;
   googleSsoCredentialsAdded: boolean;
+  appleSsoCredentialsAdded: boolean;
+  githubSsoCredentialsAdded: boolean;
+  facebookSsoCredentialsAdded: boolean;
 }
