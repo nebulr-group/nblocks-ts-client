@@ -69,13 +69,13 @@ describe('Flag admin client', () => {
   ])
   });
 
-  test('update a flag', async () => {
+  test('update a segment', async () => {
     mockApi.onPut("/flags/segment/667447b583e592454b76d0ec").reply(200, segmentMock);
     const response = await flagAdmin.updateSegment("667447b583e592454b76d0ec", {key: 'all-owners'});
     expect(response.key).toBe('all-owners');
   });
 
-  test('delete a flag', async () => {
+  test('delete a segment', async () => {
     mockApi.onDelete("/flags/segment/667447b583e592454b76d0ec").reply(200);
     await flagAdmin.deleteSegment("667447b583e592454b76d0ec");
   });

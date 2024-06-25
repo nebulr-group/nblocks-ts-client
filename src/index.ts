@@ -24,7 +24,8 @@ import { AuthContextHelper } from './platform/auth/auth-context-helper';
 import { AuthContext } from './platform/auth/models/auth-context';
 import { Config } from './platform/config/config';
 import { NblocksPublicClient } from './platform/nblocks-public-client';
-import { FlagContext } from './platform/flag/models/context';
+import { FlagContext, BodyWithCtxAndToken, KeyContext, TenantContext, UserContext } from './platform/flag/models/context';
+import { EvaluationResponse } from './platform/flag/models/evaluation-response';
 import { BulkEvaluationResponse } from './platform/flag/models/bulk-evaluation-response';
 import { User } from './platform/tenant/user/user';
 import { Users } from './platform/tenant/user/users';
@@ -59,5 +60,10 @@ export {
     AuthContextHelper,
     AuthContext,
     FlagContext,
+    BodyWithCtxAndToken,
+    KeyContext,
+    TenantContext,
+    UserContext,
+    EvaluationResponse,
     BulkEvaluationResponse
 }

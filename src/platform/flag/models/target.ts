@@ -63,4 +63,11 @@ export class Target {
 
   /** Match on devices */
   device?: KeyTarget;
+
+  /** Match on custom targets */
+  custom?: CustomTargets;
+}
+
+interface CustomTargets {
+  [key: string]: TargetValue;
 }

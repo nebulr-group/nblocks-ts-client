@@ -17,18 +17,14 @@ export class UserContext {
 }
 
 export class TenantContext {
-
     /** This is reserved for Nblocks tenants */
     id?: string;
-
 
     /** This is an arbitrary key. Use this anyway you like to match future calls */
     key?: string;
 
-
     /** This is the org plan. Use this anyway you like to match future calls */
     plan?: string;
-
 
     /** This is a placeholder for tenant name. Use this anyway you like to match future calls */
     name?: string;
@@ -58,8 +54,14 @@ export class FlagContext {
 
     /** Match on devices */
     device?: KeyContext;
+
+    /** Match on custom targets */
+    custom?: CustomContexts;
 }
 
+interface CustomContexts {
+    [key: string]: string;
+}
 
 export class BodyWithCtxAndToken {
     context?: FlagContext;
