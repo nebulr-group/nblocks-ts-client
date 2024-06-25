@@ -30,6 +30,7 @@ export class OAuth extends SpecificEntity{
     return `${this._getBaseUrl()}/url/login/${this.id}${!!params ? '?' + params.toString() : ''}`;
   }
 
+  /** Get url to the logout flow. Redirect your user to this url to completely logout the session */
   getLogoutUrl(options?: {redirectUri?: string, state?: string}): string {
     const params = options ? new URLSearchParams(options) : undefined;
     return `${this._getBaseUrl()}/url/logout/${this.id}${!!params ? '?' + params.toString() : ''}`;

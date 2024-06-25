@@ -1,0 +1,25 @@
+{
+    "id": "6672daa3fa612c00213b6d19",
+    "key": "premium-features",
+    "description": "Show premium features",
+    "defaultValue": false,
+    "segments": [
+        {
+            "id": "6672daa3fa612c00213b6d0d",
+            "key": "premium-customers",
+            "description": "All workspaces with Premium plan",
+            "targets": [
+                {
+                    "org": {
+                        "plan": {
+                            "operator": "eq",
+                            "value": "premium"
+                        }
+                    }
+                }
+            ]
+        }
+    ],
+    "targetValue": true,
+    "enabled": true
+}
