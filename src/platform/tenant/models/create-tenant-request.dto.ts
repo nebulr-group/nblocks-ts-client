@@ -19,6 +19,12 @@ export class CreateTenantRequestDto {
     /** A url to a logo. Can also be set by tenant owner during onboarding */
     logo?: string;
 
+    /** The default locale / lang code for all users in this tenant (`ISO_639-1` format).
+     * This property will set the i18n for all platform emails and can be used to. 
+     * Defaults to 'en'
+     */
+    locale?: string;
+
     /** Store metadata for your own business logic that will be returned in every Tenant response. This data will never be outputted to the end user */
     metadata?: Record<string, string>;
 }

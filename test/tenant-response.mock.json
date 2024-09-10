@@ -14,5 +14,10 @@
         "paymentsEnabled": true
     },
     "trial": false,
+    "signupBy": {
+        "email": "john@doe.com",
+        "firstName": "John",
+        "lastName": "Doe"
+    },
     "createdAt": "2022-04-05T10:07:08.235Z"
 }
