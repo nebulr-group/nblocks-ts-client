@@ -6,7 +6,7 @@ import { ImportStatusResponse } from './models/import-status.response';
 import { ImportTenantFromFileRequest } from './models/import-tenant-from-file.request';
 import { ImportTenantScheduledResponse } from './models/import-tenant-scheduled.response';
 import { StripeTenantCheckoutIdRequestDto } from './models/stripe-tenant-checkout-id-request.dto';
-import { TenantResponseDto } from './models/tenant.model';
+import { TenantResponseDto } from './models/tenant.response';
 import { ValidateImportTenantResult } from './models/validate-import-tenant.response';
 
 /**

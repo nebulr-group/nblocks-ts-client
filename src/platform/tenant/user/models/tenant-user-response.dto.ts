@@ -1,4 +1,4 @@
-import { TenantResponseDto } from "../../models/tenant.model";
+import { TenantResponseDto } from "../../models/tenant.response";
 
 export class TenantUserResponseDto {
     /**

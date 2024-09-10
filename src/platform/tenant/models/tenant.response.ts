@@ -43,7 +43,11 @@ export class TenantResponseDto {
   federationConnection?: string;
 
   /** Who signed up this tenant / Initial OWNER */
-  signupBy?: { email?: string, firstName?: string; lastName?: string };
+  signupBy?: { 
+    email?: string;
+    firstName?: string; 
+    lastName?: string 
+  };
 
   /** Timestamp when created */
   createdAt: Date;

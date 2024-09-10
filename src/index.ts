@@ -5,7 +5,7 @@ import { UnauthenticatedError } from './errors/UnauthenticatedError';
 import { AuthTenantResponseDto } from './platform/auth/models/auth-tenant-response.dto';
 import { AuthTenantUserResponseDto } from './platform/auth/models/auth-tenant-user-response.dto';
 import { AuthorizeResponseDto } from './platform/auth/models/authorize-response.dto';
-import { TenantResponseDto } from './platform/tenant/models/tenant.model';
+import { TenantResponseDto } from './platform/tenant/models/tenant.response';
 import { TenantUserResponseDto } from './platform/tenant/user/models/tenant-user-response.dto';
 import { AuthenticateRequestDto } from './platform/auth/models/authenticate-request.dto';
 import { AuthenticateResponseDto } from './platform/auth/models/authenticate-response.dto';
