@@ -42,6 +42,13 @@ export class TenantResponseDto {
   /** Logins are made with this enterprise login connection id */
   federationConnection?: string;
 
+  /** Who signed up this tenant / Initial OWNER */
+  signupBy?: { 
+    email?: string;
+    firstName?: string; 
+    lastName?: string 
+  };
+
   /** Timestamp when created */
   createdAt: Date;
 }

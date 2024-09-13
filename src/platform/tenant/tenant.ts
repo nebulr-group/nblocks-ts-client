@@ -4,7 +4,7 @@ import { PdfServiceClient } from '../pdf/pdf';
 import { Users } from './user/users';
 import { User } from './user/user';
 import { Entity } from '../../abstracts/generic-entity';
-import { TenantResponseDto } from './models/tenant.model';
+import { TenantResponseDto } from './models/tenant.response';
 import { CustomerPortalResponseDto } from './models/customer-portal-response.dto';
 import { TranslateTextRequest } from './models/translate-text-request';
 import { TranslateTextResponse } from './models/translate-text-response';
