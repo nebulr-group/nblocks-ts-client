@@ -61,19 +61,19 @@ describe('Platform config client', () => {
     });
 
     test('Get email template', async () => {
-        mockApi.onGet("/template/SIGNUP").reply(200, getTemplateMock);
+        mockApi.onGet("/email/template/SIGNUP").reply(200, getTemplateMock);
         const template = await config.getEmailTemplate('SIGNUP');
         expect(template.type).toBe("SIGNUP");
     });
 
     test('Update email template', async () => {
-        mockApi.onPut("/template/SIGNUP").reply(200, updateTemplateMock);
+        mockApi.onPut("/email/template/SIGNUP").reply(200, updateTemplateMock);
         const template = await config.overrideEmailTemplate({type: 'SIGNUP', content: "<h1>Welcome</h1>"});
         expect(template.content).toBe("<h1>Welcome</h1>");
     });
 
     test('Reset email template', async () => {
-        mockApi.onDelete("/template/SIGNUP").reply(200);
+        mockApi.onDelete("/email/template/SIGNUP").reply(200);
         await config.resetEmailTemplate('SIGNUP');
     });
 

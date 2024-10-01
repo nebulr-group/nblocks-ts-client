@@ -111,7 +111,7 @@ export class CommunicationClient extends Client {
     if (!(this.parentEntity instanceof NblocksClient)) {
       throw new Error("Your trying to set a config on the app level. You're trying call this function in the context of a tenant. You should use client.config.getEmailTemplate() instead.");
     }
-    const response = await this.getHttpClient().get<EmailTemplateResponseDto>(`/template/${type}`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()});
+    const response = await this.getHttpClient().get<EmailTemplateResponseDto>(`/email/template/${type}`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()});
     return response.data;
   }
 
@@ -124,7 +124,7 @@ export class CommunicationClient extends Client {
     if (!(this.parentEntity instanceof NblocksClient)) {
       throw new Error("Your trying to set a config on the app level. You're trying call this function in the context of a tenant. You should use client.config.overrideEmailTemplate() instead.");
     }
-    const response = await this.getHttpClient().put<EmailTemplateResponseDto>(`/template/${args.type}`, args, { headers: this.getHeaders(), baseURL: this._getBaseUrl()});
+    const response = await this.getHttpClient().put<EmailTemplateResponseDto>(`/email/template/${args.type}`, args, { headers: this.getHeaders(), baseURL: this._getBaseUrl()});
     return response.data;
   }
 
@@ -137,6 +137,6 @@ export class CommunicationClient extends Client {
     if (!(this.parentEntity instanceof NblocksClient)) {
       throw new Error("Your trying to set a config on the app level. You're trying call this function in the context of a tenant. You should use client.config.resetEmailTemplate() instead.");
     }
-    await this.getHttpClient().delete<EmailTemplateResponseDto>(`/template/${type}`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()});
+    await this.getHttpClient().delete<EmailTemplateResponseDto>(`/email/template/${type}`, { headers: this.getHeaders(), baseURL: this._getBaseUrl()});
   }
 }
