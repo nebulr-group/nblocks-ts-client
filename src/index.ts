@@ -29,6 +29,12 @@ import { EvaluationResponse } from './platform/flag/models/evaluation-response';
 import { BulkEvaluationResponse } from './platform/flag/models/bulk-evaluation-response';
 import { User } from './platform/tenant/user/user';
 import { Users } from './platform/tenant/user/users';
+import { ConfigManager, NblocksConfig } from './core/config-manager';
+import { Log } from './core/log';
+import { FlagsManager, FlagsManagerConfig, IFlagsClient } from './core/flags-manager';
+import { LoginManager, LoginManagerConfig } from './core/login-manager';
+import { TokenManager, TokenExpirationConfig, TokenType } from './core/token-manager';
+import { TokenRefresher, TokenRefresherConfig } from './core/token-refresher';
 
 export {
     AppModel,
@@ -65,5 +71,18 @@ export {
     TenantContext,
     UserContext,
     EvaluationResponse,
-    BulkEvaluationResponse
+    BulkEvaluationResponse,
+    ConfigManager,
+    NblocksConfig,
+    Log,
+    FlagsManager,
+    FlagsManagerConfig,
+    IFlagsClient,
+    LoginManager,
+    LoginManagerConfig,
+    TokenManager,
+    TokenExpirationConfig,
+    TokenType,
+    TokenRefresher,
+    TokenRefresherConfig
 }
