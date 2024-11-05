@@ -13,7 +13,12 @@ import { Federation } from "./federation-connection/federation";
 import { Payments } from "./payments/payments";
 
 /**
- * Here we collect everything you can configure for your app in nblocks. These configurations is on the app level.
+ * Manages Nblocks platform configuration
+ * 
+ * This class handles settings specific to a Nblocks account/tenant,
+ * such as feature flags, tenant settings, and platform-specific configurations.
+ * 
+ * For library/plugin configuration, use the ConfigManager from core/config-manager instead.
  */
 export class Config extends Entity {
   private readonly _communicationClient: CommunicationClient;
