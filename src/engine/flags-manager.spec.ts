@@ -1,6 +1,6 @@
 import { FlagsManager, FlagsManagerConfig, IFlagsClient } from './flags-manager';
-import { BulkEvaluationResponse } from '../platform/flag/models/bulk-evaluation-response';
-import { FlagContext, UserContext } from '../platform/flag/models/context';
+import { BulkEvaluationResponse } from '../core-api/flag/models/bulk-evaluation-response';
+import { FlagContext, UserContext } from '../core-api/flag/models/context';
 import { ILogger } from './models/logger.interface';
 
 describe('FlagsManager', () => {
