@@ -1,0 +1,13 @@
+{
+    "params": [
+        {            
+            "label": "Custom Field",
+            "type": "string"        
+        },
+        {            
+            "label": "Custom Field 2",
+            "type": "string"        
+        }
+    ]
+
+} 
