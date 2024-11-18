@@ -2,11 +2,13 @@ import * as appMock from '../../../test/app-response.mock.json'
 import * as getTemplateMock from '../../../test/get-email-template-response.mock.json';
 import * as updateTemplateMock from '../../../test/update-email-template-response.mock.json';
 import * as credentialsStateMock from '../../../test/credentials-state-response.mock.json';
+import * as customParamsConfigMock from '../../../test/custom-params-config-response.mock.json';
 import MockAdapter from 'axios-mock-adapter';
 import { Config } from './config';
 import { NblocksClient } from '../nblocks-client';
 import { AppModel } from '../models/app.model';
 import { CredentialsStateModel } from '../models/credentials-state.model';
+import { ParamConfig, ParamType } from '../models/custom-params-config.model';
 
 describe('Platform config client', () => {
 
@@ -80,5 +82,28 @@ describe('Platform config client', () => {
     test('Delete the whole app', async () => {
         mockApi.onDelete("/app").reply(200);
         await config.deleteApp();
+    });
+
+    test('Get tenant user custom params config', async () => {
+        mockApi.onGet("/app/custom-tenant-user-params-config").reply(200, customParamsConfigMock);
+        
+        const response = await config.getTenantUserCustomParamsConfig();
+        expect(response.params).toBeDefined();
+    });
+
+    test('Update tenant user custom params config', async () => {
+        const updateParams: ParamConfig[] = [
+            {                
+                label: "Custom Field",
+                type: ParamType.TEXT,                 
+            }
+        ];
+        
+        mockApi.onPut("/app/custom-tenant-user-params-config").reply(200, {
+            params: updateParams
+        });
+
+        const response = await config.updateTenantUserCustomParamsConfig(updateParams);
+        expect(response.params).toEqual(updateParams);
     });
 })

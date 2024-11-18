@@ -1,6 +1,7 @@
 import { Entity } from "../../abstracts/generic-entity";
 import { AppModel } from "../models/app.model";
 import { CredentialsStateModel } from "../models/credentials-state.model";
+import { CustomParamsConfig, ParamConfig } from "../models/custom-params-config.model";
 import { UpdateAppRequest } from "../models/update-app-request";
 import { UpdateCredentials } from "../models/update-credentials-request.dto";
 import { NblocksClient } from "../nblocks-client";
@@ -164,4 +165,33 @@ Usage: `<h1>{{variable}}</h1` to inject it in the content html.
         headers: this.getHeaders(),
       });
   }
+
+
+    /**
+   * Updates your `Custom Params config` for the `Tenant User` model. This adds new fields to the Tenant User model that will be available in the frontend during signup and profile update.
+   * @param model Your custom params config model
+   * @returns Returns AppModel
+   */
+    async updateTenantUserCustomParamsConfig(model: ParamConfig[]): Promise<CustomParamsConfig> {
+      const response = await this.parentEntity
+        .getHttpClient()
+        .put<CustomParamsConfig>("/app/custom-tenant-user-params-config", model, { headers: this.getHeaders() });
+      return response.data;
+    }
+
+
+     /**
+   * Gets the states of the credentials checking whether they have been added or not.
+   * This does NOT return the actual credentials
+   * @returns Returns AppModel
+   */
+  async getTenantUserCustomParamsConfig(): Promise<CustomParamsConfig> {
+    const response = await this.parentEntity
+      .getHttpClient()
+      .get<CustomParamsConfig>("/app/custom-tenant-user-params-config", {
+        headers: this.getHeaders(),
+      });
+    return response.data;
+  }
+
 }
