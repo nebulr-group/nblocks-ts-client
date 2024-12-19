@@ -26,6 +26,7 @@ describe('Platform payments client', () => {
     test('List plans', async () => {
         mockApi.onGet("payments/plan").reply(200, listPlansMock);
         const response = await payments.listPlans();
+        console.log(response);
         expect(response).toHaveLength(2);
     });
 
