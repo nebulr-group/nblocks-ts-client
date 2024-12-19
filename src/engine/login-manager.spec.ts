@@ -1,3 +1,4 @@
+import { ClientError } from '../errors/ClientError';
 import { LoginManager, LoginManagerConfig } from './login-manager';
 
 describe('LoginManager', () => {
@@ -28,14 +29,20 @@ describe('LoginManager', () => {
   });
 
   it('should handle error when login URL is undefined', () => {
+    // Setup
     (config.getLoginUrl as jest.Mock).mockReturnValue(undefined);
-    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation();
+    const mockLogger = { 
+      logError: jest.fn(),
+      log: jest.fn()
+    };
+    config.logger = mockLogger;
     
+    // Act
     loginManager.redirectToLogin();
 
-    expect(consoleErrorSpy).toHaveBeenCalledWith('Failed to get login URL');
-    expect(config.onError).toHaveBeenCalled();
-
-    consoleErrorSpy.mockRestore();
+    // Assert
+    expect(config.clearTokens).toHaveBeenCalled();
+    expect(mockLogger.logError).toHaveBeenCalledWith(expect.any(ClientError));
+    expect(config.onError).toHaveBeenCalledWith(expect.any(ClientError));
   });
 }); 

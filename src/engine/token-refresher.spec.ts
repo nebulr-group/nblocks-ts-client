@@ -34,8 +34,10 @@ describe('TokenRefresher', () => {
 
   it('should start refresh cycle when valid refresh token is provided', async () => {
     tokenRefresher.startRefreshCycle('test-refresh-token');
-    await Promise.resolve();
-    jest.advanceTimersByTime(0);
+    
+    // Advance timers to trigger the setTimeout
+    jest.advanceTimersByTime(1);
+    // Wait for any promises to resolve
     await Promise.resolve();
 
     expect(config.refreshTokens).toHaveBeenCalledWith('test-refresh-token');
@@ -49,34 +51,52 @@ describe('TokenRefresher', () => {
   });
 
   it('should schedule next refresh after successful token refresh', async () => {
-    // Start the refresh cycle
+    // Start the refresh cycle - this schedules the first refresh with delay 0
     tokenRefresher.startRefreshCycle('test-refresh-token');
     
     // Handle first refresh
-    await Promise.resolve();
-    jest.advanceTimersByTime(0); // Process any immediate timers
+    jest.advanceTimersByTime(1); // Trigger the setTimeout callback
+
+    // First Promise.resolve: Process the setTimeout callback
+    // This allows the async function inside setTimeout to start executing
     await Promise.resolve();
 
-    // Clear first set of calls
+    // Second Promise.resolve: Allow the refreshTokens Promise to complete
+    // This is where the mock returns the new tokens
+    await Promise.resolve();
+
+    // Third Promise.resolve: Allow the scheduling of the next refresh to complete
+    // This ensures the new setTimeout is set up with the next delay
+    await Promise.resolve();
+
+    // Clear first set of calls to prepare for checking the second refresh
     (config.refreshTokens as jest.Mock).mockClear();
     
     // Advance clock to trigger next refresh (90% of expires_in)
-    jest.advanceTimersByTime(3240 * 1000);
-    await Promise.resolve();
-    jest.advanceTimersByTime(0); // Process any immediate timers
-    await Promise.resolve();
+    jest.advanceTimersByTime(3240 * 1000); // 90% of 3600 seconds = 3240 seconds
 
+    // Same three Promise.resolve pattern for the second refresh:
+    await Promise.resolve();  // Process setTimeout callback
+    await Promise.resolve();  // Complete refreshTokens Promise
+    await Promise.resolve();  // Allow next refresh scheduling
+
+    // Verify that refreshTokens was called exactly once for the second refresh
     expect(config.refreshTokens).toHaveBeenCalledTimes(1);
   });
 
   it('should retry on error with retry interval', async () => {
-    (config.refreshTokens as jest.Mock).mockRejectedValue(new Error('Test error'));
+    // Setup the mock to reject with a specific error
+    const testError = new Error('Test error');
+    (config.refreshTokens as jest.Mock).mockRejectedValueOnce(testError);
+    
     tokenRefresher.startRefreshCycle('test-refresh-token');
     
     // Handle first failed refresh attempt
+    jest.advanceTimersByTime(1);
+    // Allow the promise to resolve and the error to be caught
     await Promise.resolve();
-    jest.advanceTimersByTime(0);
     await Promise.resolve();
+    await Promise.resolve(); // Add one more tick to ensure error handling completes
 
     expect(config.onError).toHaveBeenCalled();
     
@@ -84,9 +104,7 @@ describe('TokenRefresher', () => {
     (config.refreshTokens as jest.Mock).mockClear();
     
     // Advance to retry
-    jest.advanceTimersByTime(60 * 1000);
-    await Promise.resolve();
-    jest.advanceTimersByTime(0);
+    jest.advanceTimersByTime(60 * 1000); // Advance by retry interval (60 seconds)
     await Promise.resolve();
 
     expect(config.refreshTokens).toHaveBeenCalledTimes(1);

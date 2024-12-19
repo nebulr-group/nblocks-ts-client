@@ -2,6 +2,7 @@ import { FlagsManager, FlagsManagerConfig, IFlagsClient } from './flags-manager'
 import { BulkEvaluationResponse } from '../core-api/flag/models/bulk-evaluation-response';
 import { FlagContext, UserContext } from '../core-api/flag/models/context';
 import { ILogger } from './models/logger.interface';
+import { UnauthenticatedError } from '../errors/UnauthenticatedError';
 
 describe('FlagsManager', () => {
   let flagsManager: FlagsManager;
@@ -98,11 +99,17 @@ describe('FlagsManager', () => {
   });
 
   describe('evaluateFlags', () => {
-    it('should skip evaluation when no access token is provided', async () => {
+    it('should handle missing access token', async () => {
       await flagsManager.evaluateFlags(undefined);
 
+      const expectedError = new UnauthenticatedError({ 
+        error: 'NO_ACCESS_TOKEN', 
+        message: 'No access token provided for flag evaluation' 
+      });
+
       expect(bulkEvaluateSpy).not.toHaveBeenCalled();
-      expect(mockLogger.log).toHaveBeenCalledWith('Evaluation skipped - No access token provided');
+      expect(mockLogger.logError).toHaveBeenCalledWith(expectedError);
+      expect(config.onError).toHaveBeenCalledWith(expectedError);
     });
 
     it('should evaluate flags successfully with access token', async () => {
@@ -129,13 +136,12 @@ describe('FlagsManager', () => {
     });
 
     it('should handle evaluation errors', async () => {
-      const error = new Error('Test error');
+      const error = new Error('Error during flag evaluation');
       bulkEvaluateSpy.mockImplementation(() => Promise.reject(error));
 
       await flagsManager.evaluateFlags('test-token');
 
-      expect(mockLogger.logError).toHaveBeenCalledWith(error);
-      expect(mockLogger.log).toHaveBeenCalledWith('Error during flag evaluation');
+      expect(mockLogger.logError).toHaveBeenCalledWith(error);      
     });
   });
 }); 

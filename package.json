@@ -15,11 +15,16 @@
   },
   "typesVersions": {
     "*": {
-      "engine": ["./dist/engine/index.d.ts"],
-      "core-api": ["./dist/core-api/index.d.ts"]
+      "engine": [
+        "./dist/engine/index.d.ts"
+      ],
+      "core-api": [
+        "./dist/core-api/index.d.ts"
+      ]
     }
-  },  
-  "description": "This library contains the low level NBlocks client that is shipped with all of our NBlocks plug-n-play experiences for different technologies.",  "files": [
+  },
+  "description": "This library contains the low level NBlocks client that is shipped with all of our NBlocks plug-n-play experiences for different technologies.",
+  "files": [
     "/dist"
   ],
   "contributors": [
@@ -61,7 +66,7 @@
     "ts-jest": "^27.0.5",
     "typescript": "^5.6.3"
   },
-  "dependencies": {    
+  "dependencies": {
     "@types/node": "^22.8.7",
     "axios": "^0.21.1",
     "form-data": "^4.0.0",

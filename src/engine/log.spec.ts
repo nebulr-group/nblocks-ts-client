@@ -1,5 +1,6 @@
 import { Log } from './log';
-import { NblocksPluginConfig } from './models/nblocks-config.model';
+import { NblocksPluginConfig } from './models/plugin-config.model';
+
 
 describe('Log', () => {
   let log: Log;

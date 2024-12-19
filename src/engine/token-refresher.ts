@@ -14,7 +14,7 @@ export interface TokenRefresherConfig {
 
 export class TokenRefresher {
   private readonly retrySec: number;
-  private refreshTimer: number | null = null;
+  private refreshTimer: ReturnType<typeof setTimeout> | null = null;
   private config: TokenRefresherConfig;
 
   constructor(config: TokenRefresherConfig) {
@@ -47,7 +47,7 @@ export class TokenRefresher {
   }
 
   private async scheduleNextRefresh(refreshToken: string, delay: number) {
-    this.refreshTimer = window.setTimeout(async () => {
+    this.refreshTimer = setTimeout(async () => {
       try {
         const tokens = await this.config.refreshTokens(refreshToken);
         
