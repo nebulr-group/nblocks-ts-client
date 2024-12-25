@@ -19,7 +19,9 @@
     "vscode": {
       // Add the IDs of extensions you want installed when the container is created.
       "extensions": [
-        "dbaeumer.vscode-eslint",
+       "dbaeumer.vscode-eslint",
+        "kumar-harsh.graphql-for-vscode",
+        "pkief.material-icon-theme",
         "esbenp.prettier-vscode",
         "mikestead.dotenv",
         "redhat.vscode-yaml"
