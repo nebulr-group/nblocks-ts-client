@@ -29,6 +29,9 @@ import { EvaluationResponse } from './platform/flag/models/evaluation-response';
 import { BulkEvaluationResponse } from './platform/flag/models/bulk-evaluation-response';
 import { User } from './platform/tenant/user/user';
 import { Users } from './platform/tenant/user/users';
+import { NblocksEvent } from './platform/event/event';
+import { CreateEventRequestDto } from './platform/event/dto/create-event-request.dto';
+import { EventResponseDto } from './platform/event/dto/event-response.dto';
 
 export {
     AppModel,
@@ -65,5 +68,8 @@ export {
     TenantContext,
     UserContext,
     EvaluationResponse,
-    BulkEvaluationResponse
+    BulkEvaluationResponse,
+    NblocksEvent,
+    CreateEventRequestDto,
+    EventResponseDto,
 }

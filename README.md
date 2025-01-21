@@ -1,7 +1,8 @@
 # Nebulr NBlocks TS Client
-Welcome to NBlocks, the platform toolbox from Nebulr made by developers for developers. If you're new to this concept, head over to our site and check out the capabilities.
+The Nblocks ts client is a library that allows you to interact with the Nblocks API:s. You can use this library in your TS/JS projects to directly interact with the Nblocks API:s.
 
 [nblocks.dev](https://nblocks.dev)
+
 
 # Installing
 ## Stable
