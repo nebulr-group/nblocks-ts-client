@@ -1,10 +1,10 @@
 import { FlagAdmin } from "./flag-admin";
 import MockAdapter from "axios-mock-adapter";
 import { NblocksClient } from "../nblocks-client";
-import * as listFlagsMock from '../../../test/list-flags.mock.json';
-import * as flagMock from '../../../test/flag.mock.json';
-import * as listSegmentsMock from '../../../test/list-segments.mock.json';
-import * as segmentMock from '../../../test/segment.mock.json';
+import listFlagsMock from '../../../test/list-flags.mock.json';
+import flagMock from '../../../test/flag.mock.json';
+import listSegmentsMock from '../../../test/list-segments.mock.json';
+import segmentMock from '../../../test/segment.mock.json';
 
 describe('Flag admin client', () => {
   let flagAdmin: FlagAdmin;

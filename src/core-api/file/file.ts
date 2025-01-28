@@ -1,4 +1,4 @@
-import * as FormData from 'form-data'
+import FormData from 'form-data';
 import axios from 'axios';
 import { Tenant } from '../tenant/tenant';
 import { PrepareUploadArgs } from './models/prepare-upload-args';

@@ -1,5 +1,5 @@
-import * as listMock from '../../../../test/list-federation-connections-response.mock.json';
-import * as getMock from '../../../../test/get-federation-connection-response.mock.json';
+import listMock from '../../../../test/list-federation-connections-response.mock.json';
+import getMock from '../../../../test/get-federation-connection-response.mock.json';
 import MockAdapter from 'axios-mock-adapter';
 import { NblocksClient } from '../../nblocks-client';
 import { Federation } from './federation';

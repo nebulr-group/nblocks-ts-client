@@ -3,7 +3,7 @@ import { UnauthenticatedError } from './errors/UnauthenticatedError';
 import { ForbiddenError } from './errors/ForbiddenError';
 import { NotFoundError } from './errors/NotFoundError';
 import { ClientError } from './errors/ClientError';
-import { NblocksClient } from './platform/nblocks-client';
+import { NblocksClient } from './core-api/nblocks-client';
 
 describe('Platform client', () => {
 

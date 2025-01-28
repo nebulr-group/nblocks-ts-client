@@ -1,10 +1,14 @@
 {
   "compilerOptions": {
-    "resolveJsonModule": true, // For test data in jest
+    "resolveJsonModule": true,
     "module": "commonjs",
     "target": "es2018",
     "declaration": true,
-    "outDir": "./dist"
+    "declarationMap": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "outDir": "./dist",    
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*"

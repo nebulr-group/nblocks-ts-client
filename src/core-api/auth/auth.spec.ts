@@ -1,10 +1,10 @@
 import MockAdapter from 'axios-mock-adapter';
-import * as unauthenticatedMock from '../../../test/unauthenticated-response.mock.json';
-import * as authenticateMock from '../../../test/authenticate-response.mock.json';
-import * as authenticatedMock from '../../../test/authenticated-response.mock.json';
-import * as listMyUsersMock from '../../../test/list-my-tenant-users-response.mock.json';
-import * as authorizeMock from '../../../test/authorize-response.mock.json';
-import * as deauthenticateMock from '../../../test/deauthenticate-response.mock.json';
+import unauthenticatedMock from '../../../test/unauthenticated-response.mock.json';
+import authenticateMock from '../../../test/authenticate-response.mock.json';
+import authenticatedMock from '../../../test/authenticated-response.mock.json';
+import listMyUsersMock from '../../../test/list-my-tenant-users-response.mock.json';
+import authorizeMock from '../../../test/authorize-response.mock.json';
+import deauthenticateMock from '../../../test/deauthenticate-response.mock.json';
 import { UnauthenticatedError } from '../../errors/UnauthenticatedError';
 import { NblocksClient } from '../nblocks-client';
 
@@ -44,7 +44,7 @@ describe('Auth client', () => {
         expect(response.authenticated).toBeTruthy();
     })
 
-    test('List TenantUsers for session', async () => {
+    test('List TenantUsers for session', async () => {     
         mockApi.onPost("/auth/listMyTenantUsers").reply(200, listMyUsersMock);
         const response = await client.authLegacy.listTenantUsers(authToken);
         expect(response.length).toBeGreaterThan(0);

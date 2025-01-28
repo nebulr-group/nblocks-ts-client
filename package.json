@@ -1,14 +1,35 @@
 {
   "name": "@nebulr-group/nblocks-ts-client",
-  "version": "5.4.3-beta.1",
+  "version": "7.0.0-beta.1",
+  "exports": {
+    "./engine": {
+      "types": "./dist/engine/index.d.ts",
+      "require": "./dist/engine/index.js",
+      "default": "./dist/engine/index.js"
+    },
+    "./core-api": {
+      "types": "./dist/core-api/index.d.ts",
+      "require": "./dist/core-api/index.js",
+      "default": "./dist/core-api/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "engine": [
+        "./dist/engine/index.d.ts"
+      ],
+      "core-api": [
+        "./dist/core-api/index.d.ts"
+      ]
+    }
+  },
   "description": "This library contains the low level NBlocks client that is shipped with all of our NBlocks plug-n-play experiences for different technologies.",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
   "files": [
     "/dist"
   ],
   "contributors": [
-    "Oscar Söderlund <oscar@nebulr.group>"
+    "Oscar Söderlund <oscar@nebulr.group>",
+    "Iman Pouya <iman@nebulr.group>"
   ],
   "directories": {
     "example": "examples"
@@ -22,7 +43,7 @@
     "npm-publish-local": "npm run build && npm publish --registry http://host.docker.internal:4873 --tag alpha",
     "test": "jest"
   },
-  "author": "Oscar Söderlund",
+  "author": "Oscar Söderlund & Iman Pouya",
   "keywords": [
     "api",
     "platform"
@@ -49,6 +70,7 @@
     "typescript": "^4.9.0"
   },
   "dependencies": {
+    "@types/node": "^22.8.7",
     "axios": "^0.21.1",
     "form-data": "^4.0.0",
     "jose": "^4.11.4"

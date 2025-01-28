@@ -1,14 +1,14 @@
 import MockAdapter from 'axios-mock-adapter';
-import * as listTenantsMock from '../../../test/list-tenants-response.mock.json';
-import * as createTenantsMock from '../../../test/create-tenant-response.mock.json';
-import * as tenantMock from '../../../test/tenant-response.mock.json';
-import * as tenantPaymentDetailsMock from '../../../test/get-tenant-payment-details.mock.json';
-import * as translateMock from '../../../test/translate-response.mock.json';
-import * as customerPortalMock from '../../../test/customer-portal-response.mock.json';
-import * as CheckoutSessionMock from '../../../test/checkout-session-response.mock.json';
-import * as validateImportMock from '../../../test/validate-import-tenant-from-file-response.mock.json';
-import * as importMock from '../../../test/import-tenant-from-file-response.mock.json';
-import * as importStatusMock from '../../../test/import-status-response.mock.json';
+import listTenantsMock from '../../../test/list-tenants-response.mock.json';
+import createTenantsMock from '../../../test/create-tenant-response.mock.json';
+import tenantMock from '../../../test/tenant-response.mock.json';
+import tenantPaymentDetailsMock from '../../../test/get-tenant-payment-details.mock.json';
+import translateMock from '../../../test/translate-response.mock.json';
+import customerPortalMock from '../../../test/customer-portal-response.mock.json';
+import CheckoutSessionMock from '../../../test/checkout-session-response.mock.json';
+import validateImportMock from '../../../test/validate-import-tenant-from-file-response.mock.json';
+import importMock from '../../../test/import-tenant-from-file-response.mock.json';
+import importStatusMock from '../../../test/import-status-response.mock.json';
 import { NblocksClient } from '../nblocks-client';
 
 describe('Tenant client', () => {

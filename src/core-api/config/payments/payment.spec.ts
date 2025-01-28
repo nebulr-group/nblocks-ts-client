@@ -1,7 +1,7 @@
-import * as listPlansMock from '../../../../test/list-plans-response.mock.json';
-import * as getPlanMock from '../../../../test/get-plan-response.mock.json';
-import * as listTaxesMock from '../../../../test/list-taxes-response.mock.json';
-import * as getTaxMock from '../../../../test/get-tax-response.mock.json';
+import listPlansMock from '../../../../test/list-plans-response.mock.json';
+import getPlanMock from '../../../../test/get-plan-response.mock.json';
+import listTaxesMock from '../../../../test/list-taxes-response.mock.json';
+import getTaxMock from '../../../../test/get-tax-response.mock.json';
 import MockAdapter from 'axios-mock-adapter';
 import { NblocksClient } from '../../nblocks-client';
 import { AppModel } from '../../models/app.model';
@@ -26,6 +26,7 @@ describe('Platform payments client', () => {
     test('List plans', async () => {
         mockApi.onGet("payments/plan").reply(200, listPlansMock);
         const response = await payments.listPlans();
+        console.log(response);
         expect(response).toHaveLength(2);
     });
 

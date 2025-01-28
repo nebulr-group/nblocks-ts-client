@@ -1,8 +1,8 @@
 import MockAdapter from 'axios-mock-adapter';
 import { NblocksClient } from '../../nblocks-client';
 import { NblocksEvent } from '../event';
-import * as listEventMock from './list-event-response.mock.json';
-import * as createEventMock from './create-event-response-mock.json';
+import listEventMock from './list-event-response.mock.json';
+import createEventMock from './create-event-response-mock.json';
 
 
 // Describe the Event client

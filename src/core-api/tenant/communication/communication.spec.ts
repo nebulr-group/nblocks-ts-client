@@ -1,7 +1,7 @@
-import * as createRuleMock from '../../../../test/create-redirect-rule-response.mock.json';
-import * as listRulesMock from '../../../../test/list-redirect-rules-response.mock.json';
-import * as updateRuleMock from '../../../../test/update-redirect-rule-response.mock.json';
-import * as listRuleErrorsMock from '../../../../test/list-redirect-rule-errors-response.mock.json';
+import createRuleMock from '../../../../test/create-redirect-rule-response.mock.json';
+import listRulesMock from '../../../../test/list-redirect-rules-response.mock.json';
+import updateRuleMock from '../../../../test/update-redirect-rule-response.mock.json';
+import listRuleErrorsMock from '../../../../test/list-redirect-rule-errors-response.mock.json';
 import { CommunicationClient } from "./communication";
 import { RedirectRuleDto } from "./models/redirect-rule.dto";
 import MockAdapter from "axios-mock-adapter";

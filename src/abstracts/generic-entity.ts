@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
-import { NblocksClient } from "../platform/nblocks-client";
-import { NblocksPublicClient } from "../platform/nblocks-public-client";
+import { NblocksClient } from "../core-api/nblocks-client";
+import { NblocksPublicClient } from "../core-api/nblocks-public-client";
 
 /**
  * This client is generic and non specific to a certain entity id.   
