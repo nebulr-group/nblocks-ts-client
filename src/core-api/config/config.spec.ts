@@ -90,12 +90,13 @@ describe('Platform config client', () => {
         const response = await config.getTenantUserCustomParamsConfig();
         expect(response.params).toBeDefined();
     });
-
     test('Update tenant user custom params config', async () => {
         const updateParams: ParamConfig[] = [
             {                
                 label: "Custom Field",
-                type: ParamType.TEXT,                 
+                userLabel: "Custom Field",
+                type: ParamType.TEXT,
+                regex: ".*"
             }
         ];
         

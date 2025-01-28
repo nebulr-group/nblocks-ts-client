@@ -1,4 +1,5 @@
 import { PriceOffer } from "../../config/payments/price-offer";
+import { CustomParam } from "../../models/custom-params-config.model";
 
 export class CreateTenantRequestDto {
     /** The plan key. The plan must be present in the configured App business model */
@@ -41,4 +42,6 @@ export class TenantOwnerRequestDto {
     
     /** Set this variable to true if you don't wish to send out any notifications to the new user */
     muteNotifications?: boolean;
+
+    customParams?: CustomParam[];
 }

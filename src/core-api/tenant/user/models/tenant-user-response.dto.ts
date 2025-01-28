@@ -1,3 +1,4 @@
+import { CustomParam } from "../../../models/custom-params-config.model";
 import { TenantResponseDto } from "../../models/tenant.response";
 
 export class TenantUserResponseDto {
@@ -50,4 +51,6 @@ export class TenantUserResponseDto {
   
     /** Users tenant */
     tenant: TenantResponseDto
+
+    customParams: CustomParam[];
   }

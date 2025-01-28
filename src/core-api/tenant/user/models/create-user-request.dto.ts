@@ -1,3 +1,5 @@
+import { CustomParam } from "../../../models/custom-params-config.model";
+
 export class CreateUserRequestDto {
     /** Email address to the new user */
     username: string;
@@ -13,4 +15,7 @@ export class CreateUserRequestDto {
 
     /** Set this variable to true if you don't wish to send out any notifications to the user */
     muteNotifications?: boolean;
+
+    customParams?: CustomParam[];
 }
+
