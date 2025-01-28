@@ -1,8 +1,8 @@
 import { NblocksClient } from "../../nblocks-client";
-import * as listTenantUsersData from '../../../../test/list-tenant-users-response.mock.json';
-import * as createUserMock from '../../../../test/create-tenant-user-response.mock.json';
-import * as updateUserMock from '../../../../test/update-teant-user-response.mock.json';
-import * as getUserMock from '../../../../test/get-tenant-user-response.mock.json';
+import listTenantUsersData from '../../../../test/list-tenant-users-response.mock.json';
+import createUserMock from '../../../../test/create-tenant-user-response.mock.json';
+import updateUserMock from '../../../../test/update-teant-user-response.mock.json';
+import getUserMock from '../../../../test/get-tenant-user-response.mock.json';
 import MockAdapter from "axios-mock-adapter";
 
 describe('Users client', () => {
