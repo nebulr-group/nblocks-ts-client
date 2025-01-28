@@ -27,7 +27,7 @@ RUN npm run build
 # Refering to base, and adding new build stage label 'dev'
 FROM base AS dev
 # Installing prod and dev dependencies
-RUN npm install
+# RUN npm install
 # Copy rest of the projects source code to container env
 COPY . .
 # Run build with installed dep

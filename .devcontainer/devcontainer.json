@@ -10,8 +10,7 @@
   // once stable, add them https://code.visualstudio.com/docs/remote/containers#_create-a-devcontainerjson-file:~:text=devcontainers/features%20repository
   //"features": {},
   "containerEnv": {},
-  "runArgs": [
-    "--network=nblocks-stack_shared-network"
+  "runArgs": [    
   ],
 
   "customizations": {
