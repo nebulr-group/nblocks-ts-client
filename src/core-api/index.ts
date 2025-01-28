@@ -29,6 +29,10 @@ import { EvaluationResponse } from './flag/models/evaluation-response';
 import { BulkEvaluationResponse } from './flag/models/bulk-evaluation-response';
 import { User } from './tenant/user/user';
 import { Users } from './tenant/user/users';
+import { NblocksEvent } from './event/event';
+import { CreateEventRequestDto } from './event/dto/create-event-request.dto';
+import { EventResponseDto } from './event/dto/event-response.dto';
+
 
 
 export {
@@ -66,5 +70,8 @@ export {
     TenantContext,
     UserContext,
     EvaluationResponse,
-    BulkEvaluationResponse
+    BulkEvaluationResponse,
+    NblocksEvent,
+    CreateEventRequestDto,
+    EventResponseDto
 }
